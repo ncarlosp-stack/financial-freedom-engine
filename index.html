@@ -1,0 +1,1347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0f19">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FFE">
+<link rel="manifest" href="manifest.json">
+<title>Financial Freedom Engine 3.0 Beta</title>
+<style>
+:root{--bg:#0b0f19;--card:#131a2c;--card2:#1e2640;--border:#2e3a5f;--text:#f8fafc;--muted:#94a3b8;--blue:#38bdf8;--green:#34d399;--amber:#fbbf24;--rose:#fb7185;--safe:env(safe-area-inset-bottom,0)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 0 0,rgba(56,189,248,.16),transparent 36%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(82px + var(--safe))}
+.app{max-width:1180px;margin:auto;padding:18px 14px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--green));color:#06111c;font-weight:900;display:grid;place-items:center;box-shadow:0 12px 30px #0007}h1{font-size:18px;margin:0}.sub,.muted{color:var(--muted);font-size:12px}.pill{border:1px solid var(--border);border-radius:999px;padding:8px 10px;color:var(--muted);font-size:12px;font-weight:800}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:8px 8px calc(8px + var(--safe));background:rgba(11,15,25,.94);backdrop-filter:blur(14px);border-top:1px solid var(--border)}.tab{background:transparent;color:var(--muted);border:1px solid transparent;border-radius:14px;padding:7px 3px;display:grid;place-items:center;gap:2px;font-weight:800}.tab b{font-size:19px}.tab span{font-size:10px}.tab.active{background:var(--card2);border-color:var(--border);color:var(--text)}
+.view{display:none}.view.active{display:block}.hero,.card,.item{background:rgba(19,26,44,.95);border:1px solid var(--border);border-radius:18px;box-shadow:0 14px 36px #0005}.hero{padding:16px;margin-bottom:12px;background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(52,211,153,.07))}.hero h2{font-size:22px;margin:0 0 4px}.hero p{margin:0;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{padding:14px}.label{font-size:11px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.05em}.value{font-size:21px;font-weight:900;margin-top:5px}.section{display:flex;justify-content:space-between;align-items:end;margin:18px 0 8px;gap:10px}.section h2{font-size:18px;margin:0}.section p{font-size:12px;margin:2px 0 0;color:var(--muted)}.grid{display:grid;gap:12px}.list{display:grid;gap:10px}.item{padding:12px;display:grid;gap:8px}.head{display:flex;justify-content:space-between;align-items:start;gap:10px}.title{font-weight:900}.money{font-weight:900;white-space:nowrap;font-variant-numeric:tabular-nums}.badge{border-radius:999px;padding:4px 8px;font-size:11px;font-weight:900;display:inline-flex}.blue{background:#38bdf824;color:var(--blue)}.green{background:#34d39924;color:var(--green)}.amber{background:#fbbf2424;color:var(--amber)}.rose{background:#fb718524;color:var(--rose)}.gray{background:#94a3b824;color:var(--muted)}
+form{display:grid;gap:10px}label{display:grid;gap:5px;color:var(--muted);font-size:12px;font-weight:900}input,select,textarea{width:100%;border:1px solid var(--border);border-radius:12px;background:#0a1020;color:var(--text);padding:11px 12px;font:inherit}textarea{min-height:80px}.formgrid{display:grid;gap:10px}.actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}.btn{border:1px solid transparent;border-radius:12px;padding:10px 12px;font-weight:900;background:var(--blue);color:#06111c}.btn.secondary{background:transparent;color:var(--text);border-color:var(--border)}.btn.green{background:var(--green)}.btn.rose{background:var(--rose);color:white}.empty{border:1px dashed var(--border);border-radius:14px;color:var(--muted);text-align:center;padding:18px}.hidden{display:none!important}.bar,.progress{height:10px;background:#0a1020;border:1px solid var(--border);border-radius:999px;overflow:hidden}.bar>div,.progress>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--green))}.toast{position:fixed;left:12px;right:12px;bottom:calc(92px + var(--safe));background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:0 16px 40px #0008;display:none;z-index:20}.toast.show{display:block}.split{display:flex;justify-content:space-between;gap:8px}
+@media(min-width:760px){body{padding-bottom:0}.app{padding:24px}.tabs{position:sticky;top:0;bottom:auto;border:1px solid var(--border);border-radius:18px;margin-bottom:16px;grid-template-columns:repeat(17,auto);justify-content:start}.tab{grid-auto-flow:column;padding:10px 12px}.tab span{font-size:12px}.kpis{grid-template-columns:repeat(4,1fr)}.formgrid{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1.05fr .95fr;align-items:start}h1{font-size:22px}}
+
+.command-grid{display:grid;gap:12px;margin:12px 0}
+.command-card{background:linear-gradient(135deg,rgba(30,38,64,.96),rgba(19,26,44,.96));border:1px solid var(--border);border-radius:20px;padding:16px;box-shadow:0 16px 40px #0006}
+.command-primary{display:grid;gap:10px}
+.command-big{font-size:34px;font-weight:950;letter-spacing:-.04em}
+.command-subgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.health-dot{width:10px;height:10px;border-radius:99px;display:inline-block;margin-right:7px}
+.dot-green{background:var(--green)}.dot-amber{background:var(--amber)}.dot-rose{background:var(--rose)}.dot-blue{background:var(--blue)}
+.forecast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:760px){.command-grid{grid-template-columns:1.2fr .8fr}.command-subgrid{grid-template-columns:repeat(4,1fr)}.quick-actions{grid-template-columns:repeat(4,1fr)}}
+
+
+.v2-banner{border:1px solid var(--border);background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(52,211,153,.08));border-radius:18px;padding:14px;margin:12px 0}
+.v2-banner strong{color:var(--green)}
+.timeline-line{display:grid;gap:10px}
+.timeline-event{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.timeline-dot{width:12px;height:12px;border-radius:999px;background:var(--blue);box-shadow:0 0 0 4px rgba(56,189,248,.12)}
+.cc-grid{display:grid;gap:10px}
+.credit-meter{height:12px;border-radius:999px;background:#0a1020;border:1px solid var(--border);overflow:hidden}
+.credit-meter div{height:100%;background:linear-gradient(90deg,var(--green),var(--amber),var(--rose))}
+.import-wizard{display:grid;gap:10px}
+@media(min-width:760px){.cc-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+.import-map-grid{display:grid;gap:10px;margin-top:12px}
+.import-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.import-chip{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:5px 8px;font-size:11px;color:var(--muted);margin:2px}
+.import-warning{border-left:4px solid var(--amber);padding:10px;background:rgba(251,191,36,.08);border-radius:10px}
+@media(min-width:760px){.import-map-grid{grid-template-columns:repeat(3,1fr)}}
+
+
+.pdf-drop-zone{border:1px dashed var(--border);border-radius:18px;padding:18px;text-align:center;background:rgba(56,189,248,.06)}
+.pdf-field{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);padding:8px 0}
+.pdf-field:last-child{border-bottom:0}
+.doc-actions{display:flex;gap:8px;flex-wrap:wrap}
+.doc-type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:900}
+
+
+.parser-confidence{height:8px;border-radius:999px;background:#0a1020;border:1px solid var(--border);overflow:hidden}
+.parser-confidence div{height:100%;background:linear-gradient(90deg,var(--rose),var(--amber),var(--green))}
+.parser-grid{display:grid;gap:10px}
+.promo-risk{font-weight:900}
+@media(min-width:760px){.parser-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+.validation-panel{display:grid;gap:10px}
+.validation-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);padding:8px 0}
+.validation-row:last-child{border-bottom:0}
+.validation-pass{color:var(--green);font-weight:900}
+.validation-watch{color:var(--amber);font-weight:900}
+.validation-risk{color:var(--rose);font-weight:900}
+.review-note{border:1px solid var(--border);background:rgba(56,189,248,.07);border-radius:14px;padding:12px;color:var(--muted)}
+
+
+.drop-zone{border:2px dashed var(--border);border-radius:18px;padding:16px;text-align:center;background:rgba(56,189,248,.06);transition:.2s}
+.drop-zone.dragover{border-color:var(--green);background:rgba(52,211,153,.12)}
+.compat-grid{display:grid;gap:10px}
+.compat-pass{color:var(--green);font-weight:900}
+.compat-watch{color:var(--amber);font-weight:900}
+.browser-pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:5px 8px;margin:2px;color:var(--muted);font-size:11px;font-weight:900}
+@media(min-width:760px){.compat-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+.engine-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);border-radius:999px;padding:6px 9px;color:var(--green);font-size:12px;font-weight:900;background:rgba(52,211,153,.08)}
+.pdf-method{margin-top:8px;color:var(--muted);font-size:12px}
+.parser-detail{border:1px solid var(--border);background:rgba(15,23,42,.55);border-radius:12px;padding:10px;white-space:pre-wrap;max-height:180px;overflow:auto;font-size:11px;color:var(--muted)}
+
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+if (window.pdfjsLib) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+}
+</script>
+
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">FFE</div><div><h1>Financial Freedom Engine</h1><div class="sub">3.0 Beta · PDF.js Engine</div></div></div><div class="pill" id="status">IndexedDB</div></header>
+<nav class="tabs">
+<button class="tab active" data-view="dashboard"><b>🏠</b><span>Home</span></button><button class="tab" data-view="accounts"><b>🏦</b><span>Accounts</span></button><button class="tab" data-view="transactions"><b>💳</b><span>Txns</span></button><button class="tab" data-view="bills"><b>🧾</b><span>Bills</span></button><button class="tab" data-view="payroll"><b>💵</b><span>Payroll</span></button><button class="tab" data-view="cashflow"><b>📅</b><span>Flow</span></button><button class="tab" data-view="budget"><b>📊</b><span>Budget</span></button><button class="tab" data-view="debt"><b>📉</b><span>Debt</span></button><button class="tab" data-view="creditcards"><b>💳</b><span>Cards</span></button><button class="tab" data-view="goals"><b>🎯</b><span>Goals</span></button><button class="tab" data-view="reports"><b>📈</b><span>Reports</span></button><button class="tab" data-view="advisor"><b>🤖</b><span>Advisor</span></button><button class="tab" data-view="knowledge"><b>📚</b><span>Notes</span></button><button class="tab" data-view="imports"><b>📥</b><span>Import</span></button><button class="tab" data-view="vault"><b>📄</b><span>Vault</span></button><button class="tab" data-view="promos"><b>⏳</b><span>Promos</span></button><button class="tab" data-view="settings"><b>⚙️</b><span>Settings</span></button>
+</nav>
+<main>
+
+<section id="dashboard" class="view active">
+  <div class="hero">
+    <h2 id="greet">Good day, Carlos</h2>
+    <p>Your Financial Command Center: cash, forecast, bills, budget, debt, and advisor.</p>
+  </div>
+  <div class="v2-banner"><strong>FFE v2.0 Alpha is focused on real daily use.</strong><br><span class="muted">New focus: Morning Brief, Credit Card Center, Smart Import workflow, and stronger forecasting.</span></div>
+
+  <div class="command-grid">
+    <div class="command-card command-primary">
+      <div class="label">Cash Available Today</div>
+      <div class="command-big" id="cashKpi">$0.000</div>
+      <div class="forecast-grid">
+        <div class="card"><div class="label">30 Day</div><div class="value" id="forecast30">$0.000</div></div>
+        <div class="card"><div class="label">60 Day</div><div class="value" id="forecast60">$0.000</div></div>
+        <div class="card"><div class="label">90 Day</div><div class="value" id="forecast90">$0.000</div></div>
+      </div>
+    </div>
+
+    <div class="command-card">
+      <div class="label">Financial Freedom Score</div>
+      <div class="command-big" id="score">0.000</div>
+      <div class="progress"><div id="scorebar"></div></div>
+      <p class="muted" id="scorenote"></p>
+    </div>
+  </div>
+
+  <div class="command-subgrid">
+    <div class="card"><div class="label">Net Worth</div><div class="value" id="networth">$0.000</div></div>
+    <div class="card"><div class="label">Month Spend</div><div class="value" id="monthSpend">$0.000</div></div>
+    <div class="card"><div class="label">Debt</div><div class="value" id="totaldebt">$0.000</div></div>
+    <div class="card"><div class="label">Budget Alerts</div><div class="value" id="dashBudgetAlerts">0</div></div>
+  </div>
+
+  <div class="section">
+    <div><h2>Quick Actions</h2><p>Jump straight to the records that matter.</p></div>
+  </div>
+  <div class="quick-actions">
+    <button class="btn secondary" onclick="show('transactions')">Add Transaction</button>
+    <button class="btn secondary" onclick="show('bills')">Add Bill</button>
+    <button class="btn secondary" onclick="show('payroll')">Add Payroll</button>
+    <button class="btn secondary" onclick="show('imports')">Import CSV</button>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <div class="section" style="margin-top:0">
+        <div><h2>Daily Briefing + AI</h2><p>What deserves attention today.</p></div>
+      </div>
+      <div class="list" id="priorities"></div>
+    </div>
+
+    <div class="card">
+      <div class="section" style="margin-top:0">
+        <div><h2>Financial Health</h2><p>Status gauges based on local data.</p></div>
+      </div>
+      <div class="list" id="healthList"></div>
+    </div>
+    <div class="card">
+      <div class="section" style="margin-top:0">
+        <div><h2>Upcoming 90-Day Timeline</h2><p>Next forecasted income and bills.</p></div>
+      </div>
+      <div id="timelineMini"></div>
+    </div>
+  </div>
+</section>
+<section id="accounts" class="view"><div class="section"><div><h2>Accounts</h2><p>Checking, savings, cash, cards, loans, investments.</p></div></div><div class="grid cols"><div class="card"><form id="accountForm"><input type="hidden" id="accountId"><div class="formgrid"><label>Name<input id="accountName" required></label><label>Type<select id="accountType"><option>Checking</option><option>Savings</option><option>Cash</option><option>Credit Card</option><option>Loan</option><option>Investment</option><option>Other</option></select></label><label>Balance<input id="accountBalance" type="number" step="0.001" required></label><label>APR %<input id="accountApr" type="number" step="0.001"></label><label>Minimum<input id="accountMinimum" type="number" step="0.001"></label><label>Credit Limit<input id="accountCreditLimit" type="number" step="0.001"></label><label>Due Day<input id="accountDue" placeholder="15"></label></div><label>Notes<textarea id="accountNotes"></textarea></label><div class="actions"><button type="button" class="btn secondary" onclick="clearAccount()">Clear</button><button class="btn green">Save</button></div></form></div><div class="list" id="accountList"></div></div></section>
+<section id="transactions" class="view"><div class="section"><div><h2>Transactions</h2><p>Track spending, income, transfers, and categories.</p></div></div><div class="grid cols"><div class="card"><form id="txnForm"><input type="hidden" id="txnId"><div class="formgrid"><label>Date<input id="txnDate" type="date" required></label><label>Type<select id="txnType"><option>Expense</option><option>Income</option><option>Transfer</option></select></label><label>Merchant / Description<input id="txnName" required></label><label>Amount<input id="txnAmount" type="number" step="0.001" required></label><label>Category<select id="txnCategory"><option>Housing</option><option>Utilities</option><option>Food</option><option>Fuel</option><option>Insurance</option><option>Debt Payment</option><option>Medical</option><option>Shopping</option><option>Entertainment</option><option>Income</option><option>Savings</option><option>Other</option></select></label><label>Account<input id="txnAccount" placeholder="Checking"></label></div><label>Notes<textarea id="txnNotes"></textarea></label><div class="actions"><button type="button" class="btn secondary" onclick="clearTxn()">Clear</button><button class="btn green">Save Transaction</button></div></form></div><div class="list" id="txnList"></div></div></section>
+<section id="bills" class="view"><div class="section"><div><h2>Bills</h2><p>Recurring and one-time payments.</p></div></div><div class="grid cols"><div class="card"><form id="billForm"><input type="hidden" id="billId"><div class="formgrid"><label>Name<input id="billName" required></label><label>Amount<input id="billAmount" type="number" step="0.001" required></label><label>Due Day<input id="billDue" type="number" min="1" max="31" placeholder="1"></label><label>Category<input id="billCategory"></label><label>Frequency<select id="billFrequency"><option>Monthly</option><option>Weekly</option><option>Bi-weekly</option><option>Quarterly</option><option>Yearly</option><option>One-time</option></select></label><label>Autopay<select id="billAutopay"><option value="false">No</option><option value="true">Yes</option></select></label></div><label>Notes<textarea id="billNotes"></textarea></label><div class="actions"><button type="button" class="btn secondary" onclick="clearBill()">Clear</button><button class="btn green">Save</button></div></form></div><div class="list" id="billList"></div></div></section>
+<section id="payroll" class="view"><div class="section"><div><h2>Payroll</h2><p>Paycheck and income history.</p></div></div><div class="grid cols"><div class="card"><form id="payForm"><input type="hidden" id="payId"><div class="formgrid"><label>Employer<input id="payEmployer" required></label><label>Pay Date<input id="payDate" type="date" required></label><label>Gross<input id="payGross" type="number" step="0.001"></label><label>Net<input id="payNet" type="number" step="0.001" required></label><label>Taxes<input id="payTaxes" type="number" step="0.001"></label><label>Deductions<input id="payDeductions" type="number" step="0.001"></label></div><label>Notes<textarea id="payNotes"></textarea></label><div class="actions"><button type="button" class="btn secondary" onclick="clearPay()">Clear</button><button class="btn green">Save</button></div></form></div><div class="list" id="payList"></div></div></section>
+<section id="cashflow" class="view"><div class="section"><div><h2>Cash Flow</h2><p>30-day forecast from cash, payroll, and bills.</p></div></div><div class="kpis"><div class="card"><div class="label">Starting Cash</div><div class="value" id="cfStart">$0.000</div></div><div class="card"><div class="label">Next 30 Income</div><div class="value" id="cfIncome">$0.000</div></div><div class="card"><div class="label">Next 30 Bills</div><div class="value" id="cfBills">$0.000</div></div><div class="card"><div class="label">Projected Cash</div><div class="value" id="cfEnd">$0.000</div></div></div><div class="card"><div class="list" id="cashflowList"></div></div></section>
+<section id="budget" class="view"><div class="section"><div><h2>Budget Planner</h2><p>Monthly category budgets versus actual transactions.</p></div></div><div class="grid cols"><div class="card"><form id="budgetForm"><input type="hidden" id="budgetId"><div class="formgrid"><label>Category<input id="budgetCategory" required placeholder="Food"></label><label>Monthly Limit<input id="budgetLimit" type="number" step="0.001" required></label></div><div class="actions"><button type="button" class="btn secondary" onclick="clearBudget()">Clear</button><button class="btn green">Save Budget</button></div></form></div><div class="list" id="budgetList"></div></div></section>
+<section id="debt" class="view"><div class="section"><div><h2>Debt Planner</h2><p>Snowball and avalanche priority.</p></div></div><div class="card"><div class="formgrid"><label>Strategy<select id="debtStrategy"><option value="avalanche">Avalanche — highest APR first</option><option value="snowball">Snowball — lowest balance first</option></select></label><label>Extra Monthly Payment<input id="debtExtra" type="number" step="0.001"></label></div></div><div class="section"><div><h2>Payoff Priority</h2></div></div><div class="list" id="debtList"></div></section>
+<section id="creditcards" class="view"><div class="section"><div><h2>Credit Card Center</h2><p>Utilization, APR, payment priority, and interest estimates.</p></div></div><div class="cc-grid" id="creditCardList"></div></section>
+<section id="goals" class="view"><div class="section"><div><h2>Goals</h2><p>Emergency fund, savings, purchases.</p></div></div><div class="grid cols"><div class="card"><form id="goalForm"><input type="hidden" id="goalId"><div class="formgrid"><label>Name<input id="goalName" required></label><label>Target<input id="goalTarget" type="number" step="0.001" required></label><label>Current<input id="goalCurrent" type="number" step="0.001"></label><label>Target Date<input id="goalDate" type="date"></label></div><label>Notes<textarea id="goalNotes"></textarea></label><div class="actions"><button type="button" class="btn secondary" onclick="clearGoal()">Clear</button><button class="btn green">Save</button></div></form></div><div class="list" id="goalList"></div></div></section>
+<section id="reports" class="view"><div class="section"><div><h2>Reports</h2><p>Spending, income, category totals, and monthly snapshot.</p></div></div><div class="grid cols"><div class="card"><h2>Income vs Expenses</h2><div class="kpis" style="margin-top:12px"><div class="card"><div class="label">Txn Income</div><div class="value" id="rIncome">$0.000</div></div><div class="card"><div class="label">Txn Expenses</div><div class="value" id="rExpenses">$0.000</div></div></div></div><div class="card"><h2>Spending by Category</h2><div class="grid" id="categoryReport"></div></div></div></section>
+
+
+<section id="vault" class="view">
+  <div class="section">
+    <div>
+      <h2>PDF Import Engine + Document Vault</h2>
+      <p>Upload statements, read with PDF.js, extract summary fields, validate results, then approve before saving.</p>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <h2>Upload Financial PDF</h2><div class="engine-badge">📄 PDF.js Browser Engine</div>
+      <p class="muted">3.0 Beta uses PDF.js for better Chrome, Edge, Safari, and Firefox statement extraction.</p>
+      <div class="drop-zone" id="pdfDropZone" style="margin-top:12px">
+        <strong>Drop PDF here on Chrome</strong><br><span class="muted">or use Choose File on phone/tablet</span>
+        <label style="margin-top:12px">PDF File
+          <input type="file" id="pdfUpload" accept="application/pdf,.pdf" onchange="handlePdfFileInput(this)">
+        </label>
+      </div>
+      <div class="actions" style="justify-content:flex-start;margin-top:12px">
+        <button class="btn secondary" onclick="analyzeSelectedPdf()">Analyze PDF</button><button class="btn secondary" onclick="clearPdfPreview()">Clear Preview</button>
+        <button class="btn green" onclick="savePdfDocument()">Approve & Save</button>
+      </div>
+      <p class="muted" id="pdfStatus">No PDF selected.</p>
+    </div>
+
+    <div class="card">
+      <h2>Detected Summary</h2>
+      <div class="list" id="pdfSummary">
+        <div class="empty">PDF summary will appear here.</div>
+      </div>
+      <div class="section" style="margin-top:14px"><div><h2>Validation</h2><p>Review confidence before saving.</p></div></div>
+      <div id="pdfValidation" class="validation-panel"><div class="empty">Validation will appear here.</div></div><div class="section" style="margin-top:14px"><div><h2>Extracted Text Sample</h2><p>Used for parser tuning.</p></div></div><div id="pdfDebugText" class="parser-detail">No PDF text extracted yet.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div><h2>Document Vault</h2><p>Stored locally in this browser. Do not upload private PDFs to public GitHub.</p></div>
+  </div>
+  <div class="list" id="documentList">
+    <div class="empty">No documents saved yet.</div>
+  </div>
+</section>
+
+
+<section id="promos" class="view">
+  <div class="section">
+    <div>
+      <h2>Promotional Financing Tracker</h2>
+      <p>Deferred-interest balances, expiration dates, and monthly payoff targets.</p>
+    </div>
+  </div>
+  <div class="list" id="promoList">
+    <div class="empty">No promotional balances tracked yet.</div>
+  </div>
+</section>
+
+<section id="advisor" class="view">
+  <div class="section">
+    <div>
+      <h2>AI Advisor</h2>
+      <p>Rules-based financial guidance from your local data. No cloud AI connection yet.</p>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="card"><div class="label">Cash Reserve</div><div class="value" id="aiCashReserve">0.000x</div></div>
+    <div class="card"><div class="label">Budget Alerts</div><div class="value" id="aiBudgetAlerts">0</div></div>
+    <div class="card"><div class="label">Debt Risk</div><div class="value" id="aiDebtRisk">Low</div></div>
+    <div class="card"><div class="label">Month Status</div><div class="value" id="aiMonthStatus">Review</div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <div class="section" style="margin-top:0">
+        <div><h2>Recommendations</h2><p>What I would check first.</p></div>
+      </div>
+      <div class="list" id="advisorList"></div>
+    </div>
+
+    <div class="card">
+      <div class="section" style="margin-top:0">
+        <div><h2>Financial Questions</h2><p>Local prompt starters for future AI.</p></div>
+      </div>
+      <div class="list">
+        <div class="item"><div class="title">Can I afford this purchase?</div><div class="muted">Use cash, upcoming bills, and payroll to test it.</div></div>
+        <div class="item"><div class="title">Which debt should I pay first?</div><div class="muted">Compare avalanche and snowball strategies.</div></div>
+        <div class="item"><div class="title">Where is my money going?</div><div class="muted">Review spending by category from transactions.</div></div>
+        <div class="item"><div class="title">Will I run short this month?</div><div class="muted">Review the 30-day cash-flow projection.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="knowledge" class="view"><div class="section"><div><h2>Knowledge Base</h2><p>Searchable financial memory.</p></div></div><div class="card"><label>Search<input id="noteSearch" placeholder="Search notes..."></label></div><div class="grid cols"><div class="card"><form id="noteForm"><input type="hidden" id="noteId"><div class="formgrid"><label>Title<input id="noteTitle" required></label><label>Category<input id="noteCategory"></label></div><label>Details<textarea id="noteBody" required></textarea></label><div class="actions"><button type="button" class="btn secondary" onclick="clearNote()">Clear</button><button class="btn green">Save</button></div></form></div><div class="list" id="noteList"></div></div></section>
+
+
+<section id="imports" class="view">
+  <div class="section">
+    <div>
+      <h2>Smart Import Center</h2>
+      <p>Bank, credit card, and payroll CSV imports with presets, column mapping, duplicate checks, and category suggestions.</p>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <h2>Step 1 — Choose File</h2>
+      <div class="formgrid" style="margin-top:12px">
+        <label>Import Type
+          <select id="importType">
+            <option value="transactions">Transactions</option>
+            <option value="bills">Bills</option>
+            <option value="payroll">Payroll</option>
+          </select>
+        </label>
+        <label>Preset
+          <select id="importPreset">
+            <option value="generic">Generic CSV</option>
+            <option value="chase">Chase / Credit Card Style</option>
+            <option value="capitalone">Capital One Style</option>
+            <option value="wellsfargo">Wells Fargo Style</option>
+            <option value="bankofamerica">Bank of America Style</option>
+            <option value="payroll">Payroll CSV</option>
+          </select>
+        </label>
+        <label>CSV File
+          <input type="file" id="importPreviewFile" accept=".csv,text/csv">
+        </label>
+      </div>
+
+      <div class="import-map-grid">
+        <label>Date Column<select id="mapDate"></select></label>
+        <label>Name Column<select id="mapName"></select></label>
+        <label>Amount Column<select id="mapAmount"></select></label>
+        <label>Type Column<select id="mapType"></select></label>
+        <label>Category Column<select id="mapCategory"></select></label>
+        <label>Account Column<select id="mapAccount"></select></label>
+      </div>
+
+      <div class="actions" style="justify-content:flex-start;margin-top:12px">
+        <button class="btn secondary" onclick="autoMapImportColumns()">Auto Map</button>
+        <button class="btn secondary" onclick="clearImportPreview()">Clear Preview</button>
+        <button class="btn green" onclick="commitImportPreview()">Approve Import</button>
+      </div>
+      <p class="muted" id="importSummary" style="margin-bottom:0">No file selected.</p>
+    </div>
+
+    <div class="card">
+      <h2>Import Intelligence</h2>
+      <div class="import-stat-grid">
+        <div class="card"><div class="label">Rows</div><div class="value" id="importRows">0</div></div>
+        <div class="card"><div class="label">New</div><div class="value" id="importNew">0</div></div>
+        <div class="card"><div class="label">Dupes</div><div class="value" id="importDupes">0</div></div>
+      </div>
+      <div class="section" style="margin-top:14px"><div><h2>Category Rules</h2></div></div>
+      <div>
+        <span class="import-chip">Shell → Fuel</span>
+        <span class="import-chip">Chevron → Fuel</span>
+        <span class="import-chip">Costco → Food</span>
+        <span class="import-chip">Amazon → Shopping</span>
+        <span class="import-chip">Netflix → Entertainment</span>
+        <span class="import-chip">Payroll → Income</span>
+      </div>
+      <p class="muted">This is local and rules-based. Nothing is uploaded.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div><h2>Step 2 — Preview</h2><p>Review before saving to the database.</p></div>
+  </div>
+  <div id="importWarnings"></div>
+  <div class="list" id="importPreviewList">
+    <div class="empty">Import preview will appear here.</div>
+  </div>
+</section>
+<section id="settings" class="view"><div class="section"><div><h2>Settings & Backup</h2><p>Import, export, version notes, and app install guidance.</p></div></div><div class="grid"><div class="card"><h2>Install as App</h2><p class="muted">Chrome desktop/Chromebook: open the site, then use the install icon in the address bar or Chrome menu → Install app. iPhone: Safari Share → Add to Home Screen.</p><div id="pwaStatus" class="muted">Checking install support...</div></div><div class="card"><h2>Backup</h2><p class="muted">Keep backup JSON private. Do not upload real financial backups to a public GitHub repo.</p><div class="actions" style="justify-content:flex-start"><button class="btn" onclick="exportBackup()">Export Backup</button><label class="btn secondary">Restore Backup<input class="hidden" type="file" id="restoreFile" accept="application/json"></label></div></div><div class="card"><h2>CSV Import</h2><p class="muted">Transactions CSV: date,type,name,amount,category,account,notes.</p><div class="actions" style="justify-content:flex-start"><label class="btn secondary">Import Transactions<input class="hidden" type="file" id="txnCsv" accept=".csv,text/csv"></label><label class="btn secondary">Import Bills<input class="hidden" type="file" id="billCsv" accept=".csv,text/csv"></label><label class="btn secondary">Import Payroll<input class="hidden" type="file" id="payCsv" accept=".csv,text/csv"></label></div></div><div class="card"><h2>CSV Export</h2><div class="actions" style="justify-content:flex-start"><button class="btn secondary" onclick="exportCSV('accounts')">Accounts</button><button class="btn secondary" onclick="exportCSV('transactions')">Transactions</button><button class="btn secondary" onclick="exportCSV('bills')">Bills</button><button class="btn secondary" onclick="exportCSV('payroll')">Payroll</button></div></div><div class="card"><h2>Browser Compatibility</h2><div class="compat-grid"><div><span class="browser-pill">Chrome</span><span class="compat-pass">Primary</span><p class="muted">Best for desktop, Chromebook, drag-and-drop, and PDF testing.</p></div><div><span class="browser-pill">Safari iPhone</span><span class="compat-watch">Supported</span><p class="muted">Use Choose File and Analyze PDF if auto-detect does not trigger.</p></div><div><span class="browser-pill">Edge</span><span class="compat-pass">Supported</span><p class="muted">Uses the same Chromium engine as Chrome.</p></div><div><span class="browser-pill">Firefox</span><span class="compat-watch">Supported</span><p class="muted">Most features work; PDF extraction may vary.</p></div></div></div><div class="card"><h2>Release Notes</h2><p class="muted">FFE 3.0 Beta replaces basic PDF reading with a PDF.js browser engine, improves Chase/Discover/Citi statement extraction, adds extracted-text diagnostics, and keeps the single-file GitHub upload workflow. Existing IndexedDB data is preserved. FFE 3.0 Beta replaces basic PDF reading with a PDF.js browser engine, improves Chase/Discover/Citi statement extraction, adds extracted-text diagnostics, and keeps the single-file GitHub upload workflow. Existing IndexedDB data is preserved.</p></div><div class="card"><h2>Danger Zone</h2><button class="btn rose" onclick="resetAll()">Reset Local Data</button></div></div></section>
+</main></div><div class="toast" id="toast"></div>
+<script>
+const DB="FFE_DB",VER=6,STORES=["accounts","transactions","bills","payroll","goals","knowledge","inbox","budgets","settings","documents","promos"];let db,state={accounts:[],transactions:[],bills:[],payroll:[],goals:[],knowledge:[],inbox:[],budgets:[],settings:[],documents:[],promos:[]};
+const starter={accounts:[{id:uid(),name:"Checking Account",type:"Checking",balance:0,apr:0,minimum:0,due:"",notes:"Primary spending account."},{id:uid(),name:"Cash Wallet",type:"Cash",balance:0,apr:0,minimum:0,due:"",notes:"Starter cash account."}],transactions:[],bills:[{id:uid(),name:"Rent",amount:1313.5,due:"1",category:"Housing",frequency:"Monthly",autopay:false,notes:""}],payroll:[],goals:[{id:uid(),name:"Emergency Fund",target:5000,current:0,date:"",notes:"Build cash reserve first."}],knowledge:[{id:uid(),title:"FFE Purpose",category:"System",body:"Financial Freedom Engine is a local-first long-term financial planner.",createdAt:today()}],inbox:[],budgets:[{id:uid(),category:"Food",limit:600},{id:uid(),category:"Fuel",limit:300}]};
+function uid(){return crypto.randomUUID?crypto.randomUUID():"id_"+Date.now()+"_"+Math.random().toString(16).slice(2)}function today(){return new Date().toISOString().slice(0,10)}function money(v){return Number(v||0).toLocaleString(undefined,{style:"currency",currency:"USD",minimumFractionDigits:3,maximumFractionDigits:3})}function pct(v){return Number(v||0).toFixed(3)+"%"}function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}function toast(m){let t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2300)}
+function openDB(){return new Promise((res,rej)=>{let r=indexedDB.open(DB,VER);r.onupgradeneeded=e=>{let d=e.target.result;STORES.forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:"id"})})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}function store(s,m="readonly"){return db.transaction(s,m).objectStore(s)}function all(s){return new Promise((res,rej)=>{let r=store(s).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}function put(s,o){return new Promise((res,rej)=>{let r=store(s,"readwrite").put(o);r.onsuccess=()=>res(o);r.onerror=()=>rej(r.error)})}function del(s,id){return new Promise((res,rej)=>{let r=store(s,"readwrite").delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}function clr(s){return new Promise((res,rej)=>{let r=store(s,"readwrite").clear();r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+async function load(){for(let s of Object.keys(state))state[s]=await all(s);if(!state.settings.find(x=>x.id==="seeded")){for(let [s,arr] of Object.entries(starter))for(let o of arr)await put(s,o);await put("settings",{id:"seeded",value:true});for(let s of Object.keys(state))state[s]=await all(s)}}async function save(s,o){o.updatedAt=new Date().toISOString();await put(s,o);await put("settings",{id:"updatedAt",value:new Date().toISOString()});await load();render();toast("Saved")}async function remove(s,id){if(!confirm("Delete this item?"))return;await del(s,id);await load();render();toast("Deleted")}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>show(b.dataset.view));function show(v){document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id===v));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===v));location.hash=v;scrollTo({top:0,behavior:"smooth"})}
+function render(){dash();accounts();txns();bills();payroll();cashflow();budget();debt();creditCards();goals();reports();advisor();notes()}function cashAmount(){return state.accounts.filter(a=>["Checking","Savings","Cash"].includes(a.type)).reduce((s,a)=>s+Number(a.balance||0),0)}function debtAmount(){return state.accounts.filter(a=>["Credit Card","Loan"].includes(a.type)).reduce((s,a)=>s+Number(a.balance||0),0)}function assetsAmount(){return state.accounts.filter(a=>["Checking","Savings","Cash","Investment"].includes(a.type)).reduce((s,a)=>s+Number(a.balance||0),0)}function monthTxns(){let ym=new Date().toISOString().slice(0,7);return state.transactions.filter(t=>String(t.date||"").slice(0,7)===ym)}function monthSpendAmount(){return monthTxns().filter(t=>t.type==="Expense").reduce((s,t)=>s+Number(t.amount||0),0)}function monthlyBillsAmount(){return state.bills.filter(b=>b.frequency==="Monthly").reduce((s,b)=>s+Number(b.amount||0),0)}
+
+function projectDays(days){
+  let start=cashAmount(),income=0,billtotal=0,events=[],now=new Date(),end=new Date();
+  end.setDate(now.getDate()+days);
+  state.payroll.forEach(p=>{
+    let d=new Date(p.date+"T00:00:00");
+    if(d>=now&&d<=end){income+=Number(p.net||0);events.push({date:d,type:"Income",name:p.employer,amount:Number(p.net||0)})}
+  });
+  state.bills.forEach(b=>{
+    if(b.frequency==="Monthly"){
+      let day=Math.max(1,Math.min(31,Number(b.due||1)));
+      for(let m=0;m<4;m++){
+        let d=new Date(now.getFullYear(),now.getMonth()+m,day);
+        if(d>=now&&d<=end){billtotal+=Number(b.amount||0);events.push({date:d,type:"Bill",name:b.name,amount:-Number(b.amount||0)})}
+      }
+    }
+  });
+  events.sort((a,b)=>a.date-b.date);
+  return{start,income,bills:billtotal,end:start+income-billtotal,events};
+}
+function healthBadge(label,status,detail){
+  let cls=status==="Good"?"green":status==="Watch"?"amber":"rose";
+  let dot=status==="Good"?"dot-green":status==="Watch"?"dot-amber":"dot-rose";
+  return `<div class="item"><div class="head"><div><div class="title"><span class="health-dot ${dot}"></span>${esc(label)}</div><div class="muted">${esc(detail)}</div></div><span class="badge ${cls}">${esc(status)}</span></div></div>`;
+}
+function renderHealthList(){
+  let el=document.getElementById("healthList"); if(!el) return;
+  let ca=cashAmount(), mb=monthlyBillsAmount(), de=debtAmount(), over=budgetOverCount(), p30=projectDays(30);
+  let reserve = mb>0 ? ca/mb : 0;
+  let items=[];
+  items.push(healthBadge("Cash Reserve", reserve>=1?"Good":reserve>=0.5?"Watch":"Risk", mb>0?`${reserve.toFixed(3)} months of monthly bills covered.`:"Add monthly bills for reserve analysis."));
+  items.push(healthBadge("30-Day Forecast", p30.end>=0?"Good":"Risk", `Projected cash: ${money(p30.end)}.`));
+  items.push(healthBadge("Budget", over===0?"Good":over<=2?"Watch":"Risk", `${over} categories over budget this month.`));
+  items.push(healthBadge("Debt", de===0?"Good":ca/de>.1?"Watch":"Risk", de>0?`Debt balance: ${money(de)}.`:"No debt accounts recorded."));
+  el.innerHTML=items.join("");
+}
+
+
+function renderTimelineMini(){
+  let events=projectDays(90).events.slice(0,8);
+  return events.length?`<div class="timeline-line">${events.map(e=>`<div class="timeline-event"><span class="timeline-dot"></span><div><div class="title">${esc(e.name)}</div><div class="muted">${e.date.toLocaleDateString()} · ${esc(e.type)}</div></div><div class="money" style="color:${e.amount>=0?'var(--green)':'var(--rose)'}">${money(e.amount)}</div></div>`).join("")}</div>`:'<div class="empty">No forecast events yet. Add bills and future payroll records.</div>';
+}
+
+function dash(){let h=new Date().getHours();greet.textContent=h<12?"Good morning, Carlos":h<18?"Good afternoon, Carlos":"Good evening, Carlos";let ca=cashAmount(),de=debtAmount(),as=assetsAmount(),sp=monthSpendAmount();networth.textContent=money(as-de);cashKpi.textContent=money(ca);monthSpend.textContent=money(sp);totaldebt.textContent=money(de);
+if(document.getElementById("forecast30")) forecast30.textContent=money(projectDays(30).end);
+if(document.getElementById("forecast60")) forecast60.textContent=money(projectDays(60).end);
+if(document.getElementById("forecast90")) forecast90.textContent=money(projectDays(90).end);
+if(document.getElementById("dashBudgetAlerts")) dashBudgetAlerts.textContent=String(budgetOverCount());
+renderHealthList();
+if(document.getElementById("timelineMini")) timelineMini.innerHTML=renderTimelineMini();priorities.innerHTML=card("Cash flow",`${money(project30().end)} projected cash after next 30 days.`,"blue")+card("Spending",`${money(sp)} spent this month from transactions.`,"amber")+card("Budget",`${budgetOverCount()} categories over budget this month.`,"rose")+card("Payroll",state.payroll[0]?`${state.payroll[0].employer} net pay ${money(state.payroll[0].net)}.`:"Add paycheck records to forecast income.","green")+card("AI Advisor","Open Advisor for warnings, recommendations, and local financial guidance.","blue")+card("Import Center","Preview CSVs before approving records.","green")+card("Document Vault","Upload PDFs to detect statements and save summaries.","blue");let sc=Math.min(100,30+(ca>0?15:0)+(monthlyBillsAmount()>0&&ca>=monthlyBillsAmount()?15:0)+(de===0?25:de&&ca/de>.1?10:0)+(state.transactions.length?5:0)+(state.knowledge.length?5:0));score.textContent=sc.toFixed(3);scorebar.style.width=sc+"%";scorenote.textContent=sc<40?"Early stage. Add accounts, bills, payroll, and transactions.":sc<75?"Good foundation. Improve reserve, budget, and debt plan.":"Strong position based on alpha scoring."}function card(t,s,c){return `<div class="item"><div class="head"><div><div class="title">${esc(t)}</div><div class="muted">${esc(s)}</div></div><span class="badge ${c}">Brief</span></div></div>`}
+function accounts(){accountList.innerHTML=state.accounts.length?state.accounts.map(a=>`<div class="item"><div class="head"><div><div class="title">${esc(a.name)}</div><div class="muted">${esc(a.type)} · APR ${pct(a.apr)}</div></div><div class="money">${money(a.balance)}</div></div><div>${a.minimum?`<span class="badge amber">Min ${money(a.minimum)}</span>`:""} ${a.due?`<span class="badge gray">Due ${esc(a.due)}</span>`:""}</div><div class="actions"><button class="btn secondary" onclick="editAccount('${a.id}')">Edit</button><button class="btn rose" onclick="remove('accounts','${a.id}')">Delete</button></div></div>`).join(""):`<div class="empty">No accounts yet.</div>`}
+function txns(){txnList.innerHTML=state.transactions.length?state.transactions.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,50).map(t=>`<div class="item"><div class="head"><div><div class="title">${esc(t.name)}</div><div class="muted">${esc(t.date)} · ${esc(t.category)} · ${esc(t.account||"")}</div></div><div class="money" style="color:${t.type==="Income"?'var(--green)':t.type==="Expense"?'var(--rose)':'var(--blue)'}">${t.type==="Expense"?"-":t.type==="Income"?"+":""}${money(t.amount)}</div></div><div><span class="badge ${t.type==="Income"?"green":t.type==="Expense"?"rose":"blue"}">${esc(t.type)}</span></div><div class="actions"><button class="btn secondary" onclick="editTxn('${t.id}')">Edit</button><button class="btn rose" onclick="remove('transactions','${t.id}')">Delete</button></div></div>`).join(""):`<div class="empty">No transactions yet.</div>`}
+function bills(){billList.innerHTML=state.bills.length?state.bills.map(b=>`<div class="item"><div class="head"><div><div class="title">${esc(b.name)}</div><div class="muted">${esc(b.category)} · ${esc(b.frequency)}</div></div><div class="money">${money(b.amount)}</div></div><div><span class="badge amber">Due day ${esc(b.due||"—")}</span> <span class="badge ${b.autopay?"green":"gray"}">Autopay ${b.autopay?"Yes":"No"}</span></div><div class="actions"><button class="btn secondary" onclick="editBill('${b.id}')">Edit</button><button class="btn rose" onclick="remove('bills','${b.id}')">Delete</button></div></div>`).join(""):`<div class="empty">No bills yet.</div>`}
+function payroll(){payList.innerHTML=state.payroll.length?state.payroll.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(p=>`<div class="item"><div class="head"><div><div class="title">${esc(p.employer)}</div><div class="muted">${esc(p.date)} · Gross ${money(p.gross)}</div></div><div class="money">${money(p.net)}</div></div><div><span class="badge gray">Taxes ${money(p.taxes)}</span> <span class="badge gray">Deductions ${money(p.deductions)}</span></div><div class="actions"><button class="btn secondary" onclick="editPay('${p.id}')">Edit</button><button class="btn rose" onclick="remove('payroll','${p.id}')">Delete</button></div></div>`).join(""):`<div class="empty">No payroll records yet.</div>`}
+function project30(){let start=cashAmount(),income=0,billtotal=0,events=[],now=new Date(),end=new Date();end.setDate(now.getDate()+30);state.payroll.forEach(p=>{let d=new Date(p.date+"T00:00:00");if(d>=now&&d<=end){income+=Number(p.net||0);events.push({date:d,type:"Income",name:p.employer,amount:Number(p.net||0)})}});state.bills.forEach(b=>{if(b.frequency==="Monthly"){let day=Math.max(1,Math.min(31,Number(b.due||1)));for(let m=0;m<2;m++){let d=new Date(now.getFullYear(),now.getMonth()+m,day);if(d>=now&&d<=end){billtotal+=Number(b.amount||0);events.push({date:d,type:"Bill",name:b.name,amount:-Number(b.amount||0)})}}}});events.sort((a,b)=>a.date-b.date);return{start,income,bills:billtotal,end:start+income-billtotal,events}}function cashflow(){let p=project30();cfStart.textContent=money(p.start);cfIncome.textContent=money(p.income);cfBills.textContent=money(p.bills);cfEnd.textContent=money(p.end);cashflowList.innerHTML=p.events.length?p.events.map(e=>`<div class="item"><div class="head"><div><div class="title">${esc(e.name)}</div><div class="muted">${e.date.toLocaleDateString()} · ${esc(e.type)}</div></div><div class="money" style="color:${e.amount>=0?'var(--green)':'var(--rose)'}">${money(e.amount)}</div></div></div>`).join(""):`<div class="empty">No upcoming events in the next 30 days.</div>`}
+function budgetOverCount(){return state.budgets.filter(b=>catSpend(b.category)>Number(b.limit||0)).length}function catSpend(cat){return monthTxns().filter(t=>t.type==="Expense"&&String(t.category).toLowerCase()===String(cat).toLowerCase()).reduce((s,t)=>s+Number(t.amount||0),0)}function budget(){budgetList.innerHTML=state.budgets.length?state.budgets.map(b=>{let used=catSpend(b.category),lim=Number(b.limit||0),pc=lim?Math.min(100,used/lim*100):0;return `<div class="item"><div class="head"><div><div class="title">${esc(b.category)}</div><div class="muted">${money(used)} used of ${money(lim)}</div></div><span class="badge ${used>lim?"rose":"green"}">${pc.toFixed(3)}%</span></div><div class="bar"><div style="width:${pc}%"></div></div><div class="actions"><button class="btn secondary" onclick="editBudget('${b.id}')">Edit</button><button class="btn rose" onclick="remove('budgets','${b.id}')">Delete</button></div></div>`}).join(""):`<div class="empty">No budgets yet.</div>`}
+function debt(){let strategy=debtStrategy.value,extra=Number(debtExtra.value||0),ds=state.accounts.filter(a=>["Credit Card","Loan"].includes(a.type)&&Number(a.balance)>0).sort((a,b)=>strategy==="snowball"?Number(a.balance)-Number(b.balance):Number(b.apr)-Number(a.apr));debtList.innerHTML=ds.length?ds.map((d,i)=>{let pay=Number(d.minimum||0)+(i===0?extra:0),m=months(Number(d.balance),Number(d.apr),pay);return `<div class="item"><div class="head"><div><div class="title">${i+1}. ${esc(d.name)}</div><div class="muted">${strategy} · APR ${pct(d.apr)}</div></div><div class="money">${money(d.balance)}</div></div><div><span class="badge blue">Payment ${money(pay)}</span> <span class="badge ${m===Infinity?"rose":"green"}">${m===Infinity?"Payment too low":m+" months"}</span></div></div>`}).join(""):`<div class="empty">Add credit card or loan accounts to build a debt plan.</div>`}function months(b,apr,p){if(!p)return Infinity;let r=apr/100/12;if(r&&b*r>=p)return Infinity;if(!r)return Math.ceil(b/p);return Math.ceil(-Math.log(1-r*b/p)/Math.log(1+r))}
+
+function creditCards(){
+  let el=document.getElementById("creditCardList"); if(!el) return;
+  let cards=state.accounts.filter(a=>a.type==="Credit Card");
+  if(!cards.length){el.innerHTML='<div class="empty">Add accounts with Type = Credit Card to activate this center.</div>';return;}
+  el.innerHTML=cards.sort((a,b)=>Number(b.apr)-Number(a.apr)).map(c=>{
+    let bal=Number(c.balance||0), limit=Number(c.creditLimit||0), apr=Number(c.apr||0);
+    let util=limit>0?Math.min(100,bal/limit*100):0;
+    let interest=bal*(apr/100/12);
+    let status=util>=80?"rose":util>=50?"amber":"green";
+    let utilText=limit>0?`${util.toFixed(3)}% utilization`:"Add credit limit later";
+    return `<div class="card"><div class="head"><div><div class="title">${esc(c.name)}</div><div class="muted">APR ${pct(apr)} · ${utilText}</div></div><span class="badge ${status}">${status==="rose"?"High":status==="amber"?"Watch":"Good"}</span></div><div class="kpis" style="margin-top:10px"><div class="card"><div class="label">Balance</div><div class="value">${money(bal)}</div></div><div class="card"><div class="label">Min Pay</div><div class="value">${money(c.minimum)}</div></div><div class="card"><div class="label">Est. Monthly Interest</div><div class="value">${money(interest)}</div></div><div class="card"><div class="label">Due</div><div class="value">${esc(c.due||"—")}</div></div></div><div class="credit-meter" style="margin-top:10px"><div style="width:${util}%"></div></div><p class="muted">Payoff priority: higher APR cards appear first.</p></div>`;
+  }).join("");
+}
+
+function goals(){goalList.innerHTML=state.goals.length?state.goals.map(g=>{let pc=Number(g.target)?Math.min(100,Number(g.current||0)/Number(g.target)*100):0;return `<div class="item"><div class="head"><div><div class="title">${esc(g.name)}</div><div class="muted">${esc(g.date||"No target date")}</div></div><div class="money">${pc.toFixed(3)}%</div></div><div class="progress"><div style="width:${pc}%"></div></div><div><span class="badge blue">${money(g.current)} saved</span> <span class="badge green">${money(g.target)} target</span></div><div class="actions"><button class="btn secondary" onclick="editGoal('${g.id}')">Edit</button><button class="btn rose" onclick="remove('goals','${g.id}')">Delete</button></div></div>`}).join(""):`<div class="empty">No goals yet.</div>`}
+function reports(){let inc=state.transactions.filter(t=>t.type==="Income").reduce((s,t)=>s+Number(t.amount||0),0),exp=state.transactions.filter(t=>t.type==="Expense").reduce((s,t)=>s+Number(t.amount||0),0);rIncome.textContent=money(inc);rExpenses.textContent=money(exp);let by={};state.transactions.filter(t=>t.type==="Expense").forEach(t=>by[t.category]=(by[t.category]||0)+Number(t.amount||0));let max=Math.max(...Object.values(by),1);categoryReport.innerHTML=Object.keys(by).length?Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div><div class="split"><span>${esc(k)}</span><strong>${money(v)}</strong></div><div class="bar"><div style="width:${Math.min(100,v/max*100)}%"></div></div></div>`).join(""):`<div class="empty">No expense transactions yet.</div>`}
+
+function advisor(){
+  if(!document.getElementById("advisorList")) return;
+  let ca=cashAmount(), mb=monthlyBillsAmount(), de=debtAmount(), sp=monthSpendAmount(), p=project30();
+  let reserve = mb>0 ? ca/mb : 0;
+  let over = budgetOverCount();
+  let debtAccounts = state.accounts.filter(a=>["Credit Card","Loan"].includes(a.type)&&Number(a.balance)>0);
+  let highApr = debtAccounts.slice().sort((a,b)=>Number(b.apr)-Number(a.apr))[0];
+
+  aiCashReserve.textContent = reserve.toFixed(3)+"x";
+  aiBudgetAlerts.textContent = String(over);
+  aiDebtRisk.textContent = highApr && Number(highApr.apr)>18 ? "High" : debtAccounts.length ? "Moderate" : "Low";
+  aiMonthStatus.textContent = p.end < 0 ? "Shortfall" : over>0 ? "Watch" : "Stable";
+
+  let recs=[];
+  if(ca<=0) recs.push(["Add cash account balance","Update checking/savings so the forecast can work.","amber"]);
+  if(mb>0 && ca<mb) recs.push(["Build one-month cash reserve",`Cash is ${money(ca)} versus monthly bills of ${money(mb)}.`,"rose"]);
+  if(p.end<0) recs.push(["30-day shortfall warning",`Projected cash is ${money(p.end)}. Review bills and payroll dates.`,"rose"]);
+  if(over>0) recs.push(["Budget category over limit",`${over} budget category is over the monthly limit.`,"amber"]);
+  if(highApr && Number(highApr.apr)>18) recs.push(["High-interest debt priority",`${highApr.name} has APR ${pct(highApr.apr)}. Consider avalanche payoff.`,"rose"]);
+  if(state.transactions.length<5) recs.push(["Add more transactions","Reports and AI guidance improve as spending history grows.","blue"]);
+  if(state.payroll.length===0) recs.push(["Add future payroll","Cash-flow forecasting needs upcoming paycheck records.","blue"]);
+  if(!recs.length) recs.push(["You are in good shape","No major warnings based on current local data.","green"]);
+
+  advisorList.innerHTML=recs.map(r=>`<div class="item"><div class="head"><div><div class="title">${esc(r[0])}</div><div class="muted">${esc(r[1])}</div></div><span class="badge ${r[2]}">AI</span></div></div>`).join("");
+}
+
+function notes(){let q=(noteSearch.value||"").toLowerCase(),arr=state.knowledge.filter(n=>`${n.title} ${n.category} ${n.body}`.toLowerCase().includes(q));noteList.innerHTML=arr.length?arr.map(n=>`<div class="item"><div class="head"><div><div class="title">${esc(n.title)}</div><div class="muted">${esc(n.category||"General")} · ${esc(n.createdAt||"")}</div></div><span class="badge blue">Note</span></div><div class="muted">${esc(n.body)}</div><div class="actions"><button class="btn secondary" onclick="editNote('${n.id}')">Edit</button><button class="btn rose" onclick="remove('knowledge','${n.id}')">Delete</button></div></div>`).join(""):`<div class="empty">No matching notes.</div>`}
+function v(id){return document.getElementById(id).value}function n(id){return Number(v(id)||0)}function sv(id,x){document.getElementById(id).value=x??""}
+accountForm.onsubmit=e=>{e.preventDefault();save("accounts",{id:v("accountId")||uid(),name:v("accountName"),type:v("accountType"),balance:n("accountBalance"),apr:n("accountApr"),minimum:n("accountMinimum"),creditLimit:n("accountCreditLimit"),due:v("accountDue"),notes:v("accountNotes")});clearAccount()};function editAccount(id){let a=state.accounts.find(x=>x.id===id);sv("accountId",a.id);sv("accountName",a.name);sv("accountType",a.type);sv("accountBalance",a.balance);sv("accountApr",a.apr);sv("accountMinimum",a.minimum);sv("accountCreditLimit",a.creditLimit);sv("accountDue",a.due);sv("accountNotes",a.notes);show("accounts")}function clearAccount(){accountForm.reset();sv("accountId","")}
+txnForm.onsubmit=e=>{e.preventDefault();save("transactions",{id:v("txnId")||uid(),date:v("txnDate"),type:v("txnType"),name:v("txnName"),amount:n("txnAmount"),category:v("txnCategory"),account:v("txnAccount"),notes:v("txnNotes")});clearTxn()};function editTxn(id){let t=state.transactions.find(x=>x.id===id);sv("txnId",t.id);sv("txnDate",t.date);sv("txnType",t.type);sv("txnName",t.name);sv("txnAmount",t.amount);sv("txnCategory",t.category);sv("txnAccount",t.account);sv("txnNotes",t.notes);show("transactions")}function clearTxn(){txnForm.reset();sv("txnId","");sv("txnDate",today())}
+billForm.onsubmit=e=>{e.preventDefault();save("bills",{id:v("billId")||uid(),name:v("billName"),amount:n("billAmount"),due:v("billDue"),category:v("billCategory"),frequency:v("billFrequency"),autopay:v("billAutopay")==="true",notes:v("billNotes")});clearBill()};function editBill(id){let b=state.bills.find(x=>x.id===id);sv("billId",b.id);sv("billName",b.name);sv("billAmount",b.amount);sv("billDue",b.due);sv("billCategory",b.category);sv("billFrequency",b.frequency);sv("billAutopay",String(!!b.autopay));sv("billNotes",b.notes);show("bills")}function clearBill(){billForm.reset();sv("billId","")}
+payForm.onsubmit=e=>{e.preventDefault();save("payroll",{id:v("payId")||uid(),employer:v("payEmployer"),date:v("payDate"),gross:n("payGross"),net:n("payNet"),taxes:n("payTaxes"),deductions:n("payDeductions"),notes:v("payNotes")});clearPay()};function editPay(id){let p=state.payroll.find(x=>x.id===id);sv("payId",p.id);sv("payEmployer",p.employer);sv("payDate",p.date);sv("payGross",p.gross);sv("payNet",p.net);sv("payTaxes",p.taxes);sv("payDeductions",p.deductions);sv("payNotes",p.notes);show("payroll")}function clearPay(){payForm.reset();sv("payId","")}
+budgetForm.onsubmit=e=>{e.preventDefault();save("budgets",{id:v("budgetId")||uid(),category:v("budgetCategory"),limit:n("budgetLimit")});clearBudget()};function editBudget(id){let b=state.budgets.find(x=>x.id===id);sv("budgetId",b.id);sv("budgetCategory",b.category);sv("budgetLimit",b.limit);show("budget")}function clearBudget(){budgetForm.reset();sv("budgetId","")}
+goalForm.onsubmit=e=>{e.preventDefault();save("goals",{id:v("goalId")||uid(),name:v("goalName"),target:n("goalTarget"),current:n("goalCurrent"),date:v("goalDate"),notes:v("goalNotes")});clearGoal()};function editGoal(id){let g=state.goals.find(x=>x.id===id);sv("goalId",g.id);sv("goalName",g.name);sv("goalTarget",g.target);sv("goalCurrent",g.current);sv("goalDate",g.date);sv("goalNotes",g.notes);show("goals")}function clearGoal(){goalForm.reset();sv("goalId","")}
+noteForm.onsubmit=e=>{e.preventDefault();let old=state.knowledge.find(x=>x.id===v("noteId"));save("knowledge",{id:v("noteId")||uid(),title:v("noteTitle"),category:v("noteCategory"),body:v("noteBody"),createdAt:old?.createdAt||today()});clearNote()};function editNote(id){let x=state.knowledge.find(n=>n.id===id);sv("noteId",x.id);sv("noteTitle",x.title);sv("noteCategory",x.category);sv("noteBody",x.body);show("knowledge")}function clearNote(){noteForm.reset();sv("noteId","")}
+debtStrategy.onchange=debt;debtExtra.oninput=debt;noteSearch.oninput=notes;
+function dl(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}function exportBackup(){dl(`ffe_backup_${today()}.json`,JSON.stringify({app:"FFE",version:"3.0-beta",exportedAt:new Date().toISOString(),data:state},null,2),"application/json");toast("Backup exported")}restoreFile.onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let p=JSON.parse(await f.text()),d=p.data||p;for(let s of ["accounts","transactions","bills","payroll","goals","knowledge","inbox","budgets","documents","promos"]){if(Array.isArray(d[s])){await clr(s);for(let o of d[s])await put(s,o)}}await load();render();toast("Backup restored")}catch{alert("Restore failed")}e.target.value=""}
+function exportCSV(s){let rows=state[s]||[];if(!rows.length)return toast("Nothing to export");let heads=[...rows.reduce((set,r)=>(Object.keys(r).forEach(k=>set.add(k)),set),new Set())],csv=[heads.join(","),...rows.map(r=>heads.map(h=>csvCell(r[h])).join(","))].join("\n");dl(`ffe_${s}_${today()}.csv`,csv,"text/csv")}function csvCell(v){let s=String(v??"");return /[",\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s}function parseCSV(text){let lines=text.trim().split(/\r?\n/);if(!lines.length)return[];let headers=lines[0].split(",").map(x=>x.trim());return lines.slice(1).map(line=>{let vals=line.split(",").map(x=>x.trim());return Object.fromEntries(headers.map((h,i)=>[h,vals[i]??""]))})}
+txnCsv.onchange=async e=>{let f=e.target.files[0];if(!f)return;let rows=parseCSV(await f.text()),count=0;for(let r of rows){if(!r.name&&!r.amount)continue;await put("transactions",{id:uid(),date:r.date||today(),type:r.type||"Expense",name:r.name||r.description||"Imported",amount:Number(r.amount||0),category:r.category||"Other",account:r.account||"",notes:r.notes||""});count++}await load();render();toast(`Imported ${count} transactions`);e.target.value=""};billCsv.onchange=async e=>{let f=e.target.files[0];if(!f)return;let rows=parseCSV(await f.text()),count=0;for(let r of rows){if(!r.name)continue;await put("bills",{id:uid(),name:r.name,amount:Number(r.amount||0),due:r.due||"",category:r.category||"Imported",frequency:r.frequency||"Monthly",autopay:String(r.autopay).toLowerCase()==="true",notes:r.notes||""});count++}await load();render();toast(`Imported ${count} bills`);e.target.value=""};payCsv.onchange=async e=>{let f=e.target.files[0];if(!f)return;let rows=parseCSV(await f.text()),count=0;for(let r of rows){if(!r.employer&&!r.date)continue;await put("payroll",{id:uid(),employer:r.employer||"Imported",date:r.date||today(),gross:Number(r.gross||0),net:Number(r.net||0),taxes:Number(r.taxes||0),deductions:Number(r.deductions||0),notes:r.notes||""});count++}await load();render();toast(`Imported ${count} payroll rows`);e.target.value=""};async function resetAll(){if(!confirm("Reset all local app data?"))return;for(let s of STORES)await clr(s);await load();render();toast("Reset complete")}
+
+let importPreviewRows = [];
+function normalizeImportRow(type, r){
+  if(type==="transactions"){
+    return {id:uid(),date:r.date||today(),type:r.type||"Expense",name:r.name||r.description||"Imported",amount:Number(r.amount||0),category:r.category||"Other",account:r.account||"",notes:r.notes||""};
+  }
+  if(type==="bills"){
+    return {id:uid(),name:r.name||"Imported Bill",amount:Number(r.amount||0),due:r.due||"",category:r.category||"Imported",frequency:r.frequency||"Monthly",autopay:String(r.autopay).toLowerCase()==="true",notes:r.notes||""};
+  }
+  return {id:uid(),employer:r.employer||"Imported",date:r.date||today(),gross:Number(r.gross||0),net:Number(r.net||0),taxes:Number(r.taxes||0),deductions:Number(r.deductions||0),notes:r.notes||""};
+}
+function importDuplicateKey(type,row){
+  if(type==="transactions") return [row.date,row.type,row.name,Number(row.amount||0).toFixed(3)].join("|").toLowerCase();
+  if(type==="bills") return [row.name,Number(row.amount||0).toFixed(3),row.due].join("|").toLowerCase();
+  return [row.employer,row.date,Number(row.net||0).toFixed(3)].join("|").toLowerCase();
+}
+function existingImportKeys(type){
+  let source=type==="transactions"?state.transactions:type==="bills"?state.bills:state.payroll;
+  return new Set(source.map(r=>importDuplicateKey(type,r)));
+}
+function renderImportPreview(){
+  let list=document.getElementById("importPreviewList"); if(!list) return;
+  if(!importPreviewRows.length){list.innerHTML='<div class="empty">Import preview will appear here.</div>';return;}
+  list.innerHTML=importPreviewRows.map((r,i)=>{
+    let title=r.type==="transactions"?`${r.row.type}: ${r.row.name}`:r.type==="bills"?r.row.name:`${r.row.employer} payroll`;
+    let sub=r.type==="transactions"?`${r.row.date} · ${r.row.category} · ${money(r.row.amount)}`:r.type==="bills"?`Due ${r.row.due||"—"} · ${money(r.row.amount)}`:`${r.row.date} · Net ${money(r.row.net)}`;
+    return `<div class="item"><div class="head"><div><div class="title">${esc(title)}</div><div class="muted">${esc(sub)}</div></div><span class="badge ${r.duplicate?"rose":"green"}">${r.duplicate?"Duplicate":"New"}</span></div><div class="actions"><button class="btn secondary" onclick="removeImportPreviewRow(${i})">Remove</button></div></div>`;
+  }).join("");
+}
+function removeImportPreviewRow(i){importPreviewRows.splice(i,1);renderImportPreview();updateImportSummary();}
+function updateImportSummary(){
+  let el=document.getElementById("importSummary"); if(!el) return;
+  let total=importPreviewRows.length, dup=importPreviewRows.filter(r=>r.duplicate).length, ready=total-dup;
+  el.textContent=`${total} rows previewed · ${ready} new · ${dup} possible duplicates.`;
+}
+function clearImportPreview(){
+  importPreviewRows=[]; let f=document.getElementById("importPreviewFile"); if(f) f.value="";
+  renderImportPreview(); updateImportSummary();
+}
+async function commitImportPreview(){
+  if(!importPreviewRows.length){toast("Nothing to import");return;}
+  let approved=importPreviewRows.filter(r=>!r.duplicate);
+  if(!approved.length){toast("Only duplicates found");return;}
+  for(let item of approved) await put(item.type,item.row);
+  await load(); render(); clearImportPreview(); toast(`Imported ${approved.length} records`);
+}
+function setupImportCenter(){
+  let f=document.getElementById("importPreviewFile");
+  if(!f) return;
+  f.onchange=async e=>{
+    let file=e.target.files[0]; if(!file) return;
+    let type=document.getElementById("importType").value;
+    let rows=parseCSV(await file.text());
+    let keys=existingImportKeys(type);
+    importPreviewRows=rows.map(raw=>{
+      let row=normalizeImportRow(type,raw);
+      return {type,row,duplicate:keys.has(importDuplicateKey(type,row))};
+    });
+    renderImportPreview(); updateImportSummary();
+  };
+}
+
+
+let rawImportRows = [];
+let importHeaders = [];
+
+function guessHeader(headers, candidates){
+  let lower = headers.map(h=>String(h).toLowerCase().trim());
+  for(let c of candidates){
+    let idx = lower.findIndex(h=>h===c || h.includes(c));
+    if(idx>=0) return headers[idx];
+  }
+  return "";
+}
+
+function fillMapSelect(id, headers){
+  let el=document.getElementById(id); if(!el) return;
+  el.innerHTML = '<option value="">-- none --</option>' + headers.map(h=>`<option value="${esc(h)}">${esc(h)}</option>`).join("");
+}
+
+function autoMapImportColumns(){
+  if(!importHeaders.length) return;
+  let preset = document.getElementById("importPreset")?.value || "generic";
+  let dateCandidates = ["date","transaction date","posting date","post date","posted date"];
+  let nameCandidates = ["description","name","merchant","payee","transaction","details"];
+  let amountCandidates = ["amount","transaction amount","debit","credit"];
+  let typeCandidates = ["type","transaction type"];
+  let categoryCandidates = ["category"];
+  let accountCandidates = ["account","account name"];
+
+  if(preset==="chase"){ nameCandidates=["description","merchant","name"]; dateCandidates=["transaction date","post date","date"]; }
+  if(preset==="capitalone"){ nameCandidates=["description","card no.","merchant"]; dateCandidates=["transaction date","posted date","date"]; }
+  if(preset==="wellsfargo"){ nameCandidates=["description","memo","payee"]; dateCandidates=["date","posted date"]; }
+  if(preset==="bankofamerica"){ nameCandidates=["description","payee","name"]; dateCandidates=["date","posted date"]; }
+  if(preset==="payroll"){ nameCandidates=["employer","company","name"]; amountCandidates=["net","net pay","amount"]; dateCandidates=["date","pay date"]; }
+
+  mapDate.value = guessHeader(importHeaders,dateCandidates);
+  mapName.value = guessHeader(importHeaders,nameCandidates);
+  mapAmount.value = guessHeader(importHeaders,amountCandidates);
+  mapType.value = guessHeader(importHeaders,typeCandidates);
+  mapCategory.value = guessHeader(importHeaders,categoryCandidates);
+  mapAccount.value = guessHeader(importHeaders,accountCandidates);
+  buildMappedPreview();
+}
+
+function categorySuggest(name){
+  let s=String(name||"").toLowerCase();
+  if(/shell|chevron|exxon|mobil|valero|gas/.test(s)) return "Fuel";
+  if(/costco|kroger|heb|walmart|grocery|market/.test(s)) return "Food";
+  if(/amazon|target|home depot|lowes|shopping/.test(s)) return "Shopping";
+  if(/netflix|spotify|hulu|disney|entertainment/.test(s)) return "Entertainment";
+  if(/rent|mortgage|apartment/.test(s)) return "Housing";
+  if(/centerpoint|electric|water|utility|utilities|internet|xfinity|att|verizon/.test(s)) return "Utilities";
+  if(/payroll|salary|direct dep|deposit/.test(s)) return "Income";
+  if(/insurance|geico|progressive|state farm/.test(s)) return "Insurance";
+  return "Other";
+}
+
+function amountFromRow(row){
+  let amountCol = mapAmount?.value || "";
+  let raw = row[amountCol];
+  if(raw!==undefined && raw!=="") return Number(String(raw).replace(/[$,]/g,"")) || 0;
+  let debit = Number(String(row["Debit"]||row["debit"]||"").replace(/[$,]/g,"")) || 0;
+  let credit = Number(String(row["Credit"]||row["credit"]||"").replace(/[$,]/g,"")) || 0;
+  if(debit) return Math.abs(debit);
+  if(credit) return Math.abs(credit);
+  return 0;
+}
+
+function mappedType(row, amount){
+  let typeCol = mapType?.value || "";
+  let explicit = row[typeCol];
+  if(explicit) return String(explicit).toLowerCase().includes("income") || String(explicit).toLowerCase().includes("credit") ? "Income" : "Expense";
+  let raw = row[mapAmount?.value || ""];
+  if(String(raw||"").trim().startsWith("-")) return "Expense";
+  let name = row[mapName?.value || ""] || "";
+  if(/payroll|direct dep|salary|deposit/i.test(name)) return "Income";
+  return "Expense";
+}
+
+function buildMappedPreview(){
+  let type = document.getElementById("importType")?.value || "transactions";
+  let keys = existingImportKeys(type);
+  importPreviewRows = rawImportRows.map(raw=>{
+    let row;
+    if(type==="transactions"){
+      let amount = amountFromRow(raw);
+      let name = raw[mapName.value] || raw.description || raw.Description || "Imported";
+      let ttype = mappedType(raw, amount);
+      row = {
+        id: uid(),
+        date: raw[mapDate.value] || today(),
+        type: ttype,
+        name,
+        amount: Math.abs(amount),
+        category: raw[mapCategory.value] || categorySuggest(name),
+        account: raw[mapAccount.value] || "",
+        notes: "Imported via Smart Import Center"
+      };
+    } else if(type==="bills"){
+      let amount = amountFromRow(raw);
+      let name = raw[mapName.value] || raw.name || raw.Name || "Imported Bill";
+      row = {id:uid(),name,amount:Math.abs(amount),due:raw[mapDate.value]||"",category:raw[mapCategory.value]||categorySuggest(name),frequency:"Monthly",autopay:false,notes:"Imported via Smart Import Center"};
+    } else {
+      let amount = amountFromRow(raw);
+      let employer = raw[mapName.value] || raw.employer || raw.Employer || "Imported";
+      row = {id:uid(),employer,date:raw[mapDate.value]||today(),gross:0,net:Math.abs(amount),taxes:0,deductions:0,notes:"Imported via Smart Import Center"};
+    }
+    return {type,row,duplicate:keys.has(importDuplicateKey(type,row))};
+  });
+  renderImportPreview();
+  updateImportSummary();
+}
+
+function updateImportStats(){
+  let total=importPreviewRows.length;
+  let dup=importPreviewRows.filter(r=>r.duplicate).length;
+  if(document.getElementById("importRows")) importRows.textContent=String(total);
+  if(document.getElementById("importNew")) importNew.textContent=String(total-dup);
+  if(document.getElementById("importDupes")) importDupes.textContent=String(dup);
+  let warnings=document.getElementById("importWarnings");
+  if(warnings){
+    let missing=[];
+    if(!mapDate?.value) missing.push("date");
+    if(!mapName?.value) missing.push("name");
+    if(!mapAmount?.value) missing.push("amount");
+    warnings.innerHTML=missing.length?`<div class="import-warning">Missing suggested mapping: ${missing.join(", ")}. You can still preview, but review carefully.</div>`:"";
+  }
+}
+
+function renderImportPreview(){
+  let list=document.getElementById("importPreviewList");
+  if(!list) return;
+  if(!importPreviewRows.length){
+    list.innerHTML='<div class="empty">Import preview will appear here.</div>';
+    updateImportStats();
+    return;
+  }
+  list.innerHTML=importPreviewRows.map((r,i)=>{
+    let title=r.type==="transactions"?`${r.row.type}: ${r.row.name}`:r.type==="bills"?r.row.name:`${r.row.employer} payroll`;
+    let sub=r.type==="transactions"?`${r.row.date} · ${r.row.category} · ${money(r.row.amount)}`:r.type==="bills"?`Due ${r.row.due||"—"} · ${money(r.row.amount)}`:`${r.row.date} · Net ${money(r.row.net)}`;
+    return `<div class="item"><div class="head"><div><div class="title">${esc(title)}</div><div class="muted">${esc(sub)}</div></div><span class="badge ${r.duplicate?"rose":"green"}">${r.duplicate?"Duplicate":"New"}</span></div><div class="actions"><button class="btn secondary" onclick="removeImportPreviewRow(${i})">Remove</button></div></div>`;
+  }).join("");
+  updateImportStats();
+}
+
+function updateImportSummary(){
+  let el=document.getElementById("importSummary"); if(!el) return;
+  let total=importPreviewRows.length, dup=importPreviewRows.filter(r=>r.duplicate).length, ready=total-dup;
+  el.textContent=`${total} rows previewed · ${ready} new · ${dup} possible duplicates.`;
+  updateImportStats();
+}
+
+function clearImportPreview(){
+  importPreviewRows=[]; rawImportRows=[]; importHeaders=[];
+  let f=document.getElementById("importPreviewFile"); if(f) f.value="";
+  ["mapDate","mapName","mapAmount","mapType","mapCategory","mapAccount"].forEach(id=>fillMapSelect(id,[]));
+  renderImportPreview(); updateImportSummary();
+}
+
+function setupSmartImportCenter(){
+  let f=document.getElementById("importPreviewFile");
+  if(!f) return;
+  f.onchange=async e=>{
+    let file=e.target.files[0]; if(!file) return;
+    rawImportRows=parseCSV(await file.text());
+    importHeaders=rawImportRows.length?Object.keys(rawImportRows[0]):[];
+    ["mapDate","mapName","mapAmount","mapType","mapCategory","mapAccount"].forEach(id=>fillMapSelect(id,importHeaders));
+    autoMapImportColumns();
+  };
+  ["importType","importPreset","mapDate","mapName","mapAmount","mapType","mapCategory","mapAccount"].forEach(id=>{
+    let el=document.getElementById(id); if(el) el.onchange=()=>{ if(rawImportRows.length) buildMappedPreview(); };
+  });
+}
+
+
+let pendingPdfDoc = null;
+
+function pdfCleanText(raw){
+  try{
+    let text = raw
+      .replace(/\\r/g," ")
+      .replace(/\\n/g," ")
+      .replace(/\\t/g," ")
+      .replace(/\\\(/g,"(")
+      .replace(/\\\)/g,")")
+      .replace(/\s+/g," ");
+    // Pull common PDF literal strings too
+    let strings = [];
+    let m;
+    let re = /\(([^()]{2,220})\)\s*Tj/g;
+    while((m=re.exec(raw))!==null) strings.push(m[1]);
+    let re2 = /\(([^()]{2,220})\)/g;
+    while((m=re2.exec(raw))!==null && strings.length<4000) strings.push(m[1]);
+    return (text + " " + strings.join(" ")).replace(/\s+/g," ");
+  }catch(e){ return raw; }
+}
+
+function pdfMoney(text, patterns){
+  for(let p of patterns){
+    let m = text.match(p);
+    if(m) return Number(String(m[1]).replace(/[$,]/g,""));
+  }
+  return null;
+}
+function pdfTextValue(text, patterns){
+  for(let p of patterns){
+    let m=text.match(p);
+    if(m) return String(m[1]).trim();
+  }
+  return "";
+}
+
+function detectPdfInstitution(text, name){
+  let s=(text+" "+name).toLowerCase();
+  if(s.includes("discover")) return "Discover";
+  if(s.includes("best buy") || s.includes("citibank") || s.includes("citigroup")) return "Best Buy / Citi";
+  if(s.includes("chase") || s.includes("mileageplus") || s.includes("united")) return "Chase";
+  if(s.includes("promotional balance")) return "Promotional Balance";
+  return "Unknown";
+}
+
+function detectPdfDocType(text){
+  let s=text.toLowerCase();
+  if(s.includes("promotional balance")) return "Promotional Financing";
+  if(s.includes("account statement") || s.includes("account summary") || s.includes("payment information")) return "Credit Card Statement";
+  if(s.includes("paystub") || s.includes("pay statement") || s.includes("net pay")) return "Payroll";
+  return "Financial PDF";
+}
+
+function parsePdfSummary(text, fileName){
+  let institution = detectPdfInstitution(text,fileName);
+  let docType = detectPdfDocType(text);
+  let ending = pdfTextValue(text,[
+    /ending in\s*([0-9]{4})/i,
+    /endingin\s*([0-9]{4})/i,
+    /Account Number:\s*X{2,}\s*X{2,}\s*X{2,}\s*([0-9]{4})/i,
+    /Account number ending in\s*([0-9]{4})/i
+  ]);
+
+  let newBalance = pdfMoney(text,[
+    /New Balance[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Current Balance[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i
+  ]);
+  let minPayment = pdfMoney(text,[
+    /Minimum Payment Due[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Minimum Payment[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i
+  ]);
+  let creditLimit = pdfMoney(text,[
+    /Credit Limit[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Credit Line[:\s$]*\$?\s*([0-9,]+(?:\.[0-9]{2})?)/i,
+    /Credit Access Line[:\s$]*\$?\s*([0-9,]+(?:\.[0-9]{2})?)/i
+  ]);
+  let availableCredit = pdfMoney(text,[
+    /Available Credit[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Credit Line Available[:\s$]*\$?\s*([0-9,]+(?:\.[0-9]{2})?)/i
+  ]);
+  let dueDate = pdfTextValue(text,[
+    /Payment Due Date[:\s]*([A-Z][a-z]+\s+\d{1,2},\s+\d{4})/i,
+    /Payment Due Date[:\s]*([0-9]{2}\/[0-9]{2}\/[0-9]{4})/i,
+    /Payment Due Date[:\s]*([0-9]{2}\/[0-9]{2}\/[0-9]{2})/i
+  ]);
+  let statementClose = pdfTextValue(text,[
+    /Statement Closing Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{4})/i,
+    /Opening\/Closing Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2}\s*-\s*[0-9]{2}\/[0-9]{2}\/[0-9]{2})/i,
+    /OPEN TO CLOSE DATE:\s*([0-9]{2}\/[0-9]{2}\/[0-9]{4}\s*-\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})/i
+  ]);
+
+  let promoTotal = pdfMoney(text,[
+    /TOTAL PROMOTIONAL BALANCE\s*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Promotional Balance\s*\$?\s*([0-9,]+\.[0-9]{2})/i
+  ]);
+  let promoExpire = pdfTextValue(text,[
+    /PLAN EXPIRES\s*([A-Z]{3}\s*\d{2},\s*\d{4})/i,
+    /Promotion Expiration Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2,4})/i,
+    /pay.*?in full by\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2,4})/i
+  ]);
+
+  let transactions = extractPdfTransactions(text, institution);
+
+  return {
+    id: uid(),
+    fileName,
+    institution,
+    docType,
+    accountEnding: ending,
+    newBalance,
+    minimumPayment: minPayment,
+    creditLimit,
+    availableCredit,
+    paymentDueDate: dueDate,
+    statementDate: statementClose,
+    promotionalBalance: promoTotal,
+    promoExpiration: promoExpire,
+    transactionCount: transactions.length,
+    transactions,
+    importedAt: new Date().toISOString()
+  };
+}
+
+function extractPdfTransactions(text, institution){
+  let txns=[];
+  // Best Buy/Citi rows like: 02/13 BESTBUY.COM ... $ 2,262.36
+  let re1=/(\d{2}\/\d{2})\s+([A-Z0-9 .,*#&'-]{4,80}?)\s+\$?\s*([0-9,]+\.[0-9]{2})/g;
+  let m;
+  while((m=re1.exec(text))!==null && txns.length<80){
+    let desc=m[2].trim();
+    if(/New Balance|Minimum Payment|Credit Limit|Available|Previous Balance|Purchases|Interest|Fees/i.test(desc)) continue;
+    txns.push({date:m[1],name:desc,amount:Number(m[3].replace(/,/g,"")),type:"Expense",category:categorySuggest(desc)});
+  }
+  // Chase / Discover summary values are not transactions; avoid over-importing if no actual activity table
+  return txns;
+}
+
+function renderPdfPreview(){
+  let el=document.getElementById("pdfSummary");
+  if(!el) return;
+  if(!pendingPdfDoc){el.innerHTML='<div class="empty">PDF summary will appear here.</div>';return;}
+  let d=pendingPdfDoc;
+  let fields=[
+    ["Institution",d.institution],
+    ["Document Type",d.docType],
+    ["Account Ending",d.accountEnding||"—"],
+    ["Statement / Close Date",d.statementDate||"—"],
+    ["Payment Due",d.paymentDueDate||"—"],
+    ["New / Current Balance",d.newBalance!=null?money(d.newBalance):"—"],
+    ["Minimum Payment",d.minimumPayment!=null?money(d.minimumPayment):"—"],
+    ["Credit Limit",d.creditLimit!=null?money(d.creditLimit):"—"],
+    ["Available Credit",d.availableCredit!=null?money(d.availableCredit):"—"],
+    ["Promotional Balance",d.promotionalBalance!=null?money(d.promotionalBalance):"—"],
+    ["Promo Expiration",d.promoExpiration||"—"],
+    ["Possible Transactions",String(d.transactionCount)],["Parser Confidence",String(d.confidence||0)+"%"],["PDF Engine",d.engine||"—"],["Promo Plans",String((d.promos||[]).length)]
+  ];
+  el.innerHTML=fields.map(f=>`<div class="pdf-field"><span class="muted">${esc(f[0])}</span><strong>${esc(f[1])}</strong></div>`).join("");
+}
+
+function clearPdfPreview(){
+  pendingPdfDoc=null;
+  let f=document.getElementById("pdfUpload"); if(f) f.value="";
+  let st=document.getElementById("pdfStatus"); if(st) st.textContent="No PDF selected.";
+  renderPdfPreview();
+}
+
+async function savePdfDocument(){
+  if(!pendingPdfDoc){toast("No PDF selected");return;}
+  await put("documents",pendingPdfDoc);
+  // Also create/update a credit-card account shell if enough info exists
+  if(pendingPdfDoc.docType.includes("Credit") || pendingPdfDoc.institution!=="Unknown"){
+    let name = `${pendingPdfDoc.institution} ${pendingPdfDoc.accountEnding ? "••••"+pendingPdfDoc.accountEnding : ""}`.trim();
+    if(!state.accounts.find(a=>a.name===name)){
+      await put("accounts",{id:uid(),name,type:"Credit Card",balance:pendingPdfDoc.newBalance||0,apr:0,minimum:pendingPdfDoc.minimumPayment||0,creditLimit:pendingPdfDoc.creditLimit||0,due:pendingPdfDoc.paymentDueDate||"",notes:`Created from ${pendingPdfDoc.fileName}`});
+    }
+  }
+  // Save extracted transactions as preview-imported records with source doc link
+  for(let t of (pendingPdfDoc.transactions||[])){
+    await put("transactions",{id:uid(),date:t.date,type:t.type,name:t.name,amount:t.amount,category:t.category,account:pendingPdfDoc.institution,notes:`Source PDF: ${pendingPdfDoc.fileName}`,sourceDocumentId:pendingPdfDoc.id});
+  }
+  await load();
+  render();
+  toast("PDF saved to vault");
+}
+
+function vault(){
+  let list=document.getElementById("documentList"); if(!list) return;
+  let docs=state.documents||[];
+  list.innerHTML=docs.length?docs.slice().reverse().map(d=>`<div class="item"><div class="head"><div><div class="doc-type">${esc(d.docType||"Document")}</div><div class="title">${esc(d.fileName)}</div><div class="muted">${esc(d.institution||"Unknown")} ${d.accountEnding? "· Ending "+esc(d.accountEnding):""}</div></div><span class="badge blue">${d.importedAt?new Date(d.importedAt).toLocaleDateString():"Saved"}</span></div><div class="kpis"><div class="card"><div class="label">Balance</div><div class="value">${d.newBalance!=null?money(d.newBalance):"—"}</div></div><div class="card"><div class="label">Min Pay</div><div class="value">${d.minimumPayment!=null?money(d.minimumPayment):"—"}</div></div><div class="card"><div class="label">Due</div><div class="value">${esc(d.paymentDueDate||"—")}</div></div><div class="card"><div class="label">Txns</div><div class="value">${d.transactionCount||0}</div></div></div></div>`).join(""):'<div class="empty">No documents saved yet.</div>';
+}
+
+function setupPdfUpload(){let f=document.getElementById("pdfUpload"); if(!f) return; f.onchange=()=>handlePdfFileInput(f);}
+
+
+function parseAmountString(s){
+  return Number(String(s||"").replace(/[$,]/g,"").replace(/[()]/g,"")) || 0;
+}
+function normalizeDateToken(s){
+  s=String(s||"").trim();
+  if(/^\d{2}\/\d{2}$/.test(s)){
+    let yr=new Date().getFullYear();
+    return `${s}/${String(yr).slice(2)}`;
+  }
+  return s;
+}
+function pdfConfidence(d){
+  let score=0;
+  if(d.institution && d.institution!=="Unknown") score+=20;
+  if(d.docType && d.docType!=="Financial PDF") score+=15;
+  if(d.accountEnding) score+=10;
+  if(d.newBalance!=null) score+=15;
+  if(d.minimumPayment!=null) score+=10;
+  if(d.paymentDueDate) score+=10;
+  if(d.creditLimit!=null) score+=10;
+  if((d.transactions||[]).length) score+=5;
+  if((d.promos||[]).length) score+=5;
+  return Math.min(100,score);
+}
+function extractPromoPlans(text){
+  let plans=[];
+  let re=/(?:PURCHASE DATE|Promo Trans Date)\s*([A-Z]{3}\s+\d{1,2},\s+\d{4}|\d{2}\/\d{2}\/\d{2,4}).{0,180}?(?:PROMOTIONAL BALANCE|Original Promotion Trans Amount|New Balance)\s*\$?\s*([0-9,]+\.[0-9]{2}).{0,220}?(?:PLAN EXPIRES|Promotion Expiration Date|pay.*?in full by)\s*([A-Z]{3}\s*\d{2},\s*\d{4}|\d{2}\/\d{2}\/\d{2,4})/ig;
+  let m;
+  while((m=re.exec(text))!==null && plans.length<20){
+    plans.push({id:uid(),purchaseDate:m[1],balance:parseAmountString(m[2]),expiration:m[3],description:"Deferred Interest Promotion"});
+  }
+  // Best Buy promo screenshot style often lists dates and balances separately.
+  if(!plans.length && /Promotional Balance/i.test(text)){
+    let dates=[...text.matchAll(/(?:MAR|FEB|JAN|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\s+\d{1,2},\s+\d{4}/ig)].map(x=>x[0]);
+    let bals=[...text.matchAll(/PROMOTIONAL BALANCE\s*\$?\s*([0-9,]+\.[0-9]{2})/ig)].map(x=>parseAmountString(x[1]));
+    let exp=pdfTextValue(text,[/PLAN EXPIRES\s*([A-Z]{3}\s*\d{2},\s*\d{4})/i]);
+    for(let i=0;i<Math.min(dates.length,bals.length);i++){
+      plans.push({id:uid(),purchaseDate:dates[i],balance:bals[i],expiration:exp||"",description:"Deferred Interest Promotion"});
+    }
+  }
+  return plans;
+}
+function extractPdfTransactions(text, institution){
+  let txns=[];
+  // Best Buy/Citi transaction table
+  let bestBuy=/(\d{2}\/\d{2})\s+((?:BESTBUY|BEST BUY|[A-Z0-9][A-Z0-9 .,*#&'/-]{5,90}?))\s+(?:\*[A-Z0-9-]+\s+)?\$?\s*([0-9,]+\.[0-9]{2})/g;
+  let m;
+  while((m=bestBuy.exec(text))!==null && txns.length<100){
+    let desc=m[2].trim();
+    if(/TOTAL|FEES|INTEREST|BALANCE|PAYMENT|CREDIT LIMIT|AVAILABLE/i.test(desc)) continue;
+    txns.push({date:normalizeDateToken(m[1]),name:desc,amount:parseAmountString(m[3]),type:"Expense",category:categorySuggest(desc)});
+  }
+
+  // Chase activity pages often contain dates as MM/DD or MM/DD/YY followed by merchant and amount.
+  let chase=/(\d{2}\/\d{2}(?:\/\d{2})?)\s+([A-Z0-9][A-Z0-9 .,#&'/-]{5,70}?)\s+\$?\s*([0-9,]+\.[0-9]{2})/g;
+  while((m=chase.exec(text))!==null && txns.length<160){
+    let desc=m[2].trim();
+    if(/Previous Balance|New Balance|Minimum Payment|Credit Access|Available|Purchases|Fees|Interest|Payment Due|Cash Advances|Balance Transfers|TOTAL|Account Summary/i.test(desc)) continue;
+    let key=`${m[1]}|${desc}|${m[3]}`;
+    if(!txns.find(t=>`${t.date}|${t.name}|${t.amount.toFixed(2)}`===`${normalizeDateToken(m[1])}|${desc}|${parseAmountString(m[3]).toFixed(2)}`)){
+      txns.push({date:normalizeDateToken(m[1]),name:desc,amount:parseAmountString(m[3]),type:/payment|credit/i.test(desc)?"Income":"Expense",category:categorySuggest(desc)});
+    }
+  }
+  return txns.slice(0,120);
+}
+function parsePdfSummary(text, fileName){
+  let institution = detectPdfInstitution(text,fileName);
+  let docType = detectPdfDocType(text);
+  let ending = pdfTextValue(text,[
+    /ending in\s*([0-9]{4})/i,
+    /endingin\s*([0-9]{4})/i,
+    /Account Number:\s*X{2,}\s*X{2,}\s*X{2,}\s*([0-9]{4})/i,
+    /Account number ending in\s*([0-9]{4})/i
+  ]);
+  let newBalance = pdfMoney(text,[
+    /New Balance[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Current Balance[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i
+  ]);
+  let minPayment = pdfMoney(text,[
+    /Minimum Payment Due[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Minimum Payment[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i
+  ]);
+  let creditLimit = pdfMoney(text,[
+    /Credit Limit[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Credit Line[:\s$]*\$?\s*([0-9,]+(?:\.[0-9]{2})?)/i,
+    /Credit Access Line[:\s$]*\$?\s*([0-9,]+(?:\.[0-9]{2})?)/i
+  ]);
+  let availableCredit = pdfMoney(text,[
+    /Available Credit[:\s$]*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Credit Line Available[:\s$]*\$?\s*([0-9,]+(?:\.[0-9]{2})?)/i,
+    /Available Credit\s*\$?\s*([0-9,]+(?:\.[0-9]{2})?)/i
+  ]);
+  let dueDate = pdfTextValue(text,[
+    /Payment Due Date[:\s]*([A-Z][a-z]+\s+\d{1,2},\s+\d{4})/i,
+    /Payment Due Date[:\s]*([0-9]{2}\/[0-9]{2}\/[0-9]{4})/i,
+    /Payment Due Date[:\s]*([0-9]{2}\/[0-9]{2}\/[0-9]{2})/i
+  ]);
+  let statementClose = pdfTextValue(text,[
+    /Statement Closing Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{4})/i,
+    /Opening\/Closing Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2}\s*-\s*[0-9]{2}\/[0-9]{2}\/[0-9]{2})/i,
+    /OPEN TO CLOSE DATE:\s*([0-9]{2}\/[0-9]{2}\/[0-9]{4}\s*-\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})/i
+  ]);
+  let promoTotal = pdfMoney(text,[
+    /TOTAL PROMOTIONAL BALANCE\s*\$?\s*([0-9,]+\.[0-9]{2})/i,
+    /Promotional Balance\s*\$?\s*([0-9,]+\.[0-9]{2})/i
+  ]);
+  let promoExpire = pdfTextValue(text,[
+    /PLAN EXPIRES\s*([A-Z]{3}\s*\d{2},\s*\d{4})/i,
+    /Promotion Expiration Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2,4})/i,
+    /pay.*?in full by\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2,4})/i
+  ]);
+  let transactions=extractPdfTransactions(text,institution);
+  let promos=extractPromoPlans(text);
+  let d={id:uid(),fileName,institution,docType,accountEnding:ending,newBalance,minimumPayment:minPayment,creditLimit,availableCredit,paymentDueDate:dueDate,statementDate:statementClose,promotionalBalance:promoTotal,promoExpiration:promoExpire,transactionCount:transactions.length,transactions,promos,importedAt:new Date().toISOString()};
+  d.confidence=pdfConfidence(d);
+  return d;
+}
+async function upsertAccountFromPdf(d){
+  let name=`${d.institution} ${d.accountEnding ? "••••"+d.accountEnding : ""}`.trim();
+  if(!name || d.institution==="Unknown") name=d.fileName.replace(/\.pdf$/i,"");
+  let existing=state.accounts.find(a=>a.name===name);
+  let account={id:existing?.id||uid(),name,type:"Credit Card",balance:d.newBalance||existing?.balance||0,apr:existing?.apr||0,minimum:d.minimumPayment||existing?.minimum||0,creditLimit:d.creditLimit||existing?.creditLimit||0,due:d.paymentDueDate||existing?.due||"",notes:`Updated from PDF: ${d.fileName}`,updatedAt:new Date().toISOString()};
+  await put("accounts",account);
+}
+async function savePdfDocument(){
+  if(!pendingPdfDoc){toast("No PDF selected");return;}
+  await put("documents",pendingPdfDoc);
+  await upsertAccountFromPdf(pendingPdfDoc);
+  for(let p of (pendingPdfDoc.promos||[])){
+    await put("promos",{...p,sourceDocumentId:pendingPdfDoc.id,institution:pendingPdfDoc.institution,accountEnding:pendingPdfDoc.accountEnding,fileName:pendingPdfDoc.fileName,createdAt:new Date().toISOString()});
+  }
+  for(let t of (pendingPdfDoc.transactions||[])){
+    let dup=state.transactions.find(x=>x.sourceDocumentId===pendingPdfDoc.id && x.date===t.date && x.name===t.name && Number(x.amount||0).toFixed(2)===Number(t.amount||0).toFixed(2));
+    if(!dup) await put("transactions",{id:uid(),date:t.date,type:t.type,name:t.name,amount:t.amount,category:t.category,account:pendingPdfDoc.institution,notes:`Source PDF: ${pendingPdfDoc.fileName}`,sourceDocumentId:pendingPdfDoc.id});
+  }
+  await load(); render(); toast("Statement parsed and saved");
+}
+function monthsUntil(dateText){
+  if(!dateText) return null;
+  let d=new Date(dateText.replace(/([A-Z]{3})\s*(\d{2}),/i,"$1 $2,"));
+  if(isNaN(d)) return null;
+  let now=new Date();
+  return Math.max(0,Math.ceil((d-now)/(1000*60*60*24*30.4375)));
+}
+function promos(){
+  let el=document.getElementById("promoList"); if(!el) return;
+  let ps=state.promos||[];
+  el.innerHTML=ps.length?ps.slice().sort((a,b)=>(monthsUntil(a.expiration)??999)-(monthsUntil(b.expiration)??999)).map(p=>{
+    let mo=monthsUntil(p.expiration), monthly=mo&&mo>0?Number(p.balance||0)/mo:null;
+    let risk=mo==null?"Unknown":mo<=3?"Risk":mo<=9?"Watch":"Good";
+    let cls=risk==="Good"?"green":risk==="Watch"?"amber":"rose";
+    return `<div class="item"><div class="head"><div><div class="title">${esc(p.description||"Promotional Balance")}</div><div class="muted">${esc(p.institution||"")} ${p.accountEnding?"· Ending "+esc(p.accountEnding):""}</div></div><span class="badge ${cls}">${risk}</span></div><div class="kpis"><div class="card"><div class="label">Balance</div><div class="value">${money(p.balance)}</div></div><div class="card"><div class="label">Purchase Date</div><div class="value">${esc(p.purchaseDate||"—")}</div></div><div class="card"><div class="label">Expires</div><div class="value">${esc(p.expiration||"—")}</div></div><div class="card"><div class="label">Target / Month</div><div class="value">${monthly?money(monthly):"—"}</div></div></div><p class="muted">Source: ${esc(p.fileName||"PDF")}</p></div>`;
+  }).join(""):'<div class="empty">No promotional balances tracked yet.</div>';
+}
+
+
+function validatePdfDoc(d){
+  let checks=[];
+  let hasIssuer=d.institution && d.institution!=="Unknown";
+  let hasBalance=d.newBalance!=null;
+  let hasDue=d.paymentDueDate || d.docType==="Promotional Financing";
+  let hasAccount=d.accountEnding || d.institution!=="Unknown";
+  let hasUsefulData=hasBalance || d.minimumPayment!=null || d.creditLimit!=null || (d.promos||[]).length || (d.transactions||[]).length;
+
+  checks.push({label:"Issuer detected",status:hasIssuer?"pass":"watch",detail:hasIssuer?d.institution:"Unknown issuer"});
+  checks.push({label:"Account identified",status:hasAccount?"pass":"watch",detail:d.accountEnding?`Ending ${d.accountEnding}`:"Account ending not found"});
+  checks.push({label:"Balance extracted",status:hasBalance?"pass":"watch",detail:hasBalance?money(d.newBalance):"No balance found"});
+  checks.push({label:"Payment / promo date",status:hasDue?"pass":"watch",detail:d.paymentDueDate||d.promoExpiration||"No due date found"});
+  checks.push({label:"Transactions found",status:(d.transactions||[]).length>0?"pass":"watch",detail:`${(d.transactions||[]).length} possible transaction(s)`});
+  checks.push({label:"Promos found",status:(d.promos||[]).length>0?"pass":"pass",detail:`${(d.promos||[]).length} promotional plan(s)`});
+  checks.push({label:"Useful data",status:hasUsefulData?"pass":"risk",detail:hasUsefulData?"Ready for review":"This PDF may be image-only or unsupported"});
+
+  let risk=checks.filter(c=>c.status==="risk").length;
+  let watch=checks.filter(c=>c.status==="watch").length;
+  let pass=checks.filter(c=>c.status==="pass").length;
+  return {checks,risk,watch,pass};
+}
+
+function renderPdfValidation(){
+  let el=document.getElementById("pdfValidation"); if(!el) return;
+  if(!pendingPdfDoc){el.innerHTML='<div class="empty">Validation will appear here.</div>';return;}
+  let v=validatePdfDoc(pendingPdfDoc);
+  let overall=v.risk>0?"Review Required":v.watch>2?"Review Carefully":"Looks Good";
+  let overallClass=v.risk>0?"validation-risk":v.watch>2?"validation-watch":"validation-pass";
+  el.innerHTML=`<div class="review-note"><strong class="${overallClass}">${overall}</strong><br>PDF parsing is still an alpha feature. Review extracted numbers against the statement before saving.</div>`+
+    v.checks.map(c=>`<div class="validation-row"><span>${esc(c.label)}</span><span class="${c.status==="pass"?"validation-pass":c.status==="watch"?"validation-watch":"validation-risk"}">${esc(c.detail)}</span></div>`).join("");
+}
+
+// Override preview renderer to include validation refresh
+const oldRenderPdfPreview_v24 = typeof renderPdfPreview==="function" ? renderPdfPreview : null;
+renderPdfPreview = function(){
+  let el=document.getElementById("pdfSummary");
+  if(!el) return;
+  if(!pendingPdfDoc){
+    el.innerHTML='<div class="empty">PDF summary will appear here.</div>';
+    renderPdfValidation();
+    return;
+  }
+  let d=pendingPdfDoc;
+  let fields=[
+    ["Institution",d.institution],
+    ["Document Type",d.docType],
+    ["Account Ending",d.accountEnding||"—"],
+    ["Statement / Close Date",d.statementDate||"—"],
+    ["Payment Due",d.paymentDueDate||"—"],
+    ["New / Current Balance",d.newBalance!=null?money(d.newBalance):"—"],
+    ["Minimum Payment",d.minimumPayment!=null?money(d.minimumPayment):"—"],
+    ["Credit Limit",d.creditLimit!=null?money(d.creditLimit):"—"],
+    ["Available Credit",d.availableCredit!=null?money(d.availableCredit):"—"],
+    ["Promotional Balance",d.promotionalBalance!=null?money(d.promotionalBalance):"—"],
+    ["Promo Expiration",d.promoExpiration||"—"],
+    ["Possible Transactions",String(d.transactionCount||0)],
+    ["Parser Confidence",String(d.confidence||0)+"%"],["PDF Engine",d.engine||"—"],
+    ["Promo Plans",String((d.promos||[]).length)]
+  ];
+  el.innerHTML=fields.map(f=>`<div class="pdf-field"><span class="muted">${esc(f[0])}</span><strong>${esc(f[1])}</strong></div>`).join("");
+  renderPdfValidation();
+}
+
+// Override save with validation warning
+const oldSavePdfDocument_v24 = typeof savePdfDocument==="function" ? savePdfDocument : null;
+savePdfDocument = async function(){
+  if(!pendingPdfDoc){toast("No PDF selected");return;}
+  let v=validatePdfDoc(pendingPdfDoc);
+  if(v.risk>0 && !confirm("This PDF has validation risks. Save anyway?")) return;
+  if(v.watch>2 && !confirm("Several fields need review. Save anyway?")) return;
+  if(oldSavePdfDocument_v24) return oldSavePdfDocument_v24();
+}
+
+
+async function processPdfFile(file){
+  if(!file) return;
+  let st=document.getElementById("pdfStatus");
+  if(st) st.textContent="Reading PDF text layer...";
+  try{
+    let buf=await file.arrayBuffer();
+    let raw=new TextDecoder("latin1").decode(buf);
+    let text=pdfCleanText(raw);
+    pendingPdfDoc=parsePdfSummary(text,file.name);
+    pendingPdfDoc.size=file.size;
+    pendingPdfDoc.rawTextSample=text.slice(0,5000);
+    if(st) st.textContent=`Detected: ${pendingPdfDoc.institution} · ${pendingPdfDoc.docType}`;
+    renderPdfPreview();
+  }catch(err){
+    if(st) st.textContent="Could not read this PDF. It may be image-only, compressed, or encrypted.";
+    pendingPdfDoc={id:uid(),fileName:file.name,institution:"Unknown",docType:"PDF Document",importedAt:new Date().toISOString(),error:"Text extraction failed"};
+    renderPdfPreview();
+  }
+}
+function handlePdfFileInput(input){
+  let file=input && input.files ? input.files[0] : null;
+  processPdfFile(file);
+}
+function analyzeSelectedPdf(){
+  let input=document.getElementById("pdfUpload");
+  if(!input || !input.files || !input.files[0]){toast("Choose a PDF first");return;}
+  processPdfFile(input.files[0]);
+}
+
+
+function setupChromeFileDrop(){
+  let zone=document.getElementById("pdfDropZone");
+  let input=document.getElementById("pdfUpload");
+  if(!zone || !input) return;
+  ["dragenter","dragover"].forEach(evt=>zone.addEventListener(evt,e=>{e.preventDefault();zone.classList.add("dragover")}));
+  ["dragleave","drop"].forEach(evt=>zone.addEventListener(evt,e=>{e.preventDefault();zone.classList.remove("dragover")}));
+  zone.addEventListener("drop",e=>{
+    let file=e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files[0] : null;
+    if(file && /\.pdf$/i.test(file.name)) processPdfFile(file);
+    else toast("Drop a PDF file");
+  });
+}
+function setupPwaStatus(){
+  let el=document.getElementById("pwaStatus");
+  if(!el) return;
+  let standalone=window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
+  let chrome=/Chrome|CriOS|Edg/i.test(navigator.userAgent);
+  el.textContent=standalone ? "Running as installed app." : chrome ? "Chrome install supported from the browser menu." : "Use your browser menu to add/install this app.";
+}
+
+
+async function extractPdfTextWithPdfJs(file){
+  if(!window.pdfjsLib) throw new Error("PDF.js library is not loaded");
+  let buffer = await file.arrayBuffer();
+  let pdf = await pdfjsLib.getDocument({data: buffer}).promise;
+  let pages = [];
+  for(let p=1; p<=pdf.numPages; p++){
+    let page = await pdf.getPage(p);
+    let content = await page.getTextContent();
+    let items = content.items.map(i=>i.str).filter(Boolean);
+    pages.push(items.join(" "));
+  }
+  return pages.join("\n\n");
+}
+
+function normalizePdfJsText(text){
+  return String(text||"")
+    .replace(/\s+/g," ")
+    .replace(/\$ ?/g,"$")
+    .replace(/New Balance\s+\$/i,"New Balance $")
+    .replace(/Minimum Payment Due\s+\$/i,"Minimum Payment Due $")
+    .trim();
+}
+
+// Stronger institution detection for PDF.js text
+function detectPdfInstitution(text, name){
+  let s=(text+" "+name).toLowerCase();
+  if(s.includes("discover")) return "Discover";
+  if(s.includes("best buy") || s.includes("my best buy") || s.includes("citibank") || s.includes("citigroup")) return "Best Buy / Citi";
+  if(s.includes("chase") || s.includes("mileageplus") || s.includes("united mileageplus") || s.includes("united explorer")) return "Chase";
+  if(s.includes("promotional balance")) return "Promotional Balance";
+  return "Unknown";
+}
+
+function pdfMoneyNear(text, label){
+  let s=String(text||"");
+  let idx=s.toLowerCase().indexOf(label.toLowerCase());
+  if(idx<0) return null;
+  let chunk=s.slice(idx, idx+220);
+  let m=chunk.match(/\$ ?([0-9,]+\.[0-9]{2}|[0-9,]+)/);
+  return m ? Number(m[1].replace(/,/g,"")) : null;
+}
+
+function parsePdfSummary(text, fileName){
+  text=normalizePdfJsText(text);
+  let institution = detectPdfInstitution(text,fileName);
+  let docType = detectPdfDocType(text);
+  let ending = pdfTextValue(text,[
+    /ending in\s*([0-9]{4})/i,
+    /endingin\s*([0-9]{4})/i,
+    /Account Number:\s*(?:X{2,}\s*){3}([0-9]{4})/i,
+    /Account number ending in\s*([0-9]{4})/i,
+    /ACCOUNT NUMBER ENDING IN\s*([0-9]{4})/i,
+    /XXXX\s+XXXX\s+XXXX\s+([0-9]{4})/i
+  ]);
+
+  let newBalance = pdfMoney(text,[
+    /New Balance[:\s]*\$ ?([0-9,]+\.[0-9]{2})/i,
+    /New Balance\s+\$ ?([0-9,]+\.[0-9]{2})/i,
+    /Current Balance[:\s]*\$ ?([0-9,]+\.[0-9]{2})/i,
+    /New Balance:\s*\$ ?([0-9,]+\.[0-9]{2})/i
+  ]);
+  if(newBalance==null) newBalance=pdfMoneyNear(text,"New Balance");
+
+  let minPayment = pdfMoney(text,[
+    /Minimum Payment Due[:\s]*\$ ?([0-9,]+\.[0-9]{2})/i,
+    /Minimum Payment\s+\$ ?([0-9,]+\.[0-9]{2})/i,
+    /Minimum Payment Due\s+\$ ?([0-9,]+\.[0-9]{2})/i
+  ]);
+  if(minPayment==null) minPayment=pdfMoneyNear(text,"Minimum Payment Due");
+
+  let creditLimit = pdfMoney(text,[
+    /Credit Limit[:\s]*\$ ?([0-9,]+\.[0-9]{2}|[0-9,]+)/i,
+    /Credit Line[:\s]*\$ ?([0-9,]+(?:\.[0-9]{2})?)/i,
+    /Credit Access Line[:\s]*\$ ?([0-9,]+(?:\.[0-9]{2})?)/i
+  ]);
+  if(creditLimit==null) creditLimit=pdfMoneyNear(text,"Credit Limit") ?? pdfMoneyNear(text,"Credit Line") ?? pdfMoneyNear(text,"Credit Access Line");
+
+  let availableCredit = pdfMoney(text,[
+    /Available Credit[:\s]*\$ ?([0-9,]+\.[0-9]{2}|[0-9,]+)/i,
+    /Credit Line Available[:\s]*\$ ?([0-9,]+(?:\.[0-9]{2})?)/i,
+    /Available Credit\s+\$ ?([0-9,]+(?:\.[0-9]{2})?)/i
+  ]);
+  if(availableCredit==null) availableCredit=pdfMoneyNear(text,"Available Credit") ?? pdfMoneyNear(text,"Credit Line Available");
+
+  let dueDate = pdfTextValue(text,[
+    /Payment Due Date[:\s]*([A-Z][a-z]+\s+\d{1,2},\s+\d{4})/i,
+    /Payment Due Date[:\s]*([0-9]{2}\/[0-9]{2}\/[0-9]{4})/i,
+    /Payment Due Date[:\s]*([0-9]{2}\/[0-9]{2}\/[0-9]{2})/i,
+    /Payment Due Date\s+([0-9]{2}\/[0-9]{2}\/[0-9]{2,4})/i
+  ]);
+
+  let statementClose = pdfTextValue(text,[
+    /Statement Closing Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{4})/i,
+    /Opening\/Closing Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2}\s*-\s*[0-9]{2}\/[0-9]{2}\/[0-9]{2})/i,
+    /OPEN TO CLOSE DATE:\s*([0-9]{2}\/[0-9]{2}\/[0-9]{4}\s*-\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})/i,
+    /([0-9]{2}\/[0-9]{2}\/[0-9]{4}\s*-\s*[0-9]{2}\/[0-9]{2}\/[0-9]{4})/i
+  ]);
+
+  let promoTotal = pdfMoney(text,[
+    /TOTAL PROMOTIONAL BALANCE\s*\$ ?([0-9,]+\.[0-9]{2})/i,
+    /Promotional Balance\s*\$ ?([0-9,]+\.[0-9]{2})/i
+  ]);
+  let promoExpire = pdfTextValue(text,[
+    /PLAN EXPIRES\s*([A-Z]{3}\s*\d{2},\s*\d{4})/i,
+    /Promotion Expiration Date\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2,4})/i,
+    /pay.*?in full by\s*([0-9]{2}\/[0-9]{2}\/[0-9]{2,4})/i
+  ]);
+
+  let transactions=extractPdfTransactions(text,institution);
+  let promos=extractPromoPlans(text);
+  let d={id:uid(),fileName,institution,docType,accountEnding:ending,newBalance,minimumPayment:minPayment,creditLimit,availableCredit,paymentDueDate:dueDate,statementDate:statementClose,promotionalBalance:promoTotal,promoExpiration:promoExpire,transactionCount:transactions.length,transactions,promos,importedAt:new Date().toISOString(),engine:"PDF.js"};
+  d.confidence=pdfConfidence(d);
+  return d;
+}
+
+async function processPdfFile(file){
+  if(!file) return;
+  let st=document.getElementById("pdfStatus");
+  let dbg=document.getElementById("pdfDebugText");
+  if(st) st.textContent="Reading PDF with PDF.js...";
+  try{
+    let text = await extractPdfTextWithPdfJs(file);
+    text = normalizePdfJsText(text);
+    pendingPdfDoc=parsePdfSummary(text,file.name);
+    pendingPdfDoc.size=file.size;
+    pendingPdfDoc.rawTextSample=text.slice(0,7000);
+    if(st) st.textContent=`Detected: ${pendingPdfDoc.institution} · ${pendingPdfDoc.docType} · PDF.js`;
+    if(dbg) dbg.textContent=text.slice(0,2500) || "PDF.js returned no visible text.";
+    renderPdfPreview();
+  }catch(err){
+    if(st) st.textContent="PDF.js could not read this PDF. Falling back to basic parser...";
+    try{
+      let buf=await file.arrayBuffer();
+      let raw=new TextDecoder("latin1").decode(buf);
+      let text=pdfCleanText(raw);
+      pendingPdfDoc=parsePdfSummary(text,file.name);
+      pendingPdfDoc.size=file.size;
+      pendingPdfDoc.rawTextSample=text.slice(0,5000);
+      pendingPdfDoc.engine="Basic fallback";
+      if(st) st.textContent=`Detected: ${pendingPdfDoc.institution} · ${pendingPdfDoc.docType} · fallback`;
+      if(dbg) dbg.textContent=text.slice(0,2500);
+      renderPdfPreview();
+    }catch(e2){
+      if(st) st.textContent="Could not read this PDF. It may be image-only or encrypted.";
+      pendingPdfDoc={id:uid(),fileName:file.name,institution:"Unknown",docType:"PDF Document",importedAt:new Date().toISOString(),error:"Text extraction failed",engine:"Failed"};
+      if(dbg) dbg.textContent=String(err && err.message ? err.message : err);
+      renderPdfPreview();
+    }
+  }
+}
+
+(async()=>{try{setupChromeFileDrop();setupPwaStatus();setupPdfUpload();setupSmartImportCenter();setupImportCenter();db=await openDB();await load();clearTxn();render();let h=location.hash.replace("#","");if(h&&document.getElementById(h))show(h)}catch(e){status.textContent="Storage Error";alert("IndexedDB could not start.")}})();
+if("serviceWorker" in navigator){navigator.serviceWorker.register("service-worker.js").catch(()=>{});}
+</script></body></html>
