@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0f19">
+<title>Financial Freedom Engine 3.5</title>
+<style>
+
+:root{--bg:#0b0f19;--card:#131a2c;--card2:#1e2640;--border:#2e3a5f;--text:#f8fafc;--muted:#94a3b8;--blue:#38bdf8;--green:#34d399;--amber:#fbbf24;--rose:#fb7185;--safe:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 0 0,rgba(56,189,248,.16),transparent 36%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(84px + var(--safe))}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app-shell{max-width:1240px;margin:auto;padding:18px 14px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--green));color:#06111c;font-weight:950;display:grid;place-items:center}.pill{border:1px solid var(--border);border-radius:999px;padding:8px 10px;color:var(--muted);font-size:12px;font-weight:800}
+h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:8px 8px calc(8px + var(--safe));background:rgba(11,15,25,.94);backdrop-filter:blur(14px);border-top:1px solid var(--border)}.tab{display:grid;place-items:center;gap:2px;background:transparent;color:var(--muted);border:1px solid transparent;border-radius:14px;padding:7px 2px;font-weight:900}.tab span{font-size:10px}.tab.active{background:var(--card2);border-color:var(--border);color:var(--text)}
+.view{display:none}.view.active{display:block}.card,.item,.hero{background:rgba(19,26,44,.96);border:1px solid var(--border);border-radius:18px;box-shadow:0 14px 36px #0005}.card{padding:14px}.hero{padding:16px;margin-bottom:12px;background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(52,211,153,.07))}.hero h2{font-size:23px;margin:0 0 4px}.hero p,.muted{margin:0;color:var(--muted);font-size:12px}.grid{display:grid;gap:12px}.list{display:grid;gap:10px}.item{padding:12px;display:grid;gap:8px}.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.label{font-size:11px;color:var(--muted);font-weight:950;text-transform:uppercase;letter-spacing:.05em}.value{font-size:22px;font-weight:950;margin-top:5px}.big{font-size:36px;font-weight:950;letter-spacing:-.04em}.section{display:flex;justify-content:space-between;align-items:end;margin:18px 0 8px;gap:10px}.section h2{font-size:18px;margin:0}.head{display:flex;justify-content:space-between;align-items:start;gap:10px}.title{font-weight:950}.money{font-weight:950;white-space:nowrap;font-variant-numeric:tabular-nums}.badge{border-radius:999px;padding:4px 8px;font-size:11px;font-weight:950;display:inline-flex}.blue{background:#38bdf824;color:var(--blue)}.green{background:#34d39924;color:var(--green)}.amber{background:#fbbf2424;color:var(--amber)}.rose{background:#fb718524;color:var(--rose)}.empty{border:1px dashed var(--border);border-radius:14px;color:var(--muted);text-align:center;padding:18px}.progress,.bar{height:10px;background:#0a1020;border:1px solid var(--border);border-radius:999px;overflow:hidden}.progress>div,.bar>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--green))}
+form{display:grid;gap:10px}label{display:grid;gap:5px;color:var(--muted);font-size:12px;font-weight:950}input,select,textarea{width:100%;border:1px solid var(--border);border-radius:12px;background:#0a1020;color:var(--text);padding:11px 12px}textarea{min-height:80px}.formgrid{display:grid;gap:10px}.actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}.btn{border:1px solid transparent;border-radius:12px;padding:10px 12px;font-weight:950;background:var(--blue);color:#06111c}.btn.secondary{background:transparent;color:var(--text);border-color:var(--border)}.btn.green{background:var(--green)}.btn.rose{background:var(--rose);color:white}.hidden{display:none!important}.toast{position:fixed;left:12px;right:12px;bottom:calc(92px + var(--safe));background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:0 16px 40px #0008;display:none;z-index:30}.toast.show{display:block}
+@media(min-width:760px){body{padding-bottom:0}.app-shell{padding:24px}.tabs{position:sticky;top:0;bottom:auto;border:1px solid var(--border);border-radius:18px;margin-bottom:16px;grid-template-columns:repeat(12,auto);justify-content:start}.tab{grid-auto-flow:column;padding:10px 12px}.tab span{font-size:12px}.kpis{grid-template-columns:repeat(4,1fr)}.cols{grid-template-columns:1.05fr .95fr;align-items:start}h1{font-size:22px}.formgrid{grid-template-columns:repeat(2,1fr)}}
+
+.timeline{display:grid;gap:10px}
+.timeline-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}
+.timeline-dot{width:12px;height:12px;border-radius:999px;background:var(--blue);box-shadow:0 0 0 4px rgba(56,189,248,.14);margin-top:5px}
+.search-result{border-left:4px solid var(--blue)}
+.rule-grid{display:grid;gap:10px}
+@media(min-width:760px){.rule-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+.timeline{display:grid;gap:10px}
+.timeline-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}
+.timeline-dot{width:12px;height:12px;border-radius:999px;background:var(--blue);box-shadow:0 0 0 4px rgba(56,189,248,.14);margin-top:5px}
+.search-result{border-left:4px solid var(--blue)}
+
+.account-workspace{display:grid;gap:12px}
+.doc-intel-grid{display:grid;gap:10px}
+.doc-score{font-size:28px;font-weight:950}
+.statement-chip{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:5px 8px;margin:2px;color:var(--muted);font-size:11px;font-weight:900}
+@media(min-width:760px){.doc-intel-grid{grid-template-columns:repeat(3,1fr)}}
+
+
+.credit-grid{display:grid;gap:12px}
+.credit-risk{font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.05em}
+.payoff-box{border:1px solid var(--border);border-radius:14px;padding:12px;background:rgba(56,189,248,.06)}
+.credit-action{border-left:4px solid var(--amber)}
+@media(min-width:760px){.credit-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+.import-grid{display:grid;gap:10px}
+.import-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.import-preview-row{border-left:4px solid var(--blue)}
+.duplicate-row{border-left-color:var(--rose)}
+.map-grid{display:grid;gap:10px}
+@media(min-width:760px){.map-grid{grid-template-columns:repeat(3,1fr)}}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" class="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const money=v=>Number(v||0).toLocaleString(undefined,{style:"currency",currency:"USD",minimumFractionDigits:3,maximumFractionDigits:3});
+const uid=()=>crypto.randomUUID?crypto.randomUUID():"id_"+Date.now()+"_"+Math.random().toString(16).slice(2);
+const today=()=>new Date().toISOString().slice(0,10);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+function toast(m){const t=$("#toast");if(!t)return; t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400)}
+
+const DB_NAME="FFE_DB";
+const DB_VERSION=8;
+const STORES=["accounts","transactions","bills","payroll","goals","knowledge","inbox","budgets","settings","documents","promos","rules"];
+const state={accounts:[],transactions:[],bills:[],payroll:[],goals:[],knowledge:[],inbox:[],budgets:[],settings:[],documents:[],promos:[],rules:[]};
+let db=null;
+
+function openDB(){
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open(DB_NAME,DB_VERSION);
+    r.onupgradeneeded=e=>{
+      const d=e.target.result;
+      STORES.forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:"id"})});
+    };
+    r.onsuccess=()=>{db=r.result;res(db)};
+    r.onerror=()=>rej(r.error);
+  });
+}
+function store(s,m="readonly"){return db.transaction(s,m).objectStore(s)}
+function all(s){return new Promise((res,rej)=>{let r=store(s).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}
+function put(s,o){return new Promise((res,rej)=>{let r=store(s,"readwrite").put(o);r.onsuccess=()=>res(o);r.onerror=()=>rej(r.error)})}
+function del(s,id){return new Promise((res,rej)=>{let r=store(s,"readwrite").delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+async function load(){
+  for(const s of STORES) state[s]=await all(s);
+  if(!state.settings.find(x=>x.id==="seeded")){
+    await put("accounts",{id:uid(),name:"Checking Account",type:"Checking",balance:0,notes:"Starter account"});
+    await put("bills",{id:uid(),name:"Rent",amount:1313.5,due:"1",category:"Housing",frequency:"Monthly"});
+    await put("settings",{id:"seeded",value:true});
+    await put("settings",{id:"version",value:"3.2.1"});
+    for(const s of STORES) state[s]=await all(s);
+  }
+}
+async function saveItem(s,o){o.updatedAt=new Date().toISOString();await put(s,o);await load()}
+async function deleteItem(s,id){await del(s,id);await load()}
+
+function cashAmount(){return state.accounts.filter(a=>["Checking","Savings","Cash"].includes(a.type)).reduce((s,a)=>s+Number(a.balance||0),0)}
+function debtAmount(){return state.accounts.filter(a=>["Credit Card","Loan"].includes(a.type)).reduce((s,a)=>s+Number(a.balance||0),0)}
+function assetsAmount(){return state.accounts.filter(a=>["Checking","Savings","Cash","Investment"].includes(a.type)).reduce((s,a)=>s+Number(a.balance||0),0)}
+function monthSpendAmount(){let ym=new Date().toISOString().slice(0,7);return state.transactions.filter(t=>String(t.date||"").slice(0,7)===ym&&t.type==="Expense").reduce((s,t)=>s+Number(t.amount||0),0)}
+function projectDays(days){let start=cashAmount(),income=0,bills=0,now=new Date(),end=new Date();end.setDate(now.getDate()+days);state.payroll.forEach(p=>{let d=new Date(p.date+"T00:00:00");if(d>=now&&d<=end)income+=Number(p.net||0)});state.bills.forEach(b=>{if(b.frequency==="Monthly"){let day=Math.max(1,Math.min(31,Number(b.due||1)));for(let m=0;m<4;m++){let d=new Date(now.getFullYear(),now.getMonth()+m,day);if(d>=now&&d<=end)bills+=Number(b.amount||0)}}});return{start,income,bills,end:start+income-bills}}
+
+function renderDashboard(){let ca=cashAmount(),de=debtAmount(),as=assetsAmount(),sp=monthSpendAmount(),p30=projectDays(30),score=Math.min(100,30+(ca>0?20:0)+(de===0?25:10)+(state.transactions.length?10:0)+(state.documents.length?10:0));return `<div class="hero"><h2>Good day, Carlos</h2><p>Financial Command Center · FFE 3.2.1</p></div><div class="grid cols"><div class="card"><div class="label">Cash Available</div><div class="big">${money(ca)}</div><div class="kpis" style="margin-top:12px"><div class="card"><div class="label">30 Day</div><div class="value">${money(p30.end)}</div></div><div class="card"><div class="label">Net Worth</div><div class="value">${money(as-de)}</div></div></div></div><div class="card"><div class="label">Financial Freedom Score</div><div class="big">${score.toFixed(3)}</div><div class="progress"><div style="width:${score}%"></div></div></div></div><div class="section"><div><h2>Daily Brief</h2><p>Generated from saved local records.</p></div></div><div class="list"><div class="item"><div class="title">Document Vault</div><div class="muted">${state.documents.length} document(s) stored.</div></div><div class="item"><div class="title">Spending</div><div class="muted">${money(sp)} spent this month.</div></div></div>`}
+function renderAccounts(){return `<div class="section"><div><h2>Accounts</h2><p>Checking, savings, cards, loans, and investments.</p></div></div><div class="grid cols"><div class="card"><form id="accountForm"><div class="formgrid"><label>Name<input name="name" required></label><label>Type<select name="type"><option>Checking</option><option>Savings</option><option>Cash</option><option>Credit Card</option><option>Loan</option><option>Investment</option></select></label><label>Balance<input name="balance" type="number" step="0.001"></label><label>Credit Limit<input name="creditLimit" type="number" step="0.001"></label><label>APR %<input name="apr" type="number" step="0.001"></label><label>Minimum Payment<input name="minimum" type="number" step="0.001"></label><label>Due Date / Day<input name="due"></label></div><button class="btn green">Save Account</button></form></div><div class="list">${state.accounts.map(a=>`<div class="item"><div class="head"><div><div class="title">${esc(a.name)}</div><div class="muted">${esc(a.type)}</div></div><div class="money">${money(a.balance)}</div></div><button class="btn rose" data-del="accounts:${a.id}">Delete</button></div>`).join("")||'<div class="empty">No accounts.</div>'}</div></div>`}
+function renderTransactions(){return `<div class="section"><div><h2>Transactions</h2><p>Income, expenses, and transfers.</p></div></div><div class="grid cols"><div class="card"><form id="txnForm"><div class="formgrid"><label>Date<input name="date" type="date" value="${today()}"></label><label>Type<select name="type"><option>Expense</option><option>Income</option></select></label><label>Name<input name="name" required></label><label>Amount<input name="amount" type="number" step="0.001"></label><label>Category<input name="category" value="Other"></label></div><button class="btn green">Save Transaction</button></form></div><div class="list">${state.transactions.slice().reverse().map(t=>`<div class="item"><div class="head"><div><div class="title">${esc(t.name)}</div><div class="muted">${esc(t.date)} · ${esc(t.category)}</div></div><div class="money">${money(t.amount)}</div></div><button class="btn rose" data-del="transactions:${t.id}">Delete</button></div>`).join("")||'<div class="empty">No transactions.</div>'}</div></div>`}
+function renderSimple(storeName,title){return `<div class="section"><div><h2>${title}</h2></div></div><div class="list">${state[storeName].map(x=>`<div class="item"><div class="title">${esc(x.name||x.employer||x.category||x.title||x.institution||"Record")}</div><div class="muted">${money(x.amount||x.net||x.target||x.newBalance||0)}</div></div>`).join("")||'<div class="empty">No records yet.</div>'}</div>`}
+function renderVault(){return `<div class="section"><div><h2>Document Vault</h2><p>Manual statement review, account update, and local document history.</p></div></div><div class="grid cols"><div class="card"><h2>Manual Statement Review</h2><form id="manualDocForm"><div class="formgrid"><label>Institution<input name="institution" value="Best Buy / Citi"></label><label>Account Ending<input name="accountEnding"></label><label>New Balance<input name="newBalance" type="number" step="0.001"></label><label>Minimum Payment<input name="minimumPayment" type="number" step="0.001"></label><label>Credit Limit<input name="creditLimit" type="number" step="0.001"></label><label>APR %<input name="apr" type="number" step="0.001"></label><label>Minimum Payment<input name="minimum" type="number" step="0.001"></label><label>Due Date / Day<input name="due"></label><label>Payment Due Date<input name="paymentDueDate"></label></div><button class="btn green">Save Statement</button></form></div><div class="card"><h2>Documents</h2><div class="list">${state.documents.slice().reverse().map(d=>`<div class="item"><div class="title">${esc(d.institution)} ${d.accountEnding?("••••"+esc(d.accountEnding)):""}</div><div class="muted">${esc(d.paymentDueDate||"")} · ${money(d.newBalance)}</div></div>`).join("")||'<div class="empty">No documents saved.</div>'}</div></div></div>`}
+function renderTimeline(){let events=[];state.transactions.forEach(t=>events.push({kind:"Transaction",title:t.name,detail:`${t.type||""} · ${t.category||""}`,amount:t.amount,date:t.date}));state.documents.forEach(d=>events.push({kind:"Document",title:d.institution||d.fileName,detail:d.docType||"Statement",amount:d.newBalance,date:d.importedAt}));state.bills.forEach(b=>events.push({kind:"Bill",title:b.name,detail:`Due day ${b.due||"—"}`,amount:b.amount,date:b.due}));events.sort((a,b)=>new Date(b.date)-new Date(a.date));return `<div class="section"><div><h2>Financial Timeline</h2><p>Documents, transactions, and bills.</p></div></div><div class="timeline">${events.length?events.map(e=>`<div class="item timeline-item"><span class="timeline-dot"></span><div><div class="title">${esc(e.title)}</div><div class="muted">${esc(e.kind)} · ${esc(e.detail)} · ${esc(e.date||"")}</div></div><div class="money">${money(e.amount)}</div></div>`).join(""):'<div class="empty">No timeline events yet.</div>'}</div>`}
+function renderSearch(){return `<div class="section"><div><h2>Smart Search</h2><p>Search local FFE records.</p></div></div><div class="card"><label>Search<input id="globalSearchInput" placeholder="Amazon, Best Buy, rent..."></label></div><div class="list" id="globalSearchResults"><div class="empty">Type to search.</div></div>`}
+function renderRules(){return `<div class="section"><div><h2>Rules Engine</h2><p>Local categorization rules.</p></div></div><div class="grid cols"><div class="card"><form id="ruleForm"><div class="formgrid"><label>If merchant contains<input name="contains"></label><label>Category<input name="category"></label></div><button class="btn green">Save Rule</button></form></div><div class="list">${state.rules.map(r=>`<div class="item"><div class="title">If contains "${esc(r.contains)}"</div><div class="muted">Category → ${esc(r.category)}</div></div>`).join("")||'<div class="empty">No rules yet.</div>'}</div></div>`}
+
+let importRowsRaw=[];
+let importRowsPreview=[];
+let importHeaders=[];
+function parseCSVText(text){
+  let rows=[], row=[], cell="", quote=false;
+  for(let i=0;i<text.length;i++){
+    let c=text[i], n=text[i+1];
+    if(c=='"' && quote && n=='"'){cell+='"';i++;continue}
+    if(c=='"'){quote=!quote;continue}
+    if(c=="," && !quote){row.push(cell.trim());cell="";continue}
+    if((c=="\n"||c=="\r") && !quote){
+      if(c=="\r"&&n=="\n")i++;
+      row.push(cell.trim());cell="";
+      if(row.some(x=>x!==""))rows.push(row);
+      row=[];
+      continue;
+    }
+    cell+=c;
+  }
+  row.push(cell.trim());
+  if(row.some(x=>x!==""))rows.push(row);
+  if(!rows.length)return [];
+  let headers=rows[0].map(h=>h.trim());
+  return rows.slice(1).map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]||""])));
+}
+function fillImportMaps(){
+  ["impDate","impName","impAmount","impType","impCategory","impAccount"].forEach(id=>{
+    let el=document.getElementById(id); if(!el)return;
+    el.innerHTML='<option value="">-- none --</option>'+importHeaders.map(h=>`<option value="${esc(h)}">${esc(h)}</option>`).join("");
+  });
+}
+function guessImportMap(){
+  let h=importHeaders.map(x=>x.toLowerCase());
+  const find=(arr)=>{for(let a of arr){let idx=h.findIndex(x=>x===a||x.includes(a));if(idx>=0)return importHeaders[idx]}return""};
+  const set=(id,val)=>{let el=document.getElementById(id);if(el)el.value=val};
+  set("impDate",find(["date","transaction date","post date","posted date"]));
+  set("impName",find(["description","merchant","name","payee","details"]));
+  set("impAmount",find(["amount","transaction amount","debit","credit"]));
+  set("impType",find(["type","transaction type"]));
+  set("impCategory",find(["category"]));
+  set("impAccount",find(["account","account name"]));
+  buildImportPreview();
+}
+function importAmount(row){
+  let col=document.getElementById("impAmount")?.value||"";
+  let v=row[col];
+  if(v!==undefined&&v!=="")return Number(String(v).replace(/[$,()]/g,""))||0;
+  let debit=Number(String(row.Debit||row.debit||"").replace(/[$,()]/g,""))||0;
+  let credit=Number(String(row.Credit||row.credit||"").replace(/[$,()]/g,""))||0;
+  return debit?Math.abs(debit):Math.abs(credit);
+}
+function importType(row,amount,name){
+  let col=document.getElementById("impType")?.value||"";
+  let explicit=String(row[col]||"").toLowerCase();
+  if(explicit.includes("income")||explicit.includes("credit"))return"Income";
+  if(explicit.includes("expense")||explicit.includes("debit"))return"Expense";
+  let raw=row[document.getElementById("impAmount")?.value||""];
+  if(String(raw||"").trim().startsWith("-"))return"Expense";
+  if(/payroll|direct dep|salary|deposit/i.test(name))return"Income";
+  return"Expense";
+}
+function importKey(t){return [t.date,t.name,Number(t.amount||0).toFixed(2),t.type].join("|").toLowerCase()}
+function buildImportPreview(){
+  let dateCol=document.getElementById("impDate")?.value||"";
+  let nameCol=document.getElementById("impName")?.value||"";
+  let categoryCol=document.getElementById("impCategory")?.value||"";
+  let accountCol=document.getElementById("impAccount")?.value||"";
+  let existing=new Set(state.transactions.map(importKey));
+  importRowsPreview=importRowsRaw.map(r=>{
+    let name=r[nameCol]||r.Description||r.description||"Imported";
+    let amount=Math.abs(importAmount(r));
+    let tx={id:uid(),date:r[dateCol]||today(),name,type:"Expense",amount,category:r[categoryCol]||suggestedCategory(name),account:r[accountCol]||"",notes:"Imported via FFE Transaction Import"};
+    tx.type=importType(r,amount,name);
+    return {tx,duplicate:existing.has(importKey(tx))};
+  });
+  renderImportPreview();
+}
+function renderImportPreview(){
+  let el=document.getElementById("importPreviewList"); if(!el)return;
+  let dup=importRowsPreview.filter(x=>x.duplicate).length;
+  let total=importRowsPreview.length;
+  let s=document.getElementById("importStats");
+  if(s)s.innerHTML=`<div class="card"><div class="label">Rows</div><div class="value">${total}</div></div><div class="card"><div class="label">New</div><div class="value">${total-dup}</div></div><div class="card"><div class="label">Dupes</div><div class="value">${dup}</div></div>`;
+  el.innerHTML=total?importRowsPreview.slice(0,150).map((r,i)=>`<div class="item import-preview-row ${r.duplicate?"duplicate-row":""}"><div class="head"><div><div class="title">${esc(r.tx.name)}</div><div class="muted">${esc(r.tx.date)} · ${esc(r.tx.category)} · ${esc(r.tx.type)}</div></div><div class="money">${money(r.tx.amount)}</div></div><span class="badge ${r.duplicate?"rose":"green"}">${r.duplicate?"Duplicate":"New"}</span></div>`).join(""):'<div class="empty">Choose a CSV to preview transactions.</div>';
+}
+async function commitImportTransactions(){
+  let rows=importRowsPreview.filter(x=>!x.duplicate).map(x=>x.tx);
+  if(!rows.length){toast("No new transactions to import");return}
+  for(let tx of rows)await put("transactions",tx);
+  await load();renderAll();toast(`Imported ${rows.length} transactions`);
+}
+function renderImport(){
+  return `<div class="section"><div><h2>Transaction Import Engine</h2><p>Import CSV transactions with mapping, rules, duplicate detection, and account linking.</p></div></div>
+  <div class="grid cols"><div class="card"><label>CSV File<input type="file" id="txnCsvFile" accept=".csv,text/csv"></label><div class="map-grid" style="margin-top:12px"><label>Date<select id="impDate"></select></label><label>Name / Merchant<select id="impName"></select></label><label>Amount<select id="impAmount"></select></label><label>Type<select id="impType"></select></label><label>Category<select id="impCategory"></select></label><label>Account<select id="impAccount"></select></label></div><div class="actions" style="justify-content:flex-start;margin-top:12px"><button class="btn secondary" onclick="guessImportMap()">Auto Map</button><button class="btn green" onclick="commitImportTransactions()">Approve Import</button></div></div><div class="card"><h2>Import Stats</h2><div id="importStats" class="import-stats"><div class="card"><div class="label">Rows</div><div class="value">0</div></div><div class="card"><div class="label">New</div><div class="value">0</div></div><div class="card"><div class="label">Dupes</div><div class="value">0</div></div></div><p class="muted" style="margin-top:12px">Rules Engine categories are applied during preview.</p></div></div>
+  <div class="section"><div><h2>Preview</h2></div></div><div id="importPreviewList" class="list"><div class="empty">Choose a CSV to preview transactions.</div></div>`;
+}
+function bindImport(){
+  let f=document.getElementById("txnCsvFile"); if(!f)return;
+  f.onchange=async e=>{
+    let file=e.target.files[0]; if(!file)return;
+    importRowsRaw=parseCSVText(await file.text());
+    importHeaders=importRowsRaw.length?Object.keys(importRowsRaw[0]):[];
+    fillImportMaps(); guessImportMap();
+  };
+  ["impDate","impName","impAmount","impType","impCategory","impAccount"].forEach(id=>{let el=document.getElementById(id);if(el)el.onchange=buildImportPreview});
+}
+
+function renderReports(){let by={};state.transactions.filter(t=>t.type==="Expense").forEach(t=>by[t.category]=(by[t.category]||0)+Number(t.amount||0));let max=Math.max(...Object.values(by),1);return `<div class="section"><div><h2>Reports</h2><p>Category spending.</p></div></div><div class="card"><div class="grid">${Object.keys(by).length?Object.entries(by).map(([k,v])=>`<div><div class="head"><span>${esc(k)}</span><strong>${money(v)}</strong></div><div class="bar"><div style="width:${Math.min(100,v/max*100)}%"></div></div></div>`).join(""):'<div class="empty">No expense transactions yet.</div>'}</div></div>`}
+function renderAdvisor(){let p=projectDays(30),de=debtAmount();return `<div class="section"><div><h2>AI Advisor</h2><p>Rules-based local recommendations.</p></div></div><div class="list"><div class="item"><div class="title">30-Day Forecast</div><div class="muted">Projected cash: ${money(p.end)}</div></div><div class="item"><div class="title">Debt Snapshot</div><div class="muted">Recorded debt: ${money(de)}</div></div></div>`}
+
+
+function utilizationForAccount(a){let bal=Number(a.balance||0), lim=Number(a.creditLimit||0);return lim>0?bal/lim*100:0}
+
+function creditRiskLevel(util){
+  if(util>=90)return ["Critical","rose"];
+  if(util>=70)return ["High","rose"];
+  if(util>=50)return ["Watch","amber"];
+  if(util>=30)return ["Moderate","blue"];
+  return ["Good","green"];
+}
+function monthsToPayoff(balance, monthly, apr){
+  balance=Number(balance||0); monthly=Number(monthly||0); apr=Number(apr||0);
+  if(balance<=0)return 0;
+  if(monthly<=0)return null;
+  let r=apr/100/12;
+  if(r>0 && monthly<=balance*r)return null;
+  if(r===0)return Math.ceil(balance/monthly);
+  return Math.ceil(-Math.log(1-r*balance/monthly)/Math.log(1+r));
+}
+function renderCredit(){
+  let cards=state.accounts.filter(a=>a.type==="Credit Card");
+  let totalBal=cards.reduce((s,a)=>s+Number(a.balance||0),0);
+  let totalLimit=cards.reduce((s,a)=>s+Number(a.creditLimit||0),0);
+  let totalUtil=totalLimit>0?totalBal/totalLimit*100:0;
+  let actions=[];
+  cards.forEach(a=>{
+    let util=utilizationForAccount(a);
+    if(util>=50)actions.push(`${a.name}: utilization is ${util.toFixed(3)}%. Consider paying before the next statement closes.`);
+    if(Number(a.minimum||0)<=0 && Number(a.balance||0)>0)actions.push(`${a.name}: add minimum payment for payoff planning.`);
+    if(Number(a.creditLimit||0)<=0)actions.push(`${a.name}: add credit limit to calculate utilization.`);
+  });
+  let [overall,overallCls]=creditRiskLevel(totalUtil);
+  return `<div class="section"><div><h2>Credit Intelligence Dashboard</h2><p>Credit utilization, payment risk, payoff targets, and statement-linked cards.</p></div></div>
+  <div class="kpis"><div class="card"><div class="label">Total Card Balance</div><div class="value">${money(totalBal)}</div></div><div class="card"><div class="label">Total Credit Limit</div><div class="value">${money(totalLimit)}</div></div><div class="card"><div class="label">Overall Utilization</div><div class="value">${totalUtil.toFixed(3)}%</div></div><div class="card"><div class="label">Risk</div><div class="value"><span class="badge ${overallCls}">${overall}</span></div></div></div>
+  <div class="section"><div><h2>Cards</h2></div></div>
+  <div class="credit-grid">${cards.length?cards.map(a=>{
+    let util=utilizationForAccount(a), riskData=creditRiskLevel(util), risk=riskData[0], cls=riskData[1];
+    let min=Number(a.minimum||0), bal=Number(a.balance||0), apr=Number(a.apr||0), payoff=monthsToPayoff(bal,min,apr);
+    let docs=state.documents.filter(d=>(d.institution||"")&&a.name.includes(d.institution));
+    return `<div class="card"><div class="head"><div><div class="title">${esc(a.name)}</div><div class="muted">${docs.length} statement(s) linked · APR ${Number(apr||0).toFixed(3)}%</div></div><span class="badge ${cls}">${risk}</span></div>
+    <div class="kpis" style="margin-top:10px"><div class="card"><div class="label">Balance</div><div class="value">${money(bal)}</div></div><div class="card"><div class="label">Limit</div><div class="value">${money(a.creditLimit)}</div></div><div class="card"><div class="label">Utilization</div><div class="value">${util.toFixed(3)}%</div></div><div class="card"><div class="label">Minimum</div><div class="value">${money(min)}</div></div></div>
+    <div class="bar" style="margin-top:10px"><div style="width:${Math.min(100,util)}%"></div></div>
+    <div class="payoff-box" style="margin-top:10px"><div class="label">Minimum-Payment Payoff Estimate</div><div class="value">${payoff===null?"Add payment / APR":payoff===0?"Paid off":payoff+" months"}</div><p class="muted">This is a planning estimate, not a lender quote.</p></div></div>`
+  }).join(""):'<div class="empty">Add credit card accounts to activate Credit Intelligence.</div>'}</div>
+  <div class="section"><div><h2>Recommended Actions</h2></div></div>
+  <div class="list">${actions.length?actions.map(a=>`<div class="item credit-action"><div class="title">Credit Action</div><div class="muted">${esc(a)}</div></div>`).join(""):'<div class="empty">No credit actions right now.</div>'}</div>`;
+}
+
+function renderWorkspace(){
+  let cards=state.accounts.filter(a=>a.type==="Credit Card");
+  let acctCount=state.accounts.length, docCount=state.documents.length, debt=debtAmount();
+  return `<div class="section"><div><h2>Account Workspace</h2><p>Account-level summaries, cards, utilization, and linked statements.</p></div></div>
+  <div class="kpis"><div class="card"><div class="label">Accounts</div><div class="value">${acctCount}</div></div><div class="card"><div class="label">Statements</div><div class="value">${docCount}</div></div><div class="card"><div class="label">Debt</div><div class="value">${money(debt)}</div></div><div class="card"><div class="label">Cards</div><div class="value">${cards.length}</div></div></div>
+  <div class="section"><div><h2>Credit Card Workspaces</h2></div></div>
+  <div class="account-workspace">${cards.length?cards.map(a=>{
+    let util=utilizationForAccount(a), docs=state.documents.filter(d=>(d.institution||"")&&a.name.includes(d.institution));
+    let cls=util>=80?"rose":util>=50?"amber":"green";
+    return `<div class="card"><div class="head"><div><div class="title">${esc(a.name)}</div><div class="muted">${esc(a.type)} · ${docs.length} linked statement(s)</div></div><span class="badge ${cls}">${util.toFixed(3)}%</span></div><div class="kpis" style="margin-top:10px"><div class="card"><div class="label">Balance</div><div class="value">${money(a.balance)}</div></div><div class="card"><div class="label">Limit</div><div class="value">${money(a.creditLimit)}</div></div><div class="card"><div class="label">Min Pay</div><div class="value">${money(a.minimum)}</div></div><div class="card"><div class="label">Due</div><div class="value">${esc(a.due||"—")}</div></div></div><div class="bar" style="margin-top:10px"><div style="width:${Math.min(100,util)}%"></div></div></div>`
+  }).join(""):'<div class="empty">Add credit card accounts or save statements to activate workspaces.</div>'}</div>`;
+}
+function docCompleteness(d){
+  let total=6, hit=0;
+  if(d.institution)hit++;
+  if(d.accountEnding)hit++;
+  if(Number(d.newBalance||0))hit++;
+  if(Number(d.minimumPayment||0))hit++;
+  if(Number(d.creditLimit||0))hit++;
+  if(d.paymentDueDate)hit++;
+  return Math.round(hit/total*100);
+}
+function renderIntelligence(){
+  let docs=state.documents||[];
+  let avg=docs.length?Math.round(docs.reduce((s,d)=>s+docCompleteness(d),0)/docs.length):0;
+  let missing=docs.filter(d=>docCompleteness(d)<70);
+  let inst=[...new Set(docs.map(d=>d.institution).filter(Boolean))];
+  return `<div class="section"><div><h2>Document Intelligence</h2><p>Statement quality, missing fields, and financial document coverage.</p></div></div>
+  <div class="doc-intel-grid"><div class="card"><div class="label">Documents</div><div class="doc-score">${docs.length}</div></div><div class="card"><div class="label">Avg Completeness</div><div class="doc-score">${avg}%</div></div><div class="card"><div class="label">Needs Review</div><div class="doc-score">${missing.length}</div></div></div>
+  <div class="section"><div><h2>Institutions</h2></div></div>
+  <div class="card">${inst.length?inst.map(i=>`<span class="statement-chip">${esc(i)}</span>`).join(""):'<p class="muted">No institutions saved yet.</p>'}</div>
+  <div class="section"><div><h2>Review Queue</h2><p>Statements below 70% completeness.</p></div></div>
+  <div class="list">${missing.length?missing.map(d=>`<div class="item"><div class="head"><div><div class="title">${esc(d.institution||"Unknown Statement")}</div><div class="muted">${esc(d.fileName||"Manual Statement")} · Completeness ${docCompleteness(d)}%</div></div><span class="badge amber">Review</span></div></div>`).join(""):'<div class="empty">No statements need review.</div>'}</div>`;
+}
+function validateManualStatement(formData){
+  let warnings=[];
+  if(!formData.get("institution"))warnings.push("Institution is missing.");
+  if(!formData.get("accountEnding"))warnings.push("Account ending is missing.");
+  if(!Number(formData.get("newBalance")||0))warnings.push("New balance is zero or missing.");
+  if(!formData.get("paymentDueDate"))warnings.push("Payment due date is missing.");
+  return warnings;
+}
+
+const views=["dashboard","accounts","workspace","credit","transactions","import","bills","payroll","budget","debt","goals","vault","intelligence","timeline","search","rules","reports","advisor","settings"];
+const labels={dashboard:"🏠 Home",accounts:"🏦 Accounts",workspace:"🏢 Workspace",credit:"💡 Credit",transactions:"💳 Txns",import:"📥 Import",bills:"🧾 Bills",payroll:"💵 Payroll",budget:"📊 Budget",debt:"📉 Debt",goals:"🎯 Goals",vault:"📄 Vault",intelligence:"🧠 Intel",timeline:"📅 Timeline",search:"🔍 Search",rules:"⚙️ Rules",reports:"📈 Reports",advisor:"🤖 Advisor",settings:"⚙️ Settings"};
+function show(v){document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id===v));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===v));location.hash=v}
+function bindDeletes(el){if(!el)return;el.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{let [s,id]=b.dataset.del.split(":");await deleteItem(s,id);renderAll();toast("Deleted")})}
+function bindForms(){
+  const af=document.getElementById("accountForm");if(af)af.onsubmit=async e=>{e.preventDefault();let d=new FormData(af);await saveItem("accounts",{id:uid(),name:d.get("name"),type:d.get("type"),balance:Number(d.get("balance")||0),creditLimit:Number(d.get("creditLimit")||0)});renderAll();toast("Saved")};
+  const tf=document.getElementById("txnForm");if(tf)tf.onsubmit=async e=>{e.preventDefault();let d=new FormData(tf);await saveItem("transactions",{id:uid(),date:d.get("date"),type:d.get("type"),name:d.get("name"),amount:Number(d.get("amount")||0),category:d.get("category")});renderAll();toast("Saved")};
+  const mf=document.getElementById("manualDocForm");if(mf)mf.onsubmit=async e=>{e.preventDefault();let d=new FormData(mf);let warnings=validateManualStatement(d);if(warnings.length&&!confirm("Manual statement needs review:\n\n"+warnings.join("\n")+"\n\nSave anyway?"))return;let doc={id:uid(),fileName:"Manual Statement",institution:d.get("institution"),docType:"Credit Card Statement",accountEnding:d.get("accountEnding"),newBalance:Number(d.get("newBalance")||0),minimumPayment:Number(d.get("minimumPayment")||0),creditLimit:Number(d.get("creditLimit")||0),paymentDueDate:d.get("paymentDueDate"),importedAt:new Date().toISOString(),engine:"Manual Review"};await put("documents",doc);let name=`${doc.institution} ${doc.accountEnding?("••••"+doc.accountEnding):""}`;let ex=state.accounts.find(a=>a.name===name);await put("accounts",{id:ex?.id||uid(),name,type:"Credit Card",balance:doc.newBalance,minimum:doc.minimumPayment,creditLimit:doc.creditLimit,due:doc.paymentDueDate,notes:"Updated from manual statement"});await load();renderAll();toast("Statement saved")};
+  const rf=document.getElementById("ruleForm");if(rf)rf.onsubmit=async e=>{e.preventDefault();let d=new FormData(rf);await saveItem("rules",{id:uid(),contains:d.get("contains"),category:d.get("category")});renderAll();toast("Rule saved")};
+  const si=document.getElementById("globalSearchInput");if(si)si.oninput=()=>{let q=si.value.toLowerCase(), rows=[];if(q){const add=(type,text)=>{if(String(text).toLowerCase().includes(q))rows.push({type,text})};state.accounts.forEach(a=>add("Account",`${a.name} ${a.type}`));state.transactions.forEach(t=>add("Transaction",`${t.name} ${t.category} ${t.notes||""}`));state.documents.forEach(d=>add("Document",`${d.fileName} ${d.institution} ${d.accountEnding}`));state.bills.forEach(b=>add("Bill",`${b.name} ${b.category}`));}document.getElementById("globalSearchResults").innerHTML=rows.length?rows.map(r=>`<div class="item search-result"><div class="title">${esc(r.type)}</div><div class="muted">${esc(r.text)}</div></div>`).join(""):'<div class="empty">No matching records.</div>'};
+  bindDeletes(document.body);
+}
+function renderAll(){
+  document.getElementById("app").innerHTML=`<div class="app-shell"><header class="topbar"><div class="brand"><div class="logo">FFE</div><div><h1>Financial Freedom Engine</h1><p>3.5 · Transaction Import</p></div></div><div class="pill">IndexedDB</div></header><nav class="tabs">${views.map(v=>`<button class="tab" data-view="${v}">${labels[v].split(" ")[0]}<span>${labels[v].split(" ").slice(1).join(" ")}</span></button>`).join("")}</nav><main>${views.map(v=>`<section id="${v}" class="view"></section>`).join("")}</main></div>`;
+  dashboard.innerHTML=renderDashboard();accounts.innerHTML=renderAccounts();workspace.innerHTML=renderWorkspace();credit.innerHTML=renderCredit();transactions.innerHTML=renderTransactions();import.innerHTML=renderImport();bills.innerHTML=renderSimple("bills","Bills");payroll.innerHTML=renderSimple("payroll","Payroll");budget.innerHTML=renderSimple("budgets","Budget");debt.innerHTML=renderSimple("accounts","Debt / Cards");goals.innerHTML=renderSimple("goals","Goals");vault.innerHTML=renderVault();intelligence.innerHTML=renderIntelligence();timeline.innerHTML=renderTimeline();search.innerHTML=renderSearch();rules.innerHTML=renderRules();reports.innerHTML=renderReports();advisor.innerHTML=renderAdvisor();settings.innerHTML=`<div class="section"><div><h2>Settings</h2></div></div><div class="card"><h2>FFE 3.2.1</h2><p class="muted">FFE 3.5 adds a Transaction Import Engine with CSV mapping, preview, rules-based categorization, duplicate detection, and account linking.</p></div>`;
+  document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>show(b.dataset.view));
+  bindForms();bindImport();
+  show(location.hash.replace("#","")||"dashboard");
+}
+(async()=>{try{await openDB();await load();renderAll()}catch(e){console.error(e);document.getElementById("app").innerHTML=`<div class="app-shell"><div class="card"><h2>Storage Startup Error</h2><p class="muted">The browser blocked or could not upgrade IndexedDB. Try refreshing once. If this continues, open in Safari/Chrome normal mode, not private browsing.</p><pre style="white-space:pre-wrap;color:var(--rose)">${esc(e.message||String(e))}</pre></div></div>`}})();
+</script>
+</body>
+</html>
