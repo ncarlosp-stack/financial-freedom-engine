@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0f19">
+<title>Financial Freedom Engine Intelligence</title>
+<style>
+:root{--bg:#0b0f19;--card:#131a2c;--card2:#1e2640;--border:#2e3a5f;--text:#f8fafc;--muted:#94a3b8;--blue:#38bdf8;--green:#34d399;--amber:#fbbf24;--rose:#fb7185;--safe:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 0 0,rgba(56,189,248,.16),transparent 36%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(92px + var(--safe))}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app-shell{max-width:1100px;margin:auto;padding:18px 14px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--green));color:#06111c;font-weight:950;display:grid;place-items:center}h1{font-size:20px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}.pill{border:1px solid var(--border);border-radius:999px;padding:8px 10px;color:var(--muted);font-size:12px;font-weight:800}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(6,1fr);gap:4px;padding:8px 8px calc(8px + var(--safe));background:rgba(11,15,25,.94);backdrop-filter:blur(14px);border-top:1px solid var(--border)}.tab{display:grid;place-items:center;gap:2px;background:transparent;color:var(--muted);border:1px solid transparent;border-radius:14px;padding:8px 2px;font-weight:900}.tab span{font-size:10px}.tab.active{background:var(--card2);border-color:var(--border);color:var(--text)}
+.view{display:none}.view.active{display:block}.card,.item,.hero{background:rgba(19,26,44,.96);border:1px solid var(--border);border-radius:18px;box-shadow:0 14px 36px #0005}.card{padding:14px}.hero{padding:16px;margin-bottom:12px;background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(52,211,153,.07))}.hero h2{font-size:28px;margin:0 0 6px}.hero p,.muted{margin:0;color:var(--muted);font-size:13px}.grid{display:grid;gap:12px}.list{display:grid;gap:10px}.item{padding:12px;display:grid;gap:8px}.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.label{font-size:11px;color:var(--muted);font-weight:950;text-transform:uppercase;letter-spacing:.05em}.value{font-size:24px;font-weight:950;margin-top:5px}.big{font-size:42px;font-weight:950;letter-spacing:-.04em}.section{display:flex;justify-content:space-between;align-items:end;margin:18px 0 8px;gap:10px}.section h2{font-size:20px;margin:0}.head{display:flex;justify-content:space-between;align-items:start;gap:10px}.title{font-weight:950}.money{font-weight:950;white-space:nowrap;font-variant-numeric:tabular-nums}.badge{border-radius:999px;padding:4px 8px;font-size:11px;font-weight:950;display:inline-flex}.blue{background:#38bdf824;color:var(--blue)}.green{background:#34d39924;color:var(--green)}.amber{background:#fbbf2424;color:var(--amber)}.rose{background:#fb718524;color:var(--rose)}.empty{border:1px dashed var(--border);border-radius:14px;color:var(--muted);text-align:center;padding:18px}.bar{height:10px;background:#0a1020;border:1px solid var(--border);border-radius:999px;overflow:hidden}.bar>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--green))}
+form{display:grid;gap:10px}label{display:grid;gap:5px;color:var(--muted);font-size:12px;font-weight:950}input,select,textarea{width:100%;border:1px solid var(--border);border-radius:12px;background:#0a1020;color:var(--text);padding:11px 12px}textarea{min-height:80px}.formgrid{display:grid;gap:10px}.actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}.btn{border:1px solid transparent;border-radius:12px;padding:10px 12px;font-weight:950;background:var(--blue);color:#06111c}.btn.secondary{background:transparent;color:var(--text);border-color:var(--border)}.btn.green{background:var(--green)}.btn.rose{background:var(--rose);color:white}.toast{position:fixed;left:12px;right:12px;bottom:calc(100px + var(--safe));background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:0 16px 40px #0008;display:none;z-index:30}.toast.show{display:block}.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tile{padding:14px;border-radius:18px;background:rgba(30,38,64,.75);border:1px solid var(--border);text-align:left;color:var(--text);font-weight:950}.timeline-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.timeline-dot{width:12px;height:12px;border-radius:999px;background:var(--blue);box-shadow:0 0 0 4px rgba(56,189,248,.14);margin-top:5px}.import-preview-row{border-left:4px solid var(--blue)}.duplicate-row{border-left-color:var(--rose)}
+@media(min-width:760px){body{padding-bottom:0}.app-shell{padding:24px}.tabs{position:sticky;top:0;bottom:auto;border:1px solid var(--border);border-radius:18px;margin-bottom:16px;grid-template-columns:repeat(6,auto);justify-content:start}.tab{grid-auto-flow:column;padding:10px 14px}.tab span{font-size:12px}.kpis{grid-template-columns:repeat(4,1fr)}.cols{grid-template-columns:1.05fr .95fr;align-items:start}.formgrid{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(4,1fr)}}
+
+.backup-box{border-left:4px solid var(--green)}
+.restore-box{border-left:4px solid var(--amber)}
+.danger-box{border-left:4px solid var(--rose)}
+
+
+.production-banner{border-left:4px solid var(--green);background:linear-gradient(135deg,rgba(52,211,153,.10),rgba(56,189,248,.07))}
+.health-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.health-pass{color:var(--green);font-weight:950}.health-watch{color:var(--amber);font-weight:950}.health-fail{color:var(--rose);font-weight:950}
+.privacy-box{border-left:4px solid var(--blue)}
+@media(min-width:760px){.health-grid{grid-template-columns:repeat(4,1fr)}}
+
+
+.ncc-shell{display:grid;gap:14px}
+.ncc-banner{border-left:4px solid var(--blue);background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(52,211,153,.07))}
+.neural-stage{position:relative;min-height:510px;border:1px solid var(--border);border-radius:26px;overflow:hidden;background:
+radial-gradient(circle at 50% 46%,rgba(56,189,248,.13),transparent 25%),
+radial-gradient(circle at 20% 20%,rgba(52,211,153,.07),transparent 24%),
+linear-gradient(180deg,rgba(19,26,44,.98),rgba(8,16,32,.98))}
+.neural-stage svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.neural-link{stroke:rgba(148,163,184,.25);stroke-width:1.6;stroke-dasharray:6 7}
+.neural-link.active{stroke:rgba(56,189,248,.60);animation:flowDash 8s linear infinite}
+@keyframes flowDash{to{stroke-dashoffset:-100}}
+.neural-core{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:168px;height:168px;border-radius:50%;display:grid;place-items:center;text-align:center;border:2px solid rgba(56,189,248,.55);background:radial-gradient(circle,rgba(56,189,248,.26),rgba(19,26,44,.96) 68%);box-shadow:0 0 0 12px rgba(56,189,248,.05),0 0 46px rgba(56,189,248,.23);z-index:3}
+.core-score{font-size:38px;font-weight:950;line-height:1}.core-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:950}.core-status{font-size:12px;font-weight:950;margin-top:5px}
+.neural-node{position:absolute;transform:translate(-50%,-50%);width:104px;min-height:88px;border:1px solid var(--border);border-radius:22px;background:rgba(19,26,44,.96);color:var(--text);padding:10px 8px;text-align:center;box-shadow:0 12px 26px rgba(0,0,0,.28);z-index:4;transition:.2s ease}
+.neural-node:hover,.neural-node:focus{transform:translate(-50%,-50%) scale(1.045);outline:none;border-color:var(--blue)}
+.neural-node .icon{font-size:22px}.neural-node .node-name{font-size:12px;font-weight:950;margin-top:3px}.neural-node .node-value{font-size:13px;font-weight:950;margin-top:3px}.neural-node .node-state{font-size:10px;color:var(--muted);margin-top:2px}
+.neural-node.healthy{box-shadow:0 0 0 2px rgba(52,211,153,.12),0 12px 26px rgba(0,0,0,.28)}
+.neural-node.watch{box-shadow:0 0 0 2px rgba(251,191,36,.13),0 12px 26px rgba(0,0,0,.28)}
+.neural-node.critical{box-shadow:0 0 0 2px rgba(251,113,133,.14),0 12px 26px rgba(0,0,0,.28)}
+.neural-node.info{box-shadow:0 0 0 2px rgba(56,189,248,.13),0 12px 26px rgba(0,0,0,.28)}
+.node-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:4px}.healthy .node-dot{background:var(--green)}.watch .node-dot{background:var(--amber)}.critical .node-dot{background:var(--rose)}.info .node-dot{background:var(--blue)}
+.node-cash{left:50%;top:13%}.node-income{left:18%;top:25%}.node-bills{left:82%;top:25%}.node-debt{left:14%;top:58%}.node-credit{left:86%;top:58%}.node-goals{left:25%;top:86%}.node-docs{left:75%;top:86%}
+.visual-grid{display:grid;gap:12px}
+.heat-row{display:grid;grid-template-columns:100px 1fr 58px;gap:10px;align-items:center}.heat-track{height:12px;border-radius:999px;background:#08101d;border:1px solid var(--border);overflow:hidden}.heat-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--rose),var(--amber),var(--green))}
+.pulse-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.pulse-card{padding:13px;border:1px solid var(--border);border-radius:17px;background:rgba(30,38,64,.58)}.trend-up{color:var(--green);font-weight:950}.trend-down{color:var(--rose);font-weight:950}.trend-flat{color:var(--muted);font-weight:950}
+.evidence-panel{display:none;position:fixed;inset:0;z-index:100;background:rgba(3,7,18,.74);backdrop-filter:blur(8px);padding:18px;overflow:auto}.evidence-panel.open{display:grid;align-items:end}.evidence-sheet{max-width:720px;width:100%;margin:auto;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:18px;box-shadow:0 24px 70px #000b}.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.evidence-path{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.evidence-step{border:1px solid var(--border);border-radius:999px;padding:6px 9px;font-size:11px;font-weight:900}.arrow{color:var(--muted)}
+.ring-wrap{display:grid;place-items:center;position:relative}.health-ring{width:150px;height:150px;transform:rotate(-90deg)}.health-ring circle{fill:none;stroke-width:12}.health-ring .bg{stroke:#09111f}.health-ring .fg{stroke:var(--green);stroke-linecap:round;transition:stroke-dashoffset .5s ease}.ring-center{position:absolute;text-align:center}.ring-number{font-size:30px;font-weight:950}.ring-caption{font-size:10px;color:var(--muted);font-weight:950;text-transform:uppercase}
+@media(min-width:760px){.visual-grid{grid-template-columns:1.25fr .75fr}.pulse-grid{grid-template-columns:repeat(4,1fr)}.neural-stage{min-height:590px}.neural-node{width:122px;min-height:96px}.neural-core{width:190px;height:190px}}
+@media(max-width:430px){.neural-stage{min-height:500px}.neural-node{width:89px;min-height:82px;padding:8px 5px}.neural-node .icon{font-size:19px}.node-income{left:16%}.node-bills{left:84%}.node-debt{left:13%}.node-credit{left:87%}.node-goals{left:24%}.node-docs{left:76%}}
+
+
+.freshness-current{color:var(--green);font-weight:950}
+.freshness-due{color:var(--amber);font-weight:950}
+.freshness-stale,.freshness-error{color:var(--rose);font-weight:950}
+.freshness-manual,.freshness-disconnected{color:var(--muted);font-weight:950}
+.freshness-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.sync-history{display:grid;gap:8px;margin-top:10px}
+.sync-event{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:start;padding:9px;border:1px solid var(--border);border-radius:13px;background:rgba(8,16,29,.45)}
+.sync-dot{width:10px;height:10px;border-radius:999px;margin-top:4px;background:var(--blue)}
+@media(min-width:760px){.freshness-grid{grid-template-columns:repeat(4,1fr)}}
+
+
+.travel-summary{display:grid;gap:12px}
+.scenario-grid{display:grid;gap:10px}
+.scenario-card{border:1px solid var(--border);border-radius:18px;padding:14px;background:rgba(30,38,64,.60)}
+.scenario-card.recommended{border-color:var(--blue);box-shadow:0 0 0 2px rgba(56,189,248,.12)}
+.cost-line{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid rgba(46,58,95,.55)}
+.cost-line:last-child{border-bottom:0}
+.travel-progress{height:12px;background:#08101d;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.travel-progress>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--green))}
+.trip-card{border-left:4px solid var(--blue)}
+.trip-card.on-track{border-left-color:var(--green)}
+.trip-card.watch{border-left-color:var(--amber)}
+.trip-card.risk{border-left-color:var(--rose)}
+.location-note{border-left:4px solid var(--amber)}
+.travel-node{left:50%;top:4%}
+@media(min-width:760px){.scenario-grid{grid-template-columns:repeat(3,1fr)}.travel-summary{grid-template-columns:1.05fr .95fr}}
+@media(max-width:430px){.nav{grid-template-columns:repeat(7,1fr)}.nav button span{font-size:9px}.travel-node{left:50%;top:5%}}
+
+
+/* NCC v1.3R — restored radial view with improved spacing */
+.neural-stage{
+  min-height:760px!important;
+  padding-bottom:20px;
+}
+.neural-stage .neural-core{
+  top:49%!important;
+  width:190px!important;
+  height:190px!important;
+}
+.neural-stage .neural-node{
+  width:112px!important;
+  min-height:94px!important;
+}
+.node-cash{left:50%!important;top:10%!important}
+.node-income{left:16%!important;top:26%!important}
+.node-bills{left:84%!important;top:26%!important}
+.node-debt{left:13%!important;top:59%!important}
+.node-credit{left:87%!important;top:59%!important}
+.node-goals{left:22%!important;top:87%!important}
+.node-docs{left:78%!important;top:87%!important}
+.travel-node{left:50%!important;top:4%!important}
+.neural-stage .freshness-node{left:50%!important;top:94%!important}
+@media(max-width:430px){
+  .neural-stage{min-height:800px!important}
+  .neural-stage .neural-core{width:178px!important;height:178px!important}
+  .neural-stage .neural-node{width:96px!important;min-height:86px!important;padding:8px 5px!important}
+  .node-income{left:15%!important;top:27%!important}
+  .node-bills{left:85%!important;top:27%!important}
+  .node-debt{left:12%!important;top:60%!important}
+  .node-credit{left:88%!important;top:60%!important}
+  .node-goals{left:22%!important;top:87%!important}
+  .node-docs{left:78%!important;top:87%!important}
+  .travel-node{left:50%!important;top:5%!important}
+  .neural-stage .freshness-node{left:50%!important;top:96%!important}
+}
+
+
+.vi-grid{display:grid;gap:12px}.vi-card{padding:14px;border:1px solid var(--border);border-radius:18px;background:rgba(17,24,39,.96)}
+.institution-grid{display:grid;gap:10px}.institution-card{padding:14px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(135deg,rgba(56,189,248,.10),rgba(17,24,39,.96))}
+.institution-brand{display:flex;align-items:center;gap:10px}.institution-logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--blue),var(--green));display:grid;place-items:center;color:#06111c;font-weight:950}
+.event-timeline{display:grid;gap:12px}.event-row{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start}.event-line{position:relative;width:2px;background:var(--border);height:100%;margin:auto}.event-line:before{content:"";position:absolute;left:50%;top:5px;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(56,189,248,.13)}
+.sankey{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}.flow-col{display:grid;gap:9px}.flow-box{padding:10px;border:1px solid var(--border);border-radius:14px;background:rgba(30,38,64,.55)}.flow-arrow{font-size:30px;color:var(--blue)}
+.digital-twin{position:relative;min-height:420px;border:1px solid var(--border);border-radius:22px;background:radial-gradient(circle at 50% 50%,rgba(56,189,248,.12),transparent 30%),rgba(8,16,29,.92);overflow:hidden}
+.twin-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:140px;height:140px;border-radius:50%;display:grid;place-items:center;text-align:center;border:2px solid var(--blue);background:rgba(17,24,39,.96);box-shadow:0 0 36px rgba(56,189,248,.20)}
+.twin-node{position:absolute;transform:translate(-50%,-50%);width:110px;padding:10px;border-radius:16px;border:1px solid var(--border);background:rgba(17,24,39,.96);text-align:center}
+.twin-node.a{left:50%;top:12%}.twin-node.b{left:15%;top:35%}.twin-node.c{left:85%;top:35%}.twin-node.d{left:20%;top:78%}.twin-node.e{left:80%;top:78%}.twin-node.f{left:50%;top:90%}
+.reco-card{border-left:4px solid var(--blue)}.reco-card.high{border-left-color:var(--green)}.reco-card.medium{border-left-color:var(--amber)}.reco-card.low{border-left-color:var(--rose)}
+.travel-bars{display:grid;gap:8px}.travel-bar{display:grid;grid-template-columns:110px 1fr 70px;gap:8px;align-items:center}.travel-track{height:10px;background:#08101d;border:1px solid var(--border);border-radius:999px;overflow:hidden}.travel-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green))}
+@media(min-width:760px){.vi-grid.two{grid-template-columns:1fr 1fr}.institution-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.sankey{grid-template-columns:1fr}.flow-arrow{transform:rotate(90deg);text-align:center}.digital-twin{min-height:520px}}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" class="toast"></div>
+<script>
+(function(){
+"use strict";
+function $(id){return document.getElementById(id);}
+function uid(){return "id_"+Date.now()+"_"+Math.random().toString(16).slice(2);}
+function today(){return new Date().toISOString().slice(0,10);}
+function money(v){return Number(v||0).toLocaleString(undefined,{style:"currency",currency:"USD",minimumFractionDigits:3,maximumFractionDigits:3});}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c];});}
+function toast(m){var t=$("toast"); if(!t)return; t.textContent=m; t.className="toast show"; setTimeout(function(){t.className="toast";},2200);}
+var state={accounts:[],transactions:[],bills:[],payroll:[],goals:[],budgets:[],documents:[],rules:[],settings:[],trips:[],institutions:[],events:[]};
+var db=null, DB_NAME="FFE_DB_SAFE", DB_VERSION=4;
+var STORES=["accounts","transactions","bills","payroll","goals","budgets","documents","rules","settings","trips","institutions","events"];
+function openDB(){return new Promise(function(resolve,reject){var req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=function(e){var d=e.target.result;STORES.forEach(function(s){if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:"id"});});};req.onsuccess=function(){db=req.result;resolve(db);};req.onerror=function(){reject(req.error||new Error("IndexedDB error"));};});}
+function store(name,mode){return db.transaction(name,mode||"readonly").objectStore(name);}
+function all(name){return new Promise(function(resolve,reject){var r=store(name).getAll();r.onsuccess=function(){resolve(r.result||[]);};r.onerror=function(){reject(r.error);};});}
+function put(name,obj){return new Promise(function(resolve,reject){var r=store(name,"readwrite").put(obj);r.onsuccess=function(){resolve(obj);};r.onerror=function(){reject(r.error);};});}
+function del(name,id){return new Promise(function(resolve,reject){var r=store(name,"readwrite").delete(id);r.onsuccess=function(){resolve();};r.onerror=function(){reject(r.error);};});}
+async function load(){for(var i=0;i<STORES.length;i++){state[STORES[i]]=await all(STORES[i]);}if(!state.settings.some(function(x){return x.id==="seeded";})){await put("accounts",{id:uid(),name:"Checking Account",type:"Checking",balance:0,creditLimit:0,apr:0,minimum:0,due:"",notes:"Starter account"});await put("bills",{id:uid(),name:"Rent",amount:1313.5,due:"1",category:"Housing",frequency:"Monthly"});await put("settings",{id:"seeded",value:true});await put("settings",{id:"version",value:"4.0.1-stable"});for(var j=0;j<STORES.length;j++){state[STORES[j]]=await all(STORES[j]);}}}
+async function saveItem(storeName,obj){obj.updatedAt=new Date().toISOString();await put(storeName,obj);await load();}
+async function deleteItem(storeName,id){await del(storeName,id);await load();renderAll();toast("Deleted");}
+window.deleteItem=deleteItem;
+
+function cashAmount(){return state.accounts.filter(function(a){return ["Checking","Savings","Cash"].indexOf(a.type)>=0;}).reduce(function(s,a){return s+Number(a.balance||0);},0);}
+function debtAmount(){return state.accounts.filter(function(a){return ["Credit Card","Loan"].indexOf(a.type)>=0;}).reduce(function(s,a){return s+Number(a.balance||0);},0);}
+function assetsAmount(){return state.accounts.filter(function(a){return ["Checking","Savings","Cash","Investment"].indexOf(a.type)>=0;}).reduce(function(s,a){return s+Number(a.balance||0);},0);}
+function monthSpendAmount(){var ym=new Date().toISOString().slice(0,7);return state.transactions.filter(function(t){return String(t.date||"").slice(0,7)===ym && t.type==="Expense";}).reduce(function(s,t){return s+Number(t.amount||0);},0);}
+function utilization(a){var lim=Number(a.creditLimit||0);return lim>0?Number(a.balance||0)/lim*100:0;}
+function suggestedCategory(name){var s=String(name||"").toLowerCase();for(var i=0;i<state.rules.length;i++){var r=state.rules[i]; if(s.indexOf(String(r.contains||"").toLowerCase())>=0)return r.category;}if(/shell|chevron|exxon|mobil|valero/.test(s))return"Fuel";if(/costco|kroger|heb|walmart|grocery/.test(s))return"Food";if(/amazon|target|best buy/.test(s))return"Shopping";if(/netflix|spotify|hulu|disney/.test(s))return"Entertainment";if(/rent|apartment|mortgage/.test(s))return"Housing";return"Other";}
+
+var views=["home","money","travel","import","analytics","advisor","more"];
+var labels={home:"🏠 Home",money:"💳 Money",travel:"✈️ Travel",import:"📥 Import",analytics:"📊 Analytics",advisor:"🤖 Advisor",more:"⋯ More"};
+function appShell(){return '<div class="app-shell"><header class="topbar"><div class="brand"><div class="logo">FFE</div><div><h1>Financial Freedom Engine</h1><p>6.0.1 · Visual Intelligence Fix</p></div></div><div class="pill">IndexedDB</div></header><nav class="tabs">'+views.map(function(v){var parts=labels[v].split(" ");return '<button class="tab" data-view="'+v+'">'+parts[0]+'<span>'+parts.slice(1).join(" ")+'</span></button>';}).join("")+'</nav><main>'+views.map(function(v){return '<section id="'+v+'" class="view"></section>';}).join("")+'</main></div>';}
+function show(v){views.forEach(function(x){var el=$(x); if(el)el.className="view"+(x===v?" active":"");});Array.prototype.forEach.call(document.querySelectorAll(".tab"),function(b){b.className="tab"+(b.getAttribute("data-view")===v?" active":"");});location.hash=v;}
+function go(section){show(section);}
+window.go=go;
+
+
+function clampNcc(v,min,max){return Math.max(min,Math.min(max,v))}
+
+function nowIso(){return new Date().toISOString();}
+function normalizeSyncMeta(obj){
+  if(!obj.syncMeta)obj.syncMeta={};
+  var m=obj.syncMeta;
+  if(m.lastSyncedAt===undefined)m.lastSyncedAt=null;
+  if(m.sourceUpdatedAt===undefined)m.sourceUpdatedAt=null;
+  if(m.lastImportedAt===undefined)m.lastImportedAt=null;
+  if(m.lastManualEditAt===undefined)m.lastManualEditAt=obj.updatedAt||null;
+  if(m.nextExpectedUpdateAt===undefined)m.nextExpectedUpdateAt=null;
+  if(m.syncStatus===undefined)m.syncStatus="manual";
+  if(m.syncSource===undefined)m.syncSource="manual";
+  if(m.syncError===undefined)m.syncError="";
+  if(!Array.isArray(m.syncHistory))m.syncHistory=[];
+  return obj;
+}
+function syncAgeDays(value){
+  if(!value)return null;
+  var d=new Date(value);
+  if(isNaN(d))return null;
+  return (Date.now()-d.getTime())/86400000;
+}
+function freshnessStatus(obj){
+  normalizeSyncMeta(obj);
+  var m=obj.syncMeta;
+  if(m.syncStatus==="error")return{key:"error",label:"Sync Error",cls:"freshness-error"};
+  if(m.syncStatus==="disconnected")return{key:"disconnected",label:"Disconnected",cls:"freshness-disconnected"};
+  if(m.syncStatus==="manual")return{key:"manual",label:"Manual Only",cls:"freshness-manual"};
+  var age=syncAgeDays(m.lastSyncedAt||m.sourceUpdatedAt||m.lastImportedAt||m.lastManualEditAt);
+  if(age===null||age>7)return{key:"stale",label:"Stale",cls:"freshness-stale"};
+  if(age>2)return{key:"due",label:"Due Soon",cls:"freshness-due"};
+  return{key:"current",label:"Current",cls:"freshness-current"};
+}
+function freshnessSummary(){
+  var records=[].concat(state.accounts||[],state.bills||[],state.documents||[],state.goals||[],state.payroll||[]);
+  var counts={current:0,due:0,stale:0,error:0,manual:0,disconnected:0};
+  records.forEach(function(r){var s=freshnessStatus(r);counts[s.key]=(counts[s.key]||0)+1;});
+  var total=records.length;
+  var confidence=total?((counts.current*100+counts.due*70+counts.manual*55+counts.stale*20)/total):35;
+  return{counts:counts,total:total,confidence:clampNcc(confidence,0,100),records:records};
+}
+function formatSyncDate(v){
+  if(!v)return"—";
+  var d=new Date(v);
+  return isNaN(d)?String(v):d.toLocaleString();
+}
+function addSyncEvent(obj,type,message,source){
+  normalizeSyncMeta(obj);
+  obj.syncMeta.syncHistory.unshift({id:uid(),at:nowIso(),type:type,message:message,source:source||"manual"});
+  obj.syncMeta.syncHistory=obj.syncMeta.syncHistory.slice(0,50);
+}
+function syncMetaFromForm(d,obj){
+  normalizeSyncMeta(obj);
+  function toIso(v){if(!v)return null;var x=new Date(v);return isNaN(x)?null:x.toISOString();}
+  obj.syncMeta.lastSyncedAt=toIso(d.get("lastSyncedAt"));
+  obj.syncMeta.sourceUpdatedAt=toIso(d.get("sourceUpdatedAt"));
+  obj.syncMeta.nextExpectedUpdateAt=toIso(d.get("nextExpectedUpdateAt"));
+  obj.syncMeta.syncStatus=d.get("syncStatus")||"manual";
+  obj.syncMeta.syncSource=d.get("syncSource")||"manual";
+  obj.syncMeta.syncError=d.get("syncError")||"";
+  obj.syncMeta.lastManualEditAt=nowIso();
+  addSyncEvent(obj,obj.syncMeta.syncStatus==="error"?"error":"update","Record saved or updated.",obj.syncMeta.syncSource);
+  return obj;
+}
+function openFreshnessEvidence(){
+  var panel=$("nccEvidencePanel"),sheet=$("nccEvidenceSheet"),f=freshnessSummary();
+  if(!panel||!sheet)return;
+  sheet.innerHTML='<div class="head"><div><h2 style="margin:0">Data Freshness & Sync History</h2><p class="muted">Tracks syncs, imports, source updates, manual edits, and errors.</p></div><button class="btn secondary" onclick="closeNccEvidence()">Close</button></div>'+
+  '<div class="freshness-grid" style="margin-top:14px"><div class="card"><div class="label">Current</div><div class="value">'+f.counts.current+'</div></div><div class="card"><div class="label">Due Soon</div><div class="value">'+f.counts.due+'</div></div><div class="card"><div class="label">Stale</div><div class="value">'+f.counts.stale+'</div></div><div class="card"><div class="label">Errors</div><div class="value">'+f.counts.error+'</div></div></div>'+
+  '<div class="section"><div><h2>Freshness Confidence</h2></div></div><div class="item"><div class="big">'+f.confidence.toFixed(3)+'</div><div class="bar"><div style="width:'+f.confidence+'%"></div></div></div>'+
+  '<div class="section"><div><h2>Tracked Records</h2></div></div><div class="list">'+(f.records.length?f.records.slice(0,100).map(function(r){var s=freshnessStatus(r);return '<div class="item"><div class="head"><div><div class="title">'+esc(r.name||r.employer||r.docType||"Record")+'</div><div class="muted">Last sync: '+formatSyncDate(r.syncMeta.lastSyncedAt)+' · Source update: '+formatSyncDate(r.syncMeta.sourceUpdatedAt)+'</div></div><span class="'+s.cls+'">'+s.label+'</span></div></div>';}).join(""):'<div class="empty">No tracked records yet.</div>')+'</div>';
+  panel.className="evidence-panel open";
+}
+
+function nccMetrics(){
+  var cash=cashAmount();
+  var debt=debtAmount();
+  var assets=assetsAmount();
+  var monthSpend=monthSpendAmount();
+  var income=state.transactions.filter(function(t){return t.type==="Income";}).reduce(function(s,t){return s+Number(t.amount||0);},0);
+  var cards=state.accounts.filter(function(a){return a.type==="Credit Card";});
+  var cardBalance=cards.reduce(function(s,a){return s+Number(a.balance||0);},0);
+  var cardLimit=cards.reduce(function(s,a){return s+Number(a.creditLimit||0);},0);
+  var utilization=cardLimit>0?cardBalance/cardLimit*100:0;
+  var totalBills=state.bills.reduce(function(s,b){return s+Number(b.amount||0);},0);
+  var goalsTotal=state.goals.reduce(function(s,g){return s+Number(g.target||0);},0);
+  var goalsCurrent=state.goals.reduce(function(s,g){return s+Number(g.current||0);},0);
+  var goalProgress=goalsTotal>0?goalsCurrent/goalsTotal*100:0;
+  var cashScore=clampNcc(cash>0?55+Math.min(45,cash/5000*45):15,0,100);
+  var creditScore=clampNcc(cardLimit===0?55:100-utilization,0,100);
+  var debtScore=clampNcc(assets>0?100-(debt/assets*100):debt>0?25:80,0,100);
+  var billsScore=clampNcc(totalBills>0&&cash>0?100-(totalBills/cash*35):totalBills===0?65:25,0,100);
+  var incomeScore=clampNcc(income>monthSpend&&income>0?85:income>0?60:35,0,100);
+  var goalsScore=clampNcc(goalsTotal>0?goalProgress:50,0,100);
+  var docsScore=clampNcc(state.documents.length*14,15,100);
+  var completenessFields=0,totalFields=7;
+  if(state.accounts.length)completenessFields++;
+  if(state.transactions.length)completenessFields++;
+  if(state.bills.length)completenessFields++;
+  if(state.documents.length)completenessFields++;
+  if(state.rules.length)completenessFields++;
+  if(cards.every(function(a){return Number(a.creditLimit||0)>0})&&cards.length)completenessFields++;
+  if(income>0)completenessFields++;
+  var completeness=completenessFields/totalFields*100;
+  var freshness=freshnessSummary();
+  var health=(cashScore*.19+creditScore*.16+debtScore*.15+billsScore*.12+incomeScore*.13+goalsScore*.07+docsScore*.05+completeness*.06+freshness.confidence*.07);
+  return {
+    cash:cash,debt:debt,assets:assets,netWorth:assets-debt,monthSpend:monthSpend,income:income,
+    utilization:utilization,totalBills:totalBills,goalProgress:goalProgress,completeness:completeness,
+    health:clampNcc(health,0,100),freshness:freshness,
+    scores:{cash:cashScore,credit:creditScore,debt:debtScore,bills:billsScore,income:incomeScore,goals:goalsScore,documents:docsScore}
+  };
+}
+function nccState(score){
+  if(score>=75)return{label:"Healthy",cls:"healthy"};
+  if(score>=50)return{label:"Watch",cls:"watch"};
+  return{label:"Action Needed",cls:"critical"};
+}
+function nccEvidence(key){
+  var m=nccMetrics(),data={
+    cash:{title:"Cash Health",value:money(m.cash),score:m.scores.cash,formula:"55 + min(45, cash ÷ $5,000 × 45), when cash is positive",sources:["Cash-type accounts","Current account balances"],path:["Accounts","Cash total","Cash score"]},
+    income:{title:"Income Signal",value:money(m.income),score:m.scores.income,formula:"85 when recorded income exceeds monthly expenses; 60 when income exists; otherwise 35",sources:["Income transactions","Monthly expense transactions"],path:["Transactions","Income vs expenses","Income score"]},
+    bills:{title:"Bill Coverage",value:money(m.totalBills),score:m.scores.bills,formula:"100 − (monthly bills ÷ cash × 35), constrained from 0 to 100",sources:["Bills","Cash-type accounts"],path:["Bills","Cash coverage","Bill score"]},
+    debt:{title:"Debt Position",value:money(m.debt),score:m.scores.debt,formula:"100 − (debt ÷ assets × 100), constrained from 0 to 100",sources:["Credit-card accounts","Loan accounts","Asset accounts"],path:["Accounts","Debt-to-assets","Debt score"]},
+    credit:{title:"Credit Utilization",value:m.utilization.toFixed(3)+"%",score:m.scores.credit,formula:"100 − total revolving utilization",sources:["Credit-card balances","Credit limits"],path:["Cards","Utilization","Credit score"]},
+    goals:{title:"Goal Progress",value:m.goalProgress.toFixed(3)+"%",score:m.scores.goals,formula:"Current goal savings ÷ total goal targets × 100",sources:["Goals"],path:["Goals","Progress ratio","Goal score"]},
+    documents:{title:"Document Coverage",value:String(state.documents.length),score:m.scores.documents,formula:"14 points per stored document, constrained from 15 to 100",sources:["Document Vault"],path:["Documents","Coverage count","Document score"]},
+    core:{title:"Overall Financial Health",value:m.health.toFixed(3),score:m.health,formula:"Weighted score: Cash 20% + Credit 17% + Debt 16% + Bills 13% + Income 14% + Goals 8% + Documents 6% + Completeness 6%",sources:["Accounts","Transactions","Bills","Goals","Documents","Rules"],path:["Validated records","Deterministic subsystem scores","Weighted health score"]}
+  };
+  var e=data[key]||data.core;
+  var trust=e.score>=75?"Verified":e.score>=50?"Supported":"Incomplete";
+  return '<div class="head"><div><h2 style="margin:0">'+esc(e.title)+'</h2><p class="muted">Deterministic evidence panel</p></div><button class="btn secondary" onclick="closeNccEvidence()">Close</button></div>'+
+  '<div class="evidence-grid" style="margin-top:14px"><div class="card"><div class="label">Current Value</div><div class="value">'+esc(e.value)+'</div></div><div class="card"><div class="label">Subsystem Score</div><div class="value">'+Number(e.score).toFixed(3)+'</div></div><div class="card"><div class="label">Trust Class</div><div class="value">'+trust+'</div></div><div class="card"><div class="label">AI Provider</div><div class="value">None</div><div class="muted">FFE calculation engine only</div></div></div>'+
+  '<div class="section"><div><h2>Evidence Path</h2></div></div><div class="evidence-path">'+e.path.map(function(x,i){return '<span class="evidence-step">'+esc(x)+'</span>'+(i<e.path.length-1?'<span class="arrow">→</span>':'');}).join("")+'</div>'+
+  '<div class="section"><div><h2>Formula</h2></div></div><div class="item"><div class="muted">'+esc(e.formula)+'</div></div>'+
+  '<div class="section"><div><h2>Source Records</h2></div></div><div class="list">'+e.sources.map(function(x){return '<div class="item"><div class="title">'+esc(x)+'</div><div class="muted">Read from local IndexedDB records.</div></div>';}).join("")+'</div>';
+}
+function openNccEvidence(key){
+  var panel=$("nccEvidencePanel"),sheet=$("nccEvidenceSheet");
+  if(!panel||!sheet)return;
+  sheet.innerHTML=nccEvidence(key);panel.className="evidence-panel open";
+}
+function closeNccEvidence(){var p=$("nccEvidencePanel");if(p)p.className="evidence-panel";}
+function nccNode(key,icon,name,value,score,posClass){
+  var st=nccState(score);
+  return '<button class="neural-node '+st.cls+' '+posClass+'" onclick="openNccEvidence(\''+key+'\')" aria-label="'+esc(name)+' evidence"><div class="icon">'+icon+'</div><div class="node-name">'+esc(name)+'</div><div class="node-value">'+esc(value)+'</div><div class="node-state"><span class="node-dot"></span>'+st.label+'</div></button>';
+}
+function nccBrief(m){
+  var items=[];
+  if(m.utilization>=50)items.push({level:"critical",title:"Credit needs attention",text:"Overall utilization is "+m.utilization.toFixed(3)+"%."});
+  else items.push({level:"healthy",title:"Credit utilization",text:"Overall utilization is "+m.utilization.toFixed(3)+"%."});
+  if(m.totalBills>m.cash&&m.totalBills>0)items.push({level:"critical",title:"Bill coverage risk",text:"Recorded bills exceed available cash."});
+  else items.push({level:"healthy",title:"Bill coverage",text:money(m.cash)+" cash against "+money(m.totalBills)+" recorded bills."});
+  if(m.completeness<60)items.push({level:"watch",title:"Data completeness",text:"Add more records to improve confidence. Current completeness: "+m.completeness.toFixed(3)+"%."});
+  if(!state.transactions.length)items.push({level:"watch",title:"Import transactions",text:"Transaction data is needed for stronger spending and cash-flow signals."});
+  if(!items.length)items.push({level:"healthy",title:"Systems nominal",text:"No immediate deterministic alerts were found."});
+  return items;
+}
+
+function renderHome(){
+  var m=nccMetrics(),overall=nccState(m.health),brief=nccBrief(m);
+  var circumference=2*Math.PI*58,offset=circumference-(m.health/100*circumference);
+  return '<div class="ncc-shell">'+
+  '<div class="item ncc-banner"><div class="title">FFE Intelligence — Visual Intelligence 6.0</div><div class="muted">Visual-first control system. Every displayed score is calculated locally by the FFE deterministic engine.</div></div>'+
+  '<div class="neural-stage">'+
+    '<svg viewBox="0 0 1000 760" preserveAspectRatio="none" aria-hidden="true">'+
+      '<line class="neural-link active" x1="500" y1="288" x2="500" y2="76"></line>'+
+      '<line class="neural-link active" x1="500" y1="288" x2="160" y2="198"></line>'+
+      '<line class="neural-link active" x1="500" y1="288" x2="840" y2="198"></line>'+
+      '<line class="neural-link active" x1="500" y1="288" x2="130" y2="448"></line>'+
+      '<line class="neural-link active" x1="500" y1="288" x2="870" y2="448"></line>'+
+      '<line class="neural-link active" x1="500" y1="288" x2="220" y2="660"></line>'+
+      '<line class="neural-link active" x1="500" y1="288" x2="780" y2="660"></line><line class="neural-link active" x1="500" y1="288" x2="500" y2="720"></line><line class="neural-link active" x1="500" y1="288" x2="500" y2="30"></line>'+
+    '</svg>'+
+    '<button class="neural-core" onclick="openNccEvidence(\'core\')" aria-label="Overall financial health evidence"><div><div class="core-label">Financial Neural Core</div><div class="core-score">'+m.health.toFixed(3)+'</div><div class="core-status '+overall.cls+'"><span class="node-dot"></span>'+overall.label+'</div><div class="muted" style="margin-top:5px">Tap for evidence</div></div></button>'+
+    nccNode("cash","💵","Cash",money(m.cash),m.scores.cash,"node-cash")+
+    nccNode("income","↗️","Income",money(m.income),m.scores.income,"node-income")+
+    nccNode("bills","🧾","Bills",money(m.totalBills),m.scores.bills,"node-bills")+
+    nccNode("debt","📉","Debt",money(m.debt),m.scores.debt,"node-debt")+
+    nccNode("credit","💳","Credit",m.utilization.toFixed(3)+"%",m.scores.credit,"node-credit")+
+    nccNode("goals","🎯","Goals",m.goalProgress.toFixed(3)+"%",m.scores.goals,"node-goals")+
+    nccNode("documents","📄","Documents",String(state.documents.length),m.scores.documents,"node-docs")+"<button class=\"neural-node info travel-node\" onclick=\"go(\'travel\')\"><div class=\"icon\">✈️</div><div class=\"node-name\">Travel</div><div class=\"node-value\">"+(state.trips||[]).length+"</div><div class=\"node-state\"><span class=\"node-dot\"></span>Plans</div></button><button class=\"neural-node info freshness-node\" onclick=\"openFreshnessEvidence()\"><div class=\"icon\">🔄</div><div class=\"node-name\">Freshness</div><div class=\"node-value\">"+m.freshness.confidence.toFixed(3)+"</div><div class=\"node-state\"><span class=\"node-dot\"></span>Tracked</div></button>"+
+  '</div>'+
+  '<div class="visual-grid">'+
+    '<div class="card"><div class="section" style="margin-top:0"><div><h2>Financial Heat Map</h2><p>Subsystem strength from 0 to 100.</p></div></div><div class="grid">'+
+      [["Cash",m.scores.cash],["Income",m.scores.income],["Bills",m.scores.bills],["Debt",m.scores.debt],["Credit",m.scores.credit],["Goals",m.scores.goals],["Documents",m.scores.documents],["Freshness",m.freshness.confidence]].map(function(x){return '<div class="heat-row"><strong>'+x[0]+'</strong><div class="heat-track"><div class="heat-fill" style="width:'+clampNcc(x[1],0,100)+'%"></div></div><span class="money">'+Number(x[1]).toFixed(3)+'</span></div>';}).join("")+
+    '</div></div>'+
+    '<div class="card"><div class="section" style="margin-top:0"><div><h2>Health Ring</h2><p>Weighted deterministic score.</p></div></div><div class="ring-wrap"><svg class="health-ring" viewBox="0 0 140 140"><circle class="bg" cx="70" cy="70" r="58"></circle><circle class="fg" cx="70" cy="70" r="58" stroke-dasharray="'+circumference+'" stroke-dashoffset="'+offset+'"></circle></svg><div class="ring-center"><div class="ring-number">'+m.health.toFixed(3)+'</div><div class="ring-caption">'+overall.label+'</div></div></div><div class="muted" style="text-align:center;margin-top:8px">Data completeness: '+m.completeness.toFixed(3)+'%</div></div>'+
+  '</div>'+
+  '<div class="section"><div><h2>Executive Pulse</h2><p>Current financial operating signals.</p></div></div>'+
+  '<div class="pulse-grid"><div class="pulse-card"><div class="label">Net Worth</div><div class="value">'+money(m.netWorth)+'</div></div><div class="pulse-card"><div class="label">Monthly Spending</div><div class="value">'+money(m.monthSpend)+'</div></div><div class="pulse-card"><div class="label">Credit Utilization</div><div class="value">'+m.utilization.toFixed(3)+'%</div></div><div class="pulse-card"><div class="label">Data Completeness</div><div class="value">'+m.completeness.toFixed(3)+'%</div></div></div>'+
+  '<div class="section"><div><h2>Attention & Briefing</h2><p>Rules-based local insights; no cloud AI used.</p></div></div>'+
+  '<div class="list">'+brief.map(function(x){return '<div class="item '+x.level+'"><div class="head"><div><div class="title">'+esc(x.title)+'</div><div class="muted">'+esc(x.text)+'</div></div><span class="badge '+(x.level==="critical"?"rose":x.level==="watch"?"amber":"green")+'">'+(x.level==="critical"?"Action":x.level==="watch"?"Watch":"Healthy")+'</span></div></div>';}).join("")+'</div>'+
+  '<div class="section"><div><h2>Quick Controls</h2></div></div><div class="quick-grid"><button class="tile" onclick="go(\'money\')">💳 Money Workspace</button><button class="tile" onclick="go(\'import\')">📥 Import Data</button><button class="tile" onclick="go(\'analytics\')">📊 Visual Analytics</button><button class="tile" onclick="go(\'advisor\')">🤖 Advisor</button></div>'+
+  '</div>';
+}
+function renderMoney(){return '<div class="section"><div><h2>Money Workspace</h2><p>Accounts, credit cards, transactions, bills, and statements.</p></div></div><div class="quick-grid"><button class="tile" onclick="showMoneyPanel(\'accounts\')">🏦 Accounts</button><button class="tile" onclick="showMoneyPanel(\'credit\')">💡 Credit</button><button class="tile" onclick="showMoneyPanel(\'transactions\')">💳 Transactions</button><button class="tile" onclick="showMoneyPanel(\'bills\')">🧾 Bills</button><button class="tile" onclick="showMoneyPanel(\'vault\')">📄 Vault</button><button class="tile" onclick="showMoneyPanel(\'rules\')">⚙️ Rules</button></div><div id="moneyPanel" style="margin-top:12px">'+panelAccounts()+'</div>';}
+function showMoneyPanel(p){var el=$("moneyPanel"); if(!el)return; var map={accounts:panelAccounts,credit:panelCredit,transactions:panelTransactions,bills:panelBills,vault:panelVault,rules:panelRules};el.innerHTML=map[p]();bindForms();}
+window.showMoneyPanel=showMoneyPanel;
+function panelAccounts(){return '<div class="grid cols"><div class="card"><h2>Accounts</h2><form id="accountForm"><div class="formgrid"><label>Name<input name="name" required></label><label>Type<select name="type"><option>Checking</option><option>Savings</option><option>Cash</option><option>Credit Card</option><option>Loan</option><option>Investment</option></select></label><label>Balance<input name="balance" type="number" step="0.001"></label><label>Credit Limit<input name="creditLimit" type="number" step="0.001"></label><label>APR %<input name="apr" type="number" step="0.001"></label><label>Minimum Payment<input name="minimum" type="number" step="0.001"></label><label>Due Date / Day<input name="due"></label></div><details><summary>Sync & Freshness</summary><div class="formgrid" style="margin-top:10px"><label>Last Synced<input name="lastSyncedAt" type="datetime-local"></label><label>Source Updated<input name="sourceUpdatedAt" type="datetime-local"></label><label>Next Expected Update<input name="nextExpectedUpdateAt" type="datetime-local"></label><label>Sync Status<select name="syncStatus"><option value="manual">Manual Only</option><option value="current">Current</option><option value="error">Sync Error</option><option value="disconnected">Disconnected</option></select></label><label>Sync Source<input name="syncSource" placeholder="manual, CSV, future backend"></label><label>Sync Error<input name="syncError"></label></div></details><button class="btn green">Save Account</button></form></div><div class="list">'+(state.accounts.length?state.accounts.map(function(a){return '<div class="item"><div class="head"><div><div class="title">'+esc(a.name)+'</div><div class="muted">'+esc(a.type)+'</div></div><div class="money">'+money(a.balance)+'</div></div><button class="btn rose" onclick="deleteItem(\'accounts\',\''+a.id+'\')">Delete</button></div>';}).join(""):'<div class="empty">No accounts.</div>')+'</div></div>';}
+function panelCredit(){var cards=state.accounts.filter(function(a){return a.type==="Credit Card";});return '<div class="section"><div><h2>Credit Intelligence</h2></div></div><div class="list">'+(cards.length?cards.map(function(a){var u=utilization(a);return '<div class="item"><div class="head"><div><div class="title">'+esc(a.name)+'</div><div class="muted">APR '+Number(a.apr||0).toFixed(3)+'% · Due '+esc(a.due||"—")+'</div></div><span class="badge '+(u>=50?"amber":"green")+'">'+u.toFixed(3)+'%</span></div><div class="bar"><div style="width:'+Math.min(100,u)+'%"></div></div><div class="muted">Balance '+money(a.balance)+' · Limit '+money(a.creditLimit)+' · Minimum '+money(a.minimum)+'</div></div>';}).join(""):'<div class="empty">Add credit card accounts.</div>')+'</div>';}
+function panelTransactions(){return '<div class="grid cols"><div class="card"><h2>Transactions</h2><form id="txnForm"><div class="formgrid"><label>Date<input name="date" type="date" value="'+today()+'"></label><label>Type<select name="type"><option>Expense</option><option>Income</option></select></label><label>Name<input name="name" required></label><label>Amount<input name="amount" type="number" step="0.001"></label><label>Category<input name="category" value="Other"></label></div><button class="btn green">Save Transaction</button></form></div><div class="list">'+(state.transactions.length?state.transactions.slice().reverse().map(function(t){return '<div class="item"><div class="head"><div><div class="title">'+esc(t.name)+'</div><div class="muted">'+esc(t.date)+' · '+esc(t.category)+' · '+esc(t.type)+'</div></div><div class="money">'+money(t.amount)+'</div></div><button class="btn rose" onclick="deleteItem(\'transactions\',\''+t.id+'\')">Delete</button></div>';}).join(""):'<div class="empty">No transactions.</div>')+'</div></div>';}
+function panelBills(){return '<div class="grid cols"><div class="card"><h2>Bills</h2><form id="billForm"><div class="formgrid"><label>Name<input name="name" required></label><label>Amount<input name="amount" type="number" step="0.001"></label><label>Due Day<input name="due"></label><label>Category<input name="category"></label><label>Frequency<select name="frequency"><option>Monthly</option><option>Weekly</option><option>Yearly</option></select></label></div><details><summary>Sync & Freshness</summary><div class="formgrid" style="margin-top:10px"><label>Last Synced<input name="lastSyncedAt" type="datetime-local"></label><label>Source Updated<input name="sourceUpdatedAt" type="datetime-local"></label><label>Next Expected Update<input name="nextExpectedUpdateAt" type="datetime-local"></label><label>Sync Status<select name="syncStatus"><option value="manual">Manual Only</option><option value="current">Current</option><option value="error">Sync Error</option><option value="disconnected">Disconnected</option></select></label><label>Sync Source<input name="syncSource" placeholder="manual, CSV, future backend"></label><label>Sync Error<input name="syncError"></label></div></details><button class="btn green">Save Bill</button></form></div><div class="list">'+(state.bills.length?state.bills.map(function(b){return '<div class="item"><div class="head"><div><div class="title">'+esc(b.name)+'</div><div class="muted">Due '+esc(b.due)+' · '+esc(b.category)+'</div></div><div class="money">'+money(b.amount)+'</div></div></div>';}).join(""):'<div class="empty">No bills.</div>')+'</div></div>';}
+function panelVault(){return '<div class="grid cols"><div class="card"><h2>Manual Statement Review</h2><form id="docForm"><div class="formgrid"><label>Institution<input name="institution" value="Best Buy / Citi"></label><label>Account Ending<input name="accountEnding"></label><label>New Balance<input name="newBalance" type="number" step="0.001"></label><label>Minimum Payment<input name="minimumPayment" type="number" step="0.001"></label><label>Credit Limit<input name="creditLimit" type="number" step="0.001"></label><label>Payment Due Date<input name="paymentDueDate"></label></div><details><summary>Sync & Freshness</summary><div class="formgrid" style="margin-top:10px"><label>Last Synced<input name="lastSyncedAt" type="datetime-local"></label><label>Source Updated<input name="sourceUpdatedAt" type="datetime-local"></label><label>Next Expected Update<input name="nextExpectedUpdateAt" type="datetime-local"></label><label>Sync Status<select name="syncStatus"><option value="manual">Manual Only</option><option value="current">Current</option><option value="error">Sync Error</option><option value="disconnected">Disconnected</option></select></label><label>Sync Source<input name="syncSource" placeholder="manual, CSV, future backend"></label><label>Sync Error<input name="syncError"></label></div></details><button class="btn green">Save Statement</button></form></div><div class="list">'+(state.documents.length?state.documents.slice().reverse().map(function(d){return '<div class="item"><div class="title">'+esc(d.institution)+' '+(d.accountEnding?'••••'+esc(d.accountEnding):'')+'</div><div class="muted">'+esc(d.paymentDueDate||"")+' · '+money(d.newBalance)+'</div></div>';}).join(""):'<div class="empty">No documents saved.</div>')+'</div></div>';}
+function panelRules(){return '<div class="grid cols"><div class="card"><h2>Rules</h2><form id="ruleForm"><div class="formgrid"><label>If merchant contains<input name="contains"></label><label>Category<input name="category"></label></div><button class="btn green">Save Rule</button></form></div><div class="list">'+(state.rules.length?state.rules.map(function(r){return '<div class="item"><div class="title">If contains "'+esc(r.contains)+'"</div><div class="muted">Category → '+esc(r.category)+'</div></div>';}).join(""):'<div class="empty">No rules yet.</div>')+'</div></div>';}
+
+var rawRows=[], previewRows=[], headers=[];
+function parseCSV(text){var lines=text.trim().split(/\r?\n/); if(!lines.length)return[];var h=lines[0].split(",").map(function(x){return x.trim().replace(/^"|"$/g,"");});return lines.slice(1).map(function(line){var vals=line.split(",").map(function(x){return x.trim().replace(/^"|"$/g,"");}); var o={}; h.forEach(function(k,i){o[k]=vals[i]||"";}); return o;});}
+function fillSelect(id){var el=$(id); if(!el)return; el.innerHTML='<option value="">-- none --</option>'+headers.map(function(h){return '<option>'+esc(h)+'</option>';}).join("");}
+function autoMap(){function guess(list){var lower=headers.map(function(h){return h.toLowerCase();}); for(var i=0;i<list.length;i++){var idx=lower.findIndex(function(h){return h.indexOf(list[i])>=0;}); if(idx>=0)return headers[idx];} return "";}$("mapDate").value=guess(["date"]);$("mapName").value=guess(["description","merchant","name","payee"]);$("mapAmount").value=guess(["amount","debit","credit"]);$("mapCategory").value=guess(["category"]);buildPreview();}
+function txKey(t){return [t.date,t.name,Number(t.amount).toFixed(2)].join("|").toLowerCase();}
+function buildPreview(){var ex=new Set(state.transactions.map(txKey));previewRows=rawRows.map(function(r){var name=r[$("mapName").value]||"Imported";var amount=Math.abs(Number(String(r[$("mapAmount").value]||"0").replace(/[$,()]/g,""))||0);var tx={id:uid(),date:r[$("mapDate").value]||today(),type:"Expense",name:name,amount:amount,category:r[$("mapCategory").value]||suggestedCategory(name),notes:"CSV import"};return {tx:tx,duplicate:ex.has(txKey(tx))};});$("statRows").textContent=previewRows.length;$("statNew").textContent=previewRows.filter(function(x){return !x.duplicate;}).length;$("importPreview").innerHTML=previewRows.length?previewRows.map(function(r){return '<div class="item import-preview-row '+(r.duplicate?'duplicate-row':'')+'"><div class="head"><div><div class="title">'+esc(r.tx.name)+'</div><div class="muted">'+esc(r.tx.date)+' · '+esc(r.tx.category)+'</div></div><div class="money">'+money(r.tx.amount)+'</div></div><span class="badge '+(r.duplicate?'rose':'green')+'">'+(r.duplicate?'Duplicate':'New')+'</span></div>';}).join(""):'<div class="empty">No rows.</div>';}
+async function approveImport(){var rows=previewRows.filter(function(x){return !x.duplicate;}).map(function(x){return x.tx;});for(var i=0;i<rows.length;i++){await put("transactions",rows[i]);}await load();renderAll();toast("Imported "+rows.length+" transactions");}
+
+function tripDays(start,end){
+  if(!start||!end)return 1;
+  var a=new Date(start),b=new Date(end);
+  if(isNaN(a)||isNaN(b))return 1;
+  return Math.max(1,Math.ceil((b-a)/86400000)+1);
+}
+function tripNights(start,end){return Math.max(0,tripDays(start,end)-1);}
+function monthsUntil(date){
+  if(!date)return 0;
+  var d=new Date(date),n=new Date();
+  if(isNaN(d))return 0;
+  return Math.max(0,(d.getFullYear()-n.getFullYear())*12+(d.getMonth()-n.getMonth())+(d.getDate()>=n.getDate()?0:-1));
+}
+function calcTripScenario(t,mult){
+  var days=tripDays(t.startDate,t.endDate),nights=tripNights(t.startDate,t.endDate);
+  var travelers=Math.max(1,Number(t.travelers||1));
+  var rooms=Math.max(1,Number(t.rooms||1));
+  var hotel=Number(t.hotelNight||0)*mult*nights*rooms;
+  var meals=(Number(t.breakfast||0)+Number(t.lunch||0)+Number(t.dinner||0)+Number(t.snacks||0))*mult*days*travelers;
+  var transport=(Number(t.airfare||0)+Number(t.rentalCar||0)+Number(t.fuel||0)+Number(t.parking||0)+Number(t.tolls||0)+Number(t.localTransit||0))*mult;
+  var activities=(Number(t.activities||0)+Number(t.tickets||0)+Number(t.shopping||0))*mult;
+  var other=(Number(t.insurance||0)+Number(t.luggage||0)+Number(t.childcare||0)+Number(t.petCare||0)+Number(t.other||0))*mult;
+  var subtotal=hotel+meals+transport+activities+other;
+  var contingency=subtotal*(Number(t.contingencyPct||0)/100);
+  var total=subtotal+contingency;
+  return{days:days,nights:nights,hotel:hotel,meals:meals,transport:transport,activities:activities,other:other,contingency:contingency,total:total,perDay:total/days};
+}
+function tripStatus(t,total){
+  var saved=Number(t.saved||0),remaining=Math.max(0,total-saved),months=monthsUntil(t.startDate);
+  var required=months>0?remaining/months:remaining;
+  var planned=Number(t.monthlySavings||0);
+  var pct=total>0?saved/total*100:0;
+  var status=remaining<=0?"Fully Funded":planned>=required?"On Track":months<=2?"At Risk":"Needs Adjustment";
+  var cls=status==="Fully Funded"||status==="On Track"?"on-track":status==="At Risk"?"risk":"watch";
+  return{saved:saved,remaining:remaining,months:months,requiredMonthly:required,plannedMonthly:planned,pct:clampNcc(pct,0,100),status:status,cls:cls};
+}
+function travelSummary(){
+  var total=0,saved=0,active=0;
+  (state.trips||[]).forEach(function(t){
+    var c=calcTripScenario(t,1);
+    total+=c.total;saved+=Number(t.saved||0);
+    if(!t.endDate||new Date(t.endDate)>=new Date())active++;
+  });
+  return{total:total,saved:saved,gap:Math.max(0,total-saved),active:active};
+}
+function travelNodeScore(){
+  var s=travelSummary();
+  if(!s.active)return 65;
+  if(s.total<=0)return 40;
+  return clampNcc((s.saved/s.total)*100,0,100);
+}
+function renderScenario(name,c,cls){
+  return '<div class="scenario-card '+(cls||"")+'"><div class="head"><div><div class="title">'+name+'</div><div class="muted">'+c.days+' day(s) · '+c.nights+' night(s)</div></div><div class="money">'+money(c.total)+'</div></div>'+
+  '<div class="cost-line"><span>Lodging</span><strong>'+money(c.hotel)+'</strong></div>'+
+  '<div class="cost-line"><span>Meals</span><strong>'+money(c.meals)+'</strong></div>'+
+  '<div class="cost-line"><span>Transportation</span><strong>'+money(c.transport)+'</strong></div>'+
+  '<div class="cost-line"><span>Activities</span><strong>'+money(c.activities)+'</strong></div>'+
+  '<div class="cost-line"><span>Other</span><strong>'+money(c.other)+'</strong></div>'+
+  '<div class="cost-line"><span>Contingency</span><strong>'+money(c.contingency)+'</strong></div>'+
+  '<div class="cost-line"><span>Average / Day</span><strong>'+money(c.perDay)+'</strong></div></div>';
+}
+function travelEvidence(t){
+  var std=calcTripScenario(t,1),status=tripStatus(t,std.total);
+  return '<div class="head"><div><h2 style="margin:0">'+esc(t.name||"Travel Plan")+'</h2><p class="muted">'+esc(t.location||"No location")+' · '+esc(t.startDate||"")+' to '+esc(t.endDate||"")+'</p></div><button class="btn secondary" onclick="closeNccEvidence()">Close</button></div>'+
+  '<div class="evidence-grid" style="margin-top:14px"><div class="card"><div class="label">Estimated Total</div><div class="value">'+money(std.total)+'</div></div><div class="card"><div class="label">Average / Day</div><div class="value">'+money(std.perDay)+'</div></div><div class="card"><div class="label">Saved</div><div class="value">'+money(status.saved)+'</div></div><div class="card"><div class="label">Required / Month</div><div class="value">'+money(status.requiredMonthly)+'</div></div></div>'+
+  '<div class="section"><div><h2>Deterministic Formula</h2></div></div><div class="item"><div class="muted">Hotel + meals + transportation + activities + other costs + contingency. Meal totals use per-person daily inputs multiplied by travelers and trip days.</div></div>'+
+  '<div class="section"><div><h2>Data Source</h2></div></div><div class="item"><div class="muted">'+esc(t.costSource||"Manual estimate")+' · researched '+esc(t.researchedDate||"not recorded")+' · confidence '+esc(t.confidence||"Estimated")+'.</div></div>';
+}
+function openTripEvidence(id){
+  var t=(state.trips||[]).find(function(x){return x.id===id;});
+  if(!t)return;
+  var panel=$("nccEvidencePanel"),sheet=$("nccEvidenceSheet");
+  sheet.innerHTML=travelEvidence(t);panel.className="evidence-panel open";
+}
+function renderTravel(){
+  var s=travelSummary();
+  return '<div class="section"><div><h2>Travel & Event Planner</h2><p>Location-based planning, cost scenarios, savings targets, and trip readiness.</p></div></div>'+
+  '<div class="kpis"><div class="card"><div class="label">Active Plans</div><div class="value">'+s.active+'</div></div><div class="card"><div class="label">Estimated Cost</div><div class="value">'+money(s.total)+'</div></div><div class="card"><div class="label">Saved</div><div class="value">'+money(s.saved)+'</div></div><div class="card"><div class="label">Funding Gap</div><div class="value">'+money(s.gap)+'</div></div></div>'+
+  '<div class="section"><div><h2>Create Plan</h2></div></div>'+
+  '<div class="card"><form id="tripForm"><div class="formgrid">'+
+  '<label>Plan Name<input name="name" required placeholder="Orlando Vacation"></label><label>Type<select name="type"><option>Vacation</option><option>Weekend Trip</option><option>Wedding</option><option>Concert</option><option>Sporting Event</option><option>Conference</option><option>Family Event</option><option>Road Trip</option><option>Other</option></select></label>'+
+  '<label>Location<input name="location" required placeholder="Orlando, Florida"></label><label>Travelers<input name="travelers" type="number" min="1" value="1"></label>'+
+  '<label>Start Date<input name="startDate" type="date"></label><label>End Date<input name="endDate" type="date"></label>'+
+  '<label>Rooms<input name="rooms" type="number" min="1" value="1"></label><label>Hotel Level<select name="hotelLevel"><option>2-Star</option><option selected>3-Star</option><option>4-Star</option></select></label>'+
+  '<label>Average Hotel / Night<input name="hotelNight" type="number" step="0.001"></label><label>Breakfast / Person / Day<input name="breakfast" type="number" step="0.001"></label>'+
+  '<label>Lunch / Person / Day<input name="lunch" type="number" step="0.001"></label><label>Dinner / Person / Day<input name="dinner" type="number" step="0.001"></label>'+
+  '<label>Snacks / Person / Day<input name="snacks" type="number" step="0.001"></label><label>Airfare Total<input name="airfare" type="number" step="0.001"></label>'+
+  '<label>Rental Car<input name="rentalCar" type="number" step="0.001"></label><label>Fuel<input name="fuel" type="number" step="0.001"></label>'+
+  '<label>Parking<input name="parking" type="number" step="0.001"></label><label>Tolls<input name="tolls" type="number" step="0.001"></label>'+
+  '<label>Local Transit / Rideshare<input name="localTransit" type="number" step="0.001"></label><label>Activities<input name="activities" type="number" step="0.001"></label>'+
+  '<label>Tickets<input name="tickets" type="number" step="0.001"></label><label>Shopping / Souvenirs<input name="shopping" type="number" step="0.001"></label>'+
+  '<label>Travel Insurance<input name="insurance" type="number" step="0.001"></label><label>Luggage Fees<input name="luggage" type="number" step="0.001"></label>'+
+  '<label>Childcare<input name="childcare" type="number" step="0.001"></label><label>Pet Care<input name="petCare" type="number" step="0.001"></label>'+
+  '<label>Other Costs<input name="other" type="number" step="0.001"></label><label>Contingency %<input name="contingencyPct" type="number" step="0.001" value="10"></label>'+
+  '<label>Already Saved<input name="saved" type="number" step="0.001"></label><label>Planned Monthly Savings<input name="monthlySavings" type="number" step="0.001"></label>'+
+  '<label>Cost Source<input name="costSource" placeholder="Manual estimate, travel research, future API"></label><label>Researched Date<input name="researchedDate" type="date"></label>'+
+  '<label>Estimate Confidence<select name="confidence"><option>Estimated</option><option>Supported</option><option>Verified</option></select></label></div>'+
+  '<label>Notes<textarea name="notes"></textarea></label><button class="btn green">Save Travel Plan</button></form></div>'+
+  '<div class="item location-note" style="margin-top:12px"><div class="title">Location Cost Research</div><div class="muted">Enter current researched averages for hotels and meals. Live location pricing will be added later through the secure backend; no private API keys will be stored in GitHub.</div></div>'+
+  '<div class="section"><div><h2>Plans & Scenarios</h2></div></div>'+
+  '<div class="list">'+((state.trips||[]).length?state.trips.slice().reverse().map(function(t){var b=calcTripScenario(t,.85),std=calcTripScenario(t,1),c=calcTripScenario(t,1.25),st=tripStatus(t,std.total);return '<div class="item trip-card '+st.cls+'"><div class="head"><div><div class="title">'+esc(t.name)+'</div><div class="muted">'+esc(t.location)+' · '+esc(t.type)+' · '+st.status+'</div></div><div class="money">'+money(std.total)+'</div></div><div class="travel-progress"><div style="width:'+st.pct+'%"></div></div><div class="muted">Saved '+money(st.saved)+' · Remaining '+money(st.remaining)+' · Required monthly '+money(st.requiredMonthly)+'</div><div class="scenario-grid" style="margin-top:10px">'+renderScenario("Budget",b,"")+renderScenario("Standard",std,"recommended")+renderScenario("Comfortable",c,"")+'</div><div class="actions"><button class="btn secondary" onclick="openTripEvidence(\''+t.id+'\')">Show Evidence</button><button class="btn rose" onclick="deleteItem(\'trips\',\''+t.id+'\')">Delete</button></div></div>';}).join(""):'<div class="empty">No travel or event plans yet.</div>')+'</div>';
+}
+
+function renderImport(){return '<div class="section"><div><h2>Transaction Import</h2><p>CSV import with preview, rules, and duplicate detection.</p></div></div><div class="grid cols"><div class="card"><label>CSV File<input type="file" id="csvFile" accept=".csv,text/csv"></label><div class="formgrid" style="margin-top:12px"><label>Date Column<select id="mapDate"></select></label><label>Name Column<select id="mapName"></select></label><label>Amount Column<select id="mapAmount"></select></label><label>Category Column<select id="mapCategory"></select></label></div><div class="actions" style="justify-content:flex-start;margin-top:12px"><button class="btn secondary" id="autoMap">Auto Map</button><button class="btn green" id="approveImport">Approve Import</button></div></div><div class="card"><h2>Stats</h2><div class="kpis"><div class="card"><div class="label">Rows</div><div class="value" id="statRows">0</div></div><div class="card"><div class="label">New</div><div class="value" id="statNew">0</div></div></div></div></div><div class="section"><div><h2>Preview</h2></div></div><div class="list" id="importPreview"><div class="empty">Choose a CSV.</div></div>';}
+
+function institutionTotals(id){var a=state.accounts.filter(function(x){return x.institutionId===id;});return{accounts:a,assets:a.filter(function(x){return ["Checking","Savings","Cash","Investment"].indexOf(x.type)>=0;}).reduce(function(s,x){return s+Number(x.balance||0);},0),debt:a.filter(function(x){return ["Credit Card","Loan"].indexOf(x.type)>=0;}).reduce(function(s,x){return s+Number(x.balance||0);},0)};}
+function renderInstitutionIntelligence(){return '<div class="section"><div><h2>Institution Intelligence</h2><p>Accounts, balances, debt and notes grouped by institution.</p></div></div><div class="card"><form id="institutionForm"><div class="formgrid"><label>Institution Name<input name="name" required></label><label>Type<select name="type"><option>Bank</option><option>Credit Card Issuer</option><option>Investment</option><option>Lender</option><option>Utility</option><option>Other</option></select></label><label>Brand Color<input name="brandColor" value="#38bdf8"></label><label>Website<input name="website"></label></div><label>Notes<textarea name="notes"></textarea></label><button class="btn green">Save Institution</button></form></div><div class="institution-grid" style="margin-top:12px">'+(state.institutions.length?state.institutions.map(function(i){var t=institutionTotals(i.id);return '<div class="institution-card"><div class="head"><div class="institution-brand"><div class="institution-logo" style="background:'+esc(i.brandColor||"#38bdf8")+'">'+esc((i.name||"I").slice(0,2).toUpperCase())+'</div><div><div class="title">'+esc(i.name)+'</div><div class="muted">'+esc(i.type)+'</div></div></div><span class="badge blue">'+t.accounts.length+' account(s)</span></div><div class="kpis" style="margin-top:10px"><div class="card"><div class="label">Assets</div><div class="value">'+money(t.assets)+'</div></div><div class="card"><div class="label">Debt</div><div class="value">'+money(t.debt)+'</div></div></div></div>';}).join(""):'<div class="empty">No institutions yet.</div>')+'</div>';}
+function journalEvents(){var r=[];state.transactions.forEach(function(t){r.push({at:t.date||t.updatedAt,type:"Transaction",title:t.name,detail:t.category,amount:t.amount});});state.bills.forEach(function(b){r.push({at:b.updatedAt||b.due,type:"Bill",title:b.name,detail:b.category,amount:b.amount});});state.documents.forEach(function(d){r.push({at:d.updatedAt||d.statementDate,type:"Document",title:d.fileName||d.docType,detail:d.docType,amount:d.newBalance});});state.trips.forEach(function(t){r.push({at:t.updatedAt||t.startDate,type:"Travel",title:t.name,detail:t.location,amount:calcTripScenario(t,1).total});});state.events.forEach(function(e){r.push(e);});return r.sort(function(a,b){return new Date(b.at||0)-new Date(a.at||0);});}
+function renderEventJournal(){var rows=journalEvents();return '<div class="section"><div><h2>Financial Event Journal</h2><p>History of financial changes and milestones.</p></div></div><div class="card"><form id="eventForm"><div class="formgrid"><label>Event Date<input name="at" type="datetime-local"></label><label>Type<select name="type"><option>Note</option><option>Milestone</option><option>Payment</option><option>Sync</option><option>Recommendation</option><option>Simulation</option></select></label><label>Title<input name="title" required></label><label>Amount<input name="amount" type="number" step="0.001"></label></div><label>Details<textarea name="detail"></textarea></label><button class="btn green">Add Event</button></form></div><div class="event-timeline" style="margin-top:12px">'+(rows.length?rows.slice(0,100).map(function(e){return '<div class="event-row"><div class="event-line"></div><div class="item"><div class="head"><div><div class="title">'+esc(e.title||e.type)+'</div><div class="muted">'+esc(e.type||"Event")+' · '+formatSyncDate(e.at)+'</div></div><div class="money">'+money(e.amount||0)+'</div></div><div class="muted">'+esc(e.detail||"")+'</div></div></div>';}).join(""):'<div class="empty">No events yet.</div>')+'</div>';}
+function renderCashFlowVisual(){var inc=state.transactions.filter(function(t){return t.type==="Income";}).reduce(function(s,t){return s+Number(t.amount||0);},0),by={};state.transactions.filter(function(t){return t.type==="Expense";}).forEach(function(t){by[t.category]=(by[t.category]||0)+Number(t.amount||0);});var spend=Object.values(by).reduce(function(s,v){return s+v;},0);return '<div class="section"><div><h2>Cash-Flow Map</h2><p>Visual income-to-spending flow.</p></div></div><div class="sankey"><div class="flow-col"><div class="flow-box"><div class="label">Income</div><div class="value">'+money(inc)+'</div></div></div><div class="flow-arrow">→</div><div class="flow-col">'+(Object.keys(by).length?Object.entries(by).sort(function(a,b){return b[1]-a[1];}).slice(0,6).map(function(x){return '<div class="flow-box"><div class="head"><span>'+esc(x[0])+'</span><strong>'+money(x[1])+'</strong></div></div>';}).join(""):'<div class="flow-box">No expense data.</div>')+'<div class="flow-box"><div class="label">Net Cash Flow</div><div class="value">'+money(inc-spend)+'</div></div></div></div>';}
+function renderDigitalTwin(){return '<div class="section"><div><h2>Financial Digital Twin</h2><p>Relationship model of your financial system.</p></div></div><div class="digital-twin"><div class="twin-core"><div><div class="label">YOU</div><div class="big">'+state.accounts.length+'</div><div class="muted">Accounts</div></div></div><div class="twin-node a">🏦<div class="title">Institutions</div><div class="muted">'+state.institutions.length+'</div></div><div class="twin-node b">💳<div class="title">Accounts</div><div class="muted">'+state.accounts.length+'</div></div><div class="twin-node c">↔️<div class="title">Transactions</div><div class="muted">'+state.transactions.length+'</div></div><div class="twin-node d">🧾<div class="title">Bills</div><div class="muted">'+state.bills.length+'</div></div><div class="twin-node e">🎯<div class="title">Goals</div><div class="muted">'+state.goals.length+'</div></div><div class="twin-node f">📄<div class="title">Documents</div><div class="muted">'+state.documents.length+'</div></div></div>';}
+function renderTravelVisuals(){if(!state.trips.length)return '<div class="empty">Create a travel plan to see cost allocation.</div>';var c=calcTripScenario(state.trips[0],1),p=[["Lodging",c.hotel],["Meals",c.meals],["Transportation",c.transport],["Activities",c.activities],["Other",c.other],["Contingency",c.contingency]],mx=Math.max.apply(null,p.map(function(x){return x[1];}).concat([1]));return '<div class="travel-bars">'+p.map(function(x){return '<div class="travel-bar"><strong>'+x[0]+'</strong><div class="travel-track"><div class="travel-fill" style="width:'+(x[1]/mx*100)+'%"></div></div><span class="money">'+money(x[1])+'</span></div>';}).join("")+'</div>';}
+function renderRecommendationCards(){var m=nccMetrics(),c=[];if(m.utilization>50)c.push({l:"low",t:"Reduce revolving utilization",x:"Credit utilization is "+m.utilization.toFixed(3)+"%.",q:"Verified",e:"Credit balances and limits"});if(m.totalBills>m.cash&&m.totalBills>0)c.push({l:"low",t:"Review bill coverage",x:"Recorded bills exceed available cash.",q:"Verified",e:"Cash accounts and bills"});if(travelSummary().gap>0)c.push({l:"medium",t:"Fund planned travel",x:"Travel plans have a remaining gap of "+money(travelSummary().gap)+".",q:"Supported",e:"Travel estimates and savings"});if(m.freshness&&m.freshness.confidence<60)c.push({l:"medium",t:"Refresh stale records",x:"Freshness confidence is "+m.freshness.confidence.toFixed(3)+"%.",q:"Supported",e:"Sync metadata"});if(!c.length)c.push({l:"high",t:"Systems stable",x:"No major rules-based issues were identified.",q:"Verified",e:"Current FFE records"});return '<div class="section"><div><h2>Explainable Recommendations</h2><p>Confidence and evidence included.</p></div></div><div class="list">'+c.map(function(r){return '<div class="item reco-card '+r.l+'"><div class="head"><div><div class="title">'+esc(r.t)+'</div><div class="muted">'+esc(r.x)+'</div></div><span class="badge '+(r.l==="high"?"green":r.l==="medium"?"amber":"rose")+'">'+r.q+'</span></div><div class="muted">Evidence: '+esc(r.e)+' · AI provider: None</div></div>';}).join("")+'</div>';}
+
+function renderAnalytics(){
+  return '<div class="vi-grid two"><div class="vi-card">'+renderCashFlowVisual()+'</div><div class="vi-card"><div class="section" style="margin-top:0"><div><h2>Travel Cost Visual</h2><p>Current plan cost allocation.</p></div></div>'+renderTravelVisuals()+'</div></div>'+renderDigitalTwin()+renderEventJournal();
+}
+function renderAdvisor(){
+  return renderRecommendationCards()+'<div class="section"><div><h2>Trust Standard</h2><p>FFE calculations remain deterministic.</p></div></div><div class="item"><div class="title">AI Governance</div><div class="muted">No cloud AI provider is used in this build.</div></div>';
+}
+
+function renderProductionTools(){
+  var validation=typeof validateFFEData==="function"
+    ? validateFFEData()
+    : {issues:[],warnings:[],ok:true};
+
+  var status=!validation.ok ? "Fail" : (validation.warnings.length ? "Watch" : "Pass");
+  var statusClass=!validation.ok ? "health-fail" : (validation.warnings.length ? "health-watch" : "health-pass");
+
+  return '<div class="section"><div><h2>Security & System Health</h2><p>Backup, privacy, validation, and diagnostics.</p></div></div>'+
+  '<div class="list">'+
+    '<div class="item privacy-box"><div class="title">Privacy Model</div><div class="muted">GitHub hosts only the application code. Financial records remain in this browser unless you export or upload them yourself.</div></div>'+
+    '<div class="item backup-box"><div class="title">Encrypted Backup</div><div class="muted">Protect your backup with a password you choose.</div><div class="actions" style="justify-content:flex-start"><button class="btn green" onclick="exportEncryptedFFEBackup()">Export Encrypted Backup</button></div></div>'+
+    '<div class="item restore-box"><div class="title">Restore Encrypted Backup</div><label>Encrypted FFE file<input type="file" id="restoreEncryptedFile" accept=".json,.ffe.json,application/json"></label></div>'+
+    '<div class="item"><div class="title">Data Health</div><div class="health-grid">'+
+      '<div class="card"><div class="label">Status</div><div class="value '+statusClass+'">'+status+'</div></div>'+
+      '<div class="card"><div class="label">Issues</div><div class="value">'+validation.issues.length+'</div></div>'+
+      '<div class="card"><div class="label">Warnings</div><div class="value">'+validation.warnings.length+'</div></div>'+
+      '<div class="card"><div class="label">Records</div><div class="value">'+
+        ((state.accounts||[]).length+
+         (state.transactions||[]).length+
+         (state.bills||[]).length+
+         (state.documents||[]).length+
+         (state.trips||[]).length+
+         (state.institutions||[]).length+
+         (state.events||[]).length)+
+      '</div></div>'+
+    '</div></div>'+
+    '<div class="item"><div class="title">Diagnostics</div><div class="muted">Exports system metadata without transaction details.</div><div class="actions" style="justify-content:flex-start"><button class="btn secondary" onclick="exportFFEDiagnostics()">Export Diagnostics</button></div></div>'+
+  '</div>';
+}
+
+function renderMore(){return renderProductionTools() + '<div class="section"><div><h2>More</h2><p>Search, rules, settings, and diagnostics.</p></div></div><div class="card"><label>Search<input id="searchBox" placeholder="Amazon, Best Buy, rent..."></label></div><div class="list" id="searchResults"><div class="empty">Type to search.</div></div><div class="section"><div><h2>Settings</h2></div></div><div class="card"><h2>FFE 5.0</h2><p class="muted">FFE 6.0 Visual Intelligence adds Institution Intelligence, a Financial Event Journal, cash-flow mapping, a Digital Twin viewer, visual travel cost allocation, and explainable recommendation cards.</p></div>';}
+
+function bindForms(){var f;f=$("accountForm"); if(f)f.onsubmit=async function(e){e.preventDefault();var d=new FormData(f);var accountObj=syncMetaFromForm(d,{id:uid(),name:d.get("name"),type:d.get("type"),balance:Number(d.get("balance")||0),creditLimit:Number(d.get("creditLimit")||0),apr:Number(d.get("apr")||0),minimum:Number(d.get("minimum")||0),due:d.get("due")});await saveItem("accounts",accountObj);renderAll();toast("Saved");};f=$("txnForm"); if(f)f.onsubmit=async function(e){e.preventDefault();var d=new FormData(f);await saveItem("transactions",{id:uid(),date:d.get("date"),type:d.get("type"),name:d.get("name"),amount:Number(d.get("amount")||0),category:d.get("category")});renderAll();toast("Saved");};f=$("billForm"); if(f)f.onsubmit=async function(e){e.preventDefault();var d=new FormData(f);var billObj=syncMetaFromForm(d,{id:uid(),name:d.get("name"),amount:Number(d.get("amount")||0),due:d.get("due"),category:d.get("category"),frequency:d.get("frequency")});await saveItem("bills",billObj);renderAll();toast("Saved");};f=$("docForm"); if(f)f.onsubmit=async function(e){e.preventDefault();var d=new FormData(f);var doc={id:uid(),institution:d.get("institution"),accountEnding:d.get("accountEnding"),newBalance:Number(d.get("newBalance")||0),minimumPayment:Number(d.get("minimumPayment")||0),creditLimit:Number(d.get("creditLimit")||0),paymentDueDate:d.get("paymentDueDate"),docType:"Statement",importedAt:new Date().toISOString()};await put("documents",doc);var name=doc.institution+(doc.accountEnding?" ••••"+doc.accountEnding:"");await put("accounts",{id:uid(),name:name,type:"Credit Card",balance:doc.newBalance,creditLimit:doc.creditLimit,minimum:doc.minimumPayment,due:doc.paymentDueDate});await load();renderAll();toast("Statement saved");};f=$("ruleForm"); if(f)f.onsubmit=async function(e){e.preventDefault();var d=new FormData(f);await saveItem("rules",{id:uid(),contains:d.get("contains"),category:d.get("category")});renderAll();toast("Rule saved");};
+  f=$("tripForm"); if(f)f.onsubmit=async function(e){
+    e.preventDefault();var d=new FormData(f);
+    var trip={id:uid(),name:d.get("name"),type:d.get("type"),location:d.get("location"),travelers:Number(d.get("travelers")||1),startDate:d.get("startDate"),endDate:d.get("endDate"),rooms:Number(d.get("rooms")||1),hotelLevel:d.get("hotelLevel"),hotelNight:Number(d.get("hotelNight")||0),breakfast:Number(d.get("breakfast")||0),lunch:Number(d.get("lunch")||0),dinner:Number(d.get("dinner")||0),snacks:Number(d.get("snacks")||0),airfare:Number(d.get("airfare")||0),rentalCar:Number(d.get("rentalCar")||0),fuel:Number(d.get("fuel")||0),parking:Number(d.get("parking")||0),tolls:Number(d.get("tolls")||0),localTransit:Number(d.get("localTransit")||0),activities:Number(d.get("activities")||0),tickets:Number(d.get("tickets")||0),shopping:Number(d.get("shopping")||0),insurance:Number(d.get("insurance")||0),luggage:Number(d.get("luggage")||0),childcare:Number(d.get("childcare")||0),petCare:Number(d.get("petCare")||0),other:Number(d.get("other")||0),contingencyPct:Number(d.get("contingencyPct")||0),saved:Number(d.get("saved")||0),monthlySavings:Number(d.get("monthlySavings")||0),costSource:d.get("costSource"),researchedDate:d.get("researchedDate"),confidence:d.get("confidence"),notes:d.get("notes"),updatedAt:new Date().toISOString()};
+    await saveItem("trips",trip);renderAll();toast("Travel plan saved");
+  };
+
+  
+  f=$("institutionForm");if(f)f.onsubmit=async function(e){e.preventDefault();var d=new FormData(f);await saveItem("institutions",{id:uid(),name:d.get("name"),type:d.get("type"),brandColor:d.get("brandColor"),website:d.get("website"),notes:d.get("notes"),updatedAt:new Date().toISOString()});renderAll();toast("Institution saved");};
+  f=$("eventForm");if(f)f.onsubmit=async function(e){e.preventDefault();var d=new FormData(f);await saveItem("events",{id:uid(),at:d.get("at")?new Date(d.get("at")).toISOString():new Date().toISOString(),type:d.get("type"),title:d.get("title"),detail:d.get("detail"),amount:Number(d.get("amount")||0)});renderAll();toast("Event added");};
+
+  var cf=$("csvFile"); if(cf)cf.onchange=async function(e){var file=e.target.files[0]; if(!file)return; rawRows=parseCSV(await file.text()); headers=rawRows.length?Object.keys(rawRows[0]):[];["mapDate","mapName","mapAmount","mapCategory"].forEach(fillSelect);autoMap();};var am=$("autoMap"); if(am)am.onclick=autoMap;var ai=$("approveImport"); if(ai)ai.onclick=approveImport;var rb=$("restoreBackupFile"); if(rb)rb.onchange=function(e){var file=e.target.files[0];restoreFFEBackupFromFile(file);};var erb=$("restoreEncryptedFile");if(erb)erb.onchange=function(e){restoreEncryptedFFEBackup(e.target.files[0]);};
+  var sb=$("searchBox"); if(sb)sb.oninput=function(){var q=sb.value.toLowerCase(); var rows=[]; function add(type,text){if(String(text).toLowerCase().indexOf(q)>=0)rows.push({type:type,text:text});} if(q){state.accounts.forEach(function(a){add("Account",a.name+" "+a.type);});state.transactions.forEach(function(t){add("Transaction",t.name+" "+t.category);});state.documents.forEach(function(d){add("Document",d.institution+" "+d.accountEnding);});state.bills.forEach(function(b){add("Bill",b.name+" "+b.category);});} $("searchResults").innerHTML=rows.length?rows.map(function(r){return '<div class="item"><div class="title">'+esc(r.type)+'</div><div class="muted">'+esc(r.text)+'</div></div>';}).join(""):'<div class="empty">No matches.</div>';};}
+function renderAll(){$("app").innerHTML=appShell()+'<div id="nccEvidencePanel" class="evidence-panel" onclick="if(event.target===this)closeNccEvidence()"><div id="nccEvidenceSheet" class="evidence-sheet"></div></div>';$("home").innerHTML=renderHome();$("money").innerHTML=renderMoney();$("travel").innerHTML=renderTravel();$("import").innerHTML=renderImport();$("analytics").innerHTML=renderAnalytics();$("advisor").innerHTML=renderAdvisor();$("more").innerHTML=renderMore();Array.prototype.forEach.call(document.querySelectorAll(".tab"),function(b){b.onclick=function(){show(b.getAttribute("data-view"));};});bindForms();show(location.hash.replace("#","")||"home");}
+(async function(){try{await openDB();await load();renderAll();}catch(e){$("app").innerHTML='<div class="app-shell"><div class="card"><h2>Startup Error</h2><p class="muted">Try normal browser mode and refresh.</p><pre style="white-space:pre-wrap;color:var(--rose)">'+esc(e.message||String(e))+'</pre></div></div>';}})();
+})();
+</script>
+</body>
+</html>
