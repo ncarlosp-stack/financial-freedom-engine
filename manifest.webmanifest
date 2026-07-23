@@ -1,0 +1,12 @@
+{
+  "name": "Financial Freedom Engine",
+  "short_name": "FFE",
+  "description": "Private, local-first financial planning workspace.",
+  "start_url": "./#home",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme_color": "#0b0f19",
+  "orientation": "any",
+  "icons": []
+}
