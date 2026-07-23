@@ -1,0 +1,14 @@
+{
+  "name": "Financial Freedom Engine",
+  "short_name": "FFE",
+  "description": "FFE 75.1 Backup Recovery Fix",
+  "id": "/",
+  "start_url": "./#home",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#08101d",
+  "theme_color": "#08101d",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
